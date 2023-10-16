@@ -1,0 +1,10 @@
+.charts{
+    flex: 2;
+    &-title{
+        color: $gray1;
+        margin-bottom: 10px ;
+    }
+    &-grid{
+        stroke: rgb(228, 225, 225);
+    }
+}
