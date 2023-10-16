@@ -121,161 +121,7 @@ a {
 ::-webkit-scrollbar-thumb {
   background: #555;
 }
-.dark .App {
-  background-color: #111;
-}
-.dark .App-part1 {
-  border-right: 2px solid #fff;
-  background-color: #111;
-  color: #fff;
-}
-.dark .App-part1 .slider-content .slider-content-part1 {
-  border-bottom: 1px solid #ddd;
-  color: #fff;
-}
-.dark .App-part1 .slider-content .slider-content-part2 > ul p {
-  color: #fff;
-}
-.dark .App-part1 .slider-content .slider-content-part2 > ul .slider-icon {
-  color: #fff;
-}
-.dark .App-part1 .slider-content .slider-content-part2 > ul li span {
-  color: #ece8ff;
-}
-.dark .App-part1 .slider-content .slider-content-part2 > ul li span:hover {
-  color: #000;
-}
-.dark .App-part2 .allRoutes {
-  background-color: #111;
-  margin: 0px;
-  padding: 20px;
-}
-.dark .navbar {
-  border-bottom: 1px solid #fff;
-  color: #555;
-  background-color: #111;
-}
-.dark .navbar .navbar-content .navbar-part1 input {
-  border: 1px solid #ece8ff;
-  background-color: #111;
-  color: #fff;
-}
-.dark .navbar .navbar-content .navbar-part1 .navbar-part1-searchIcon {
-  color: #ece8ff;
-}
-.dark .navbar .navbar-content .navbar-part2 .navbar-lang {
-  color: #ece8ff;
-}
-.dark .navbar .navbar-content .navbar-part2 .navbar-icon {
-  cursor: pointer;
-  color: #ece8ff;
-}
-.dark .navbar .navbar-content .navbar-part2 .websoket .icon {
-  color: #ece8ff;
-}
-.dark .sadek {
-  background-color: #111;
-  border-top: 1px solid #ece8ff;
-  color: #fff;
-}
-.dark .home-table h1 {
-  color: #fff;
-}
-.dark .table {
-  color: #fff;
-}
-.dark .table > * {
-  background-color: #111;
-  color: #fff;
-}
-.dark .table .table-color > * {
-  color: #fff;
-}
-.dark .charts-title {
-  color: #fff;
-}
-.dark .home .features,
-.dark .home .charts {
-  -webkit-box-shadow: 1px 4px 12px -2px rgba(249, 249, 249, 0.63);
-  box-shadow: 1px 4px 12px -2px rgba(249, 249, 249, 0.63);
-}
-.dark .home .wedgets .widget-single {
-  -webkit-box-shadow: 1px 4px 12px -2px #ece8ff;
-  box-shadow: 1px 4px 12px -2px #ece8ff;
-  background-color: #111;
-  color: #ece8ff;
-}
-.dark .home .wedgets .widget-single .wedget-single-line1 p:nth-child(1) {
-  color: #ece8ff;
-}
-.dark .home .wedgets .widget-single .wedget-single-line3 p:nth-child(1) {
-  border-bottom: 1px solid #ece8ff;
-}
-.dark .home .features {
-  background-color: #111;
-  color: #fff;
-}
-.dark .home .features-top {
-  color: #fff;
-}
-.dark .home .features-middle h2,
-.dark .home .features-middle p {
-  color: #ddd;
-}
-.dark .home .features-bottom {
-  color: #fff;
-}
-.dark .users-data {
-  background-color: #333;
-  color: #ece8ff;
-}
-.dark .users-data > * > * {
-  color: #fff;
-}
-.dark .addNew h5 {
-  color: #ece8ff;
-}
-.dark .addNew button {
-  color: #ece8ff;
-  border: 1px solid #ece8ff;
-}
-.dark .new-title {
-  color: #ece8ff;
-}
-.dark .new-content {
-  color: #fff;
-}
-.dark .new-content-form form .form-control input {
-  background-color: #111;
-  border-bottom: 1px solid #ece8ff;
-  padding: 10px 5px;
-  color: #fff;
-}
-.dark .new-content-form-submit {
-  margin: 20px 0px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-.dark .new-content-form-submit button {
-  background-color: teal;
-  width: 25%;
-  text-transform: capitalize;
-  padding: 20px 10px;
-  color: #fff;
-}
-.dark .single-card h4 {
-  color: #ece8ff;
-}
-.dark .single-card-content-info h1 {
-  color: #fff;
-}
-.dark .single-card-content-info div span:nth-child(1) {
-  color: #ece8ff;
-}
+
 .sidebar .slider-content {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -585,7 +431,19 @@ a {
   font-weight: bold;
   white-space: nowrap;
 }
-.wedgets .widget-single .wedget-single-line1 p:nth-child(2) {
+.daybox {
+  background: #3e98c7;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+.up {
+  color: green;
+}
+.down {
+  color: red;
+}
+/* .wedgets .widget-single .wedget-single-line1 p:nth-child(2) {
   color: green;
   font-style: 20px;
   display: -webkit-box;
@@ -601,7 +459,7 @@ a {
   -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
   white-space: nowrap;
-}
+} */
 .wedgets .widget-single .wedget-single-line2 {
   margin: 10px 0px;
 }

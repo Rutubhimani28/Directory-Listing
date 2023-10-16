@@ -10,11 +10,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 // components
 import CustomDrawer from "../CustomDrawer/CustomDrawer";
 
-type navbarType = {
-  isDark: string | null;
-  setIsDark: React.Dispatch<React.SetStateAction<string | null>>;
-};
-const Navbar = ({ isDark, setIsDark }: navbarType) => {
+const Navbar = () => {
   return (
     <div className="navbar">
       <div className="container navbar-content">
@@ -23,41 +19,11 @@ const Navbar = ({ isDark, setIsDark }: navbarType) => {
           <SearchOutlinedIcon className="navbar-part1-searchIcon" />
         </div>
         <div className="sadekk">
-          <CustomDrawer isDark={isDark} setIsDark={setIsDark} />
+          <CustomDrawer />
         </div>
 
         <div className="navbar-part2">
-          {/* <div className="navbar-lang">
-            <LanguageOutlinedIcon />
-            <span>English</span>
-          </div> */}
-
-          {/* <DarkModeOutlinedIcon
-            className="navbar-icon"
-            onClick={() => {
-              //dark
-              localStorage.setItem("isDark", "dark");
-              setIsDark("dark");
-            }}
-          /> */}
-          {/* <WbSunnyOutlinedIcon className='navbar-icon'/> */}
-          {/* <FullscreenExitOutlinedIcon
-            className="navbar-icon"
-            onClick={() => {
-              //light
-              localStorage.setItem("isDark", "light");
-              setIsDark("light");
-            }}
-          /> */}  
-          {/* <div className="websoket">
-              <NotificationsNoneOutlinedIcon className='icon'/>
-              <span>1</span>
-            </div>
-            <div className="websoket">
-              <ChatBubbleOutlineOutlinedIcon  className='icon'/>
-              <span>2</span>
-            </div> */}
-          {/* <FormatListBulletedOutlinedIcon className='navbar-icon'/> */}
+          
 
           <img
             src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"

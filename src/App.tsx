@@ -10,22 +10,26 @@ import New from "./Pages/New/New";
 // components
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Navbar from "./Components/Navbar/Navbar";
-import SADEK from "./Components/SADEK/SADEK";
+import Footer from "./Components/footer/footer";
 import { productInputs, userInputs } from "./DataFormNew";
-import { DarkContext } from "./Context/DarkContext";
+// import { DarkContext } from "./Context/DarkContext";
 
 const App = () => {
-  const { isDark, setIsDark } = useContext(DarkContext);
+  // const { isDark, setIsDark } = useContext(DarkContext);
 
   return (
-    <div className={localStorage.getItem("isDark") === "dark" ? "dark" : ""}>
+    <div>
       <div className="App">
         <div className="App-part1">
-          <Sidebar setIsDark={setIsDark} />
+          <Sidebar
+          // setIsDark={setIsDark}
+          />
         </div>
 
         <div className="App-part2">
-          <Navbar setIsDark={setIsDark} isDark={isDark} />
+          <Navbar
+          // setIsDark={setIsDark} isDark={isDark}
+          />
           <div className="allRoutes container">
             <Routes>
               <Route path="/">
@@ -57,7 +61,7 @@ const App = () => {
               </Route>
             </Routes>
           </div>
-          <SADEK />
+          <Footer />
         </div>
       </div>
     </div>
