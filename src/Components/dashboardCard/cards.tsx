@@ -1,56 +1,40 @@
 // required
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-// types
-import { cardData } from "./card";
 
 const Cards = () => {
-  // const cardData = [
-  //   {
-  //     title: "Visits",
-  //     p2: {
-  //       icon: "up",
-  //       span: "+5 %",
-  //     },
-  //     number: "24,103",
-  //     p1: "see all users",
-  //     // p2: {
-  //     //   class: "wedjet-users",
-  //     //   icon: "person",
-  //     // },
-  //   },
-  //   {
-  //     title: "Growth",
-  //     p2: {
-  //       icon: "down",
-  //       span: "+2 %",
-  //     },
-  //     number: "+15%",
-  //     p1: "view all orders",
-  //     // p2: {
-  //     //   class: "wedjet-orders",
-  //     //   icon: "cart",
-  //     // },
-  //   },
-  //   {
-  //     title: "Bookings",
-  //     p2: {
-  //       icon: "up",
-  //       span: "+12 %",
-  //     },
-  //     number: "1,443",
-  //     p1: "view all earnings",
-  //     // p2: {
-  //     //   class: "wedjet-earnings",
-  //     //   icon: "dollar",
-  //     // },
-  //   },
-  // ];
-
+  const cardData = [
+    {
+      title: "Visits",
+      days: "monthly",
+      p2: {
+        icon: "up",
+        span: "+5 %",
+      },
+      number: "24,103",
+      compare: "Compare to last week",
+    },
+    {
+      title: "Growth",
+      days: "weekly",
+      p2: {
+        icon: "down",
+        span: "+2 %",
+      },
+      number: "+15%",
+      compare: "Compare to last week",
+    },
+    {
+      title: "Bookings",
+      days: "Daily",
+      p2: {
+        icon: "up",
+        span: "+12 %",
+      },
+      number: "1,443",
+      compare: "Compare to yesterday",
+    },
+  ];
   return (
     <div className="wedgets">
       {cardData.map((data: any, index: any) => (
@@ -77,17 +61,6 @@ const Cards = () => {
               )}
               <span>{data.p2.span} </span>
             </p>
-
-            {/* <p className={data.line3.p2.class}>
-              {data.line3.p2.icon === "person" && <PersonOutlineOutlinedIcon />}
-              {data.line3.p2.icon === "cart" && <ShoppingCartOutlinedIcon />}
-              {data.line3.p2.icon === "dollar" && (
-                <MonetizationOnOutlinedIcon />
-              )}
-              {data.line3.p2.icon === "details" && (
-                <AccountBalanceWalletOutlinedIcon />
-              )}
-            </p> */}
           </div>
         </div>
       ))}

@@ -1,14 +1,10 @@
 //required
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { CircularProgressbar } from "react-circular-progressbar";
 import ReactApexChart from "react-apexcharts";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import "react-circular-progressbar/dist/styles.css";
 import { useState } from "react";
 
 const Features = () => {
-  // const [series, setSeries] = useState([44, 55, 41, 17, 15]);
   const [series, setSeries] = useState([44, 55, 13, 33]);
 
   const options: any = {
@@ -44,7 +40,6 @@ const Features = () => {
       </div>
       <div className="features-middle">
         <div className="features-middle-progressbar">
-          {/* <CircularProgressbar value={70} text={"70%"} strokeWidth={5} /> */}
           <ReactApexChart
             options={options}
             series={series}
@@ -78,36 +73,3 @@ const Features = () => {
 };
 
 export default Features;
-
-// import React, { useState } from 'react';
-// import ReactApexChart from 'react-apexcharts';
-
-// function ApexChart() {
-//   const [series, setSeries] = useState([44, 55, 41, 17, 15]);
-//   const [options, setOptions] = useState({
-//     chart: {
-//       type: 'donut',
-//     },
-//     responsive: [
-//       {
-//         breakpoint: 480,
-//         options: {
-//           chart: {
-//             width: 200,
-//           },
-//           legend: {
-//             position: 'bottom',
-//           },
-//         },
-//       },
-//     ],
-//   });
-
-//   return (
-//     <div id="chart">
-//       <ReactApexChart options={options} series={series} type="donut" />
-//     </div>
-//   );
-// }
-
-// export default ApexChart;
