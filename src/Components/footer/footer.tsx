@@ -6,7 +6,7 @@ const Footer = () => {
       <p>© 2022 Copyright All Right Reserved</p>
       <span>
         <a
-          href="https://ahmed-sadek89.github.io/s-a-d-e-k/"
+          href="https://prolinkinfotech.com/"
           target={"_blank"}
           rel="noreferrer"
         >

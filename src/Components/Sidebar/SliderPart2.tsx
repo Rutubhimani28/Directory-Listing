@@ -22,6 +22,14 @@ const SliderPart2 = () => {
           <DashboardIcon className="slider-icon" />
           <span>Dashboard</span>
         </li>
+        <li onClick={() => navigate("booking")}>
+          <CalendarTodayIcon className="slider-icon" />
+          <span>Booking</span>
+        </li>
+        <li onClick={() => navigate("my-listing")}>
+          <PlaceIcon className="slider-icon" />
+          <span>listing</span>
+        </li>
         <li onClick={() => navigate("users")}>
           <MicIcon className="slider-icon" />
           <span>Annousments</span>
@@ -38,10 +46,7 @@ const SliderPart2 = () => {
           <CreditCardIcon className="slider-icon" />
           <span>Menus</span>
         </li>
-        <li>
-          <PlaceIcon className="slider-icon" />
-          <span>listing</span>
-        </li>
+
         <li>
           <EmailIcon className="slider-icon" />
           <span>Inbox</span>
@@ -61,10 +66,6 @@ const SliderPart2 = () => {
         <li>
           <StarIcon className="slider-icon" />
           <span>Reviews</span>
-        </li>
-        <li>
-          <CalendarTodayIcon className="slider-icon" />
-          <span>Booking</span>
         </li>
       </ul>
     </div>

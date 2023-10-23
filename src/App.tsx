@@ -4,6 +4,8 @@ import { useContext } from "react";
 // pages
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
+import Booking from "./Pages/booking/booking";
+import MyListing from "./Pages/myListing/myListing";
 import List from "./Pages/List/List";
 import Single from "./Pages/Single/Single";
 import New from "./Pages/New/New";
@@ -35,22 +37,21 @@ const App = () => {
               <Route path="/">
                 <Route index element={<Home />} />
                 <Route path="login" element={<Login />} />
+                <Route path="booking" element={<Booking />} />
+                <Route path="my-listing" element={<MyListing />} />
                 <Route path="users">
                   <Route index element={<List />} />
                   <Route path=":userId" element={<Single />} />
-                  {/*'/users/:id'*/}
                   <Route
                     path="new"
                     element={
                       <New routeName={"User"} formElements={userInputs} />
                     }
                   />
-                  {/*'/users/new'*/}
                 </Route>
                 <Route path="products">
                   <Route index element={<List />} />
                   <Route path=":productId" element={<Single />} />
-                  {/*'/products/:id'*/}
                   <Route
                     path="new"
                     element={

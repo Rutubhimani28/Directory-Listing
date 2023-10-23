@@ -1,0 +1,75 @@
+.d-flex {
+  display: flex;
+}
+.align-items-center {
+  align-items: center;
+}
+.booking-user-name {
+  padding-bottom: 5px;
+}
+.bookingicon {
+  color: #3e98c7;
+  font-size: 16px !important;
+  margin-right: 7px;
+}
+
+.booking-user-details {
+  padding-left: 14px;
+}
+.sendBtn {
+  padding: 8px 75px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+.tabletitle h3 {
+  padding: 20px;
+}
+.tabletitle {
+  border-bottom: 1px solid #e0e0e0;
+}
+.approve-btn:hover {
+  color: white;
+  background-color: #3e98c7;
+}
+.reject-btn:hover {
+  color: white;
+  background-color: #c50a0a;
+}
+.approve-btn {
+  transition: all 0.3s linear;
+  display: flex;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: 30px;
+}
+.reject-btn {
+  transition: all 0.3s linear;
+  display: flex;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: 30px;
+  margin-left: 8px;
+}
+.booking-status {
+  padding: 2px 8px;
+  margin-left: 10px;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 12px;
+}
+.reject-btn svg,
+.approve-btn svg {
+  font-size: 18px;
+  margin-right: 3px;
+}
+.booking-Canceled {
+  background-color: #c50a0a;
+}
+.booking-pending {
+  background-color: #3e98c7;
+}
+.booking-approved {
+  background-color: green;
+}

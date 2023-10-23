@@ -7,7 +7,7 @@
 }
 body {
   text-transform: capitalize;
-  font-family: "Nunito", sans-serif;
+  font-family: "Work Sans", sans-serif;
 }
 ul {
   list-style: none;
@@ -104,7 +104,7 @@ a {
   }
 }
 .App .App-part2 .allRoutes {
-  margin: 20px 0px;
+  margin: 20px 0px 0px 0px;
 }
 @media (min-width: 0px) {
   ::-webkit-scrollbar {
@@ -171,7 +171,7 @@ a {
 .sidebar .slider-content-part2 > ul li span {
   color: #000;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
 
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
@@ -218,7 +218,7 @@ a {
   color: #555;
 }
 .navbar {
-  padding: 21px 0px;
+  padding: 16px 0px;
   /* border-bottom: 1px solid #ddd; */
   z-index: 99;
   color: #555;
@@ -443,23 +443,6 @@ a {
 .down {
   color: red;
 }
-/* .wedgets .widget-single .wedget-single-line1 p:nth-child(2) {
-  color: green;
-  font-style: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-} */
 .wedgets .widget-single .wedget-single-line2 {
   margin: 10px 0px;
 }
@@ -552,6 +535,7 @@ a {
   text-align: center;
   margin: 30px 0px;
 }
+
 @media (min-width: 0px) {
   .features-middle-progressbar {
     padding: 0px;
@@ -629,16 +613,16 @@ a {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
+  align-items: start;
   gap: 10px;
 }
 .table-product img {
-  width: 30px;
-  height: 30px;
+  width: 80px;
+  height: 80px;
   -o-object-fit: cover;
   object-fit: cover;
   border-radius: 20px;
@@ -781,7 +765,7 @@ a {
 }
 .single-card-content-info h1 {
   color: #000;
-  margin: 20px 0px;
+  margin: 12px 0px;
 }
 .single-card-content-info div span {
   margin-right: 5px;
@@ -816,9 +800,6 @@ a {
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
-    /* -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center; */
   }
 }
 .home .featuresAndCharts .features,

@@ -1,25 +1,21 @@
 // components
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom";
 import DataTable from "../../Components/DataTable/DataTable";
 
 const List = () => {
   const { pathname } = useLocation();
-  const navigate = useNavigate()
-  const pathName = pathname.split('/')[1]
-  
+  const navigate = useNavigate();
+  const pathName = pathname.split("/")[1];
+  console.log(pathname, "LLLLLLLLLLLLLL");
   return (
     <div>
       <div className="addNew">
         <h5>Add New {pathName}</h5>
-        <button
-          onClick={() => navigate(`/${pathName}/new`)}
-        >
-          Add New
-        </button>
+        <button onClick={() => navigate(`/${pathName}/new`)}>Add New</button>
       </div>
-      <DataTable pathName={pathName}/>
+      <DataTable pathName={pathName} />
     </div>
-  )
-}
+  );
+};
 
-export default List
+export default List;
