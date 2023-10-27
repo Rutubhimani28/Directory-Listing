@@ -364,10 +364,14 @@ a {
   background-color: #fff;
   border-top: 1px solid #ddd;
   padding: 20px 0px;
+  position: absolute;
+  bottom: 0;
+  width: 85%;
 }
 .sadek span {
   color: #3e98c7;
   font-weight: bold;
+  padding: 5px 0;
 }
 .wedgets {
   display: -webkit-box;

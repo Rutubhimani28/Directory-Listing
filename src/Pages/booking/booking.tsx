@@ -1,11 +1,4 @@
 // required
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import MailIcon from "@mui/icons-material/Mail";
 import RoomIcon from "@mui/icons-material/Room";
 import PaymentIcon from "@mui/icons-material/Payment";
@@ -15,14 +8,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import "./booking.css";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Grid,
-  Typography,
-} from "@mui/material";
+import {Card,  Grid} from "@mui/material";
 
 const booking = () => {
   const rows = [
@@ -102,7 +88,7 @@ const booking = () => {
   ];
   return (
     <>
-      <div>
+      {/* <div>
         {" "}
         <TableContainer component={Paper} className="table">
           <Table>
@@ -221,18 +207,24 @@ const booking = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      </div>
-      {/* {rows.map((row: any) => (
-        <Card>
-          <div className="table-color">
-            <Grid>
+      </div> */}
+
+<h3 className="heading">Booking</h3>
+
+      {rows.map((row: any) => (
+        <Card className="table-card">
+          <Grid container spacing={2} >
+            <Grid item xs={12} lg={4} md={6} >
               <div className="table-product">
                 <div className="d-flex align-items-center">
                   <div>
                     <img src={row.img} alt={row.customer.name} />
                   </div>
                   <div className="booking-user-details ">
-                    <h3 className="booking-user-name"> {row.customer.name}</h3>
+                    <h3 className="booking-user-name">
+                      {" "}
+                      {row.customer.name}
+                    </h3>
                     <a href={`tel:${row.customer.mobile}`}>
                       {row.customer.mobile}
                     </a>
@@ -257,7 +249,7 @@ const booking = () => {
                 </a>
               </div>
             </Grid>
-            <Grid>
+            <Grid item xs={12} lg={5} md={6} >
               <div className="d-flex ">
                 <h3 className="booking-user-name">{row.details.title}</h3>
                 <div>
@@ -276,7 +268,7 @@ const booking = () => {
                   )}
                 </div>
               </div>
-              <div className="d-flex align-items-center">
+              <div className="d-flex align-items-center booking-detailbox" >
                 <RoomIcon className="bookingicon" />
                 {row.details.address}
               </div>
@@ -297,21 +289,23 @@ const booking = () => {
                 {row.details.payments}
               </div>
             </Grid>
-            <Grid>
+            <Grid item xs={12} lg={3} md={6} >
               <div className="table-status d-flex  align-items-center">
-                <button className=" approve-btn">
-                  <CheckCircleOutlineIcon />
-                  Approve
-                </button>
-                <button className=" reject-btn">
-                  <HighlightOffIcon />
-                  Reject
-                </button>
-              </div>
+                      <button className="approve-btn">
+                        <CheckCircleOutlineIcon />
+                        Approve
+                      </button>
+                      <button className="reject-btn">
+                        <HighlightOffIcon />
+                        Reject
+                      </button>
+                    </div>
+
             </Grid>
-          </div>
+          </Grid>
         </Card>
-      ))} */}
+      ))}
+
     </>
   );
 };

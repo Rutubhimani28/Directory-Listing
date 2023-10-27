@@ -1,39 +1,47 @@
 .Listing-card {
   padding: 15px;
+  column-gap: 20px;
 }
+
 .justify-contant-between {
   justify-content: space-between !important;
 }
+
 .padding-10 {
   padding: 10px 0;
 }
+
 .padding20 {
   padding: 20px;
 }
+
 .starticon {
   color: #efc02f;
 }
+
 .listing-box {
-  box-shadow: 5px 5px #b2eaea;
-  transition: 0.5s;
-  background-color: #fff;
-  border: 1px solid #96e3e3;
-  border-radius: 5px;
-  margin-bottom: 35px;
-  margin-right: 5px;
+  box-shadow: 5px 5px #79cbf7b2 !important;
+  transition: 0.5s !important;
+  background-color: #fff !important;
+  border: 1px solid #79cbf7b2 !important;
+  border-radius: 5px !important;
+  margin-bottom: 35px !important;
+  margin-right: 5px !important;
   padding: 0 !important;
 }
+
 .listing-box:hover {
-  box-shadow: 5px 5px #0ec6c6;
-  border-color: #0ec6c6;
+  box-shadow: 5px 5px #3e98c7 !important;
+  border-color: #3e98c7 !important;
 }
+
 .default-btn {
   display: inline-block;
   transition: 0.5s;
   border: none;
   text-align: center;
-  border: 1px solid #96e3e3 !important;
-  box-shadow: 4px 4px #b2eaea;
+  border: 1px solid #79cbf7b2 !important;
+  box-shadow: 4px 4px #79cbf7b2;
   background-color: #fff;
   color: #000;
   font-size: 15px;
@@ -43,8 +51,25 @@
   padding-top: 13px;
   padding-bottom: 13px;
 }
+
 .default-btn:hover {
-  border-color: #0ec6c6;
-  box-shadow: 4px 4px #0ec6c6;
+  border-color: #3e98c7;
+  box-shadow: 4px 4px #3e98c7;
   color: #000;
+}
+
+.pagination-list {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0px
+}
+
+.pagination-list .css-1to7aaw-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+  background-color: #3e98c7 !important;
+  border-radius: 3px;
+}
+.heading{
+  padding-bottom: 18px;
+  font-size: 25px;
+  letter-spacing: 1px;
 }

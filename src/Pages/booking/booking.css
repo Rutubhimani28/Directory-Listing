@@ -4,20 +4,24 @@
 .align-items-center {
   align-items: center;
 }
-.booking-user-name {
-  padding-bottom: 5px;
-}
 .bookingicon {
   color: #3e98c7;
   font-size: 16px !important;
   margin-right: 7px;
 }
-
+.booking-detailbox{
+font-size: 14px;
+padding-bottom: 3.5px;
+}
 .booking-user-details {
   padding-left: 14px;
 }
+.booking-user-details a{
+font-size: 14px;
+}
+
 .sendBtn {
-  padding: 8px 75px;
+  padding: 8px 58px;
   border-radius: 30px;
   display: flex;
   align-items: center;
@@ -50,7 +54,7 @@
   align-items: center;
   padding: 9px 12px;
   border-radius: 30px;
-  margin-left: 8px;
+  margin-left: 16px;
 }
 .booking-status {
   padding: 2px 8px;
@@ -72,4 +76,22 @@
 }
 .booking-approved {
   background-color: green;
+}
+
+.table-card .css-wyipxe-MuiPaper-root-MuiCard-root{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px !important;
+  border-radius: 12px !important;
+}
+.table-card{
+padding: 20px;
+border-bottom: 1px solid #cbcbcbd4;
+}
+.booking-user-name{
+  font-size: 16px !important;
+  margin-bottom: 8px;
+}
+.heading{
+  padding-bottom: 18px;
+  font-size: 25px;
+  letter-spacing: 1px;
 }
