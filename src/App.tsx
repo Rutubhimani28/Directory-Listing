@@ -15,6 +15,8 @@ import Navbar from "../src/Components/Navbar/Navbar";
 import Footer from "../src/Components/footer/footer";
 import { productInputs, userInputs } from "./DataFormNew";
 
+import Event from "./Pages/Event/event";
+
 const App = () => {
   return (
     <div>
@@ -32,6 +34,7 @@ const App = () => {
                 <Route path="login" element={<Login />} />
                 <Route path="booking" element={<Booking />} />
                 <Route path="my-listing" element={<MyListing />} />
+                  <Route path="event" element={<Event/>} />
                 <Route path="users">
                   <Route index element={<List />} />
                   <Route path=":userId" element={<Single />} />
