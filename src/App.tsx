@@ -35,6 +35,7 @@ const App = () => {
                 <Route path="booking" element={<Booking />} />
                 <Route path="my-listing" element={<MyListing />} />
                   <Route path="event" element={<Event/>} />
+                  <Route path="single-listings" element={<Event/>} />
                 <Route path="users">
                   <Route index element={<List />} />
                   <Route path=":userId" element={<Single />} />
