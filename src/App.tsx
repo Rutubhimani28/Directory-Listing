@@ -16,6 +16,7 @@ import Footer from "../src/Components/footer/footer";
 import { productInputs, userInputs } from "./DataFormNew";
 
 import Event from "./Pages/Event/event";
+import SingleListing from "./Pages/myListing/singleListing";
 
 const App = () => {
   return (
@@ -34,8 +35,8 @@ const App = () => {
                 <Route path="login" element={<Login />} />
                 <Route path="booking" element={<Booking />} />
                 <Route path="my-listing" element={<MyListing />} />
-                  <Route path="event" element={<Event/>} />
-                  <Route path="single-listings" element={<Event/>} />
+                <Route path="event" element={<Event />} />
+                <Route path="single-listing" element={<SingleListing />} />
                 <Route path="users">
                   <Route index element={<List />} />
                   <Route path=":userId" element={<Single />} />

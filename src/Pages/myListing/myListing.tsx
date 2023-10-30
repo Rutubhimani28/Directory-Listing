@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./mylisting.css";
 import { Grid, Button, Card, Pagination } from "@mui/material";
 import RoomIcon from "@mui/icons-material/Room";
@@ -10,6 +11,10 @@ import StarIcon from "@mui/icons-material/Star";
 // import "slick-carousel/slick/slick-theme.css";
 
 const myListing = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const navigate = useNavigate();
+ 
+ 
   const listData = [
     {
       img: "https://angular.envytheme.com/vesax-ng/assets/img/gallery/gallery1.jpg",
@@ -200,7 +205,7 @@ const myListing = () => {
       label: "image7",
     },
   ];
-
+  
   var settings = {
     dots: false,
     infinite: true,
@@ -249,7 +254,7 @@ const myListing = () => {
               </Slider>
               </div> */}
 
-              <img src={item.img} />
+              <img src={item.img} onClick={() => navigate("/single-listing")} />
               <Grid padding={2}>
                 <div className="d-flex justify-contant-between padding-10">
                   <div className="d-flex align-items-center">
