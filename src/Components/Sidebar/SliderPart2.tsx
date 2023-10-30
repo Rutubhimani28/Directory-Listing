@@ -34,7 +34,7 @@ const SliderPart2 = () => {
           <MicIcon className="slider-icon" />
           <span>Annousments</span>
         </li>
-        <li onClick={() => navigate("products")}>
+        <li onClick={() => navigate("event")}>
           <CalendarMonthIcon className="slider-icon" />
           <span>Events</span>
         </li>
