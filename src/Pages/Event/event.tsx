@@ -45,8 +45,7 @@ const Event = () => {
   const handleDateSelect = () => {
     handleOpenTask();
   };
-
-  const handleEventClick = (clickInfo: any) => {
+ const handleEventClick = (clickInfo: any) => {
     setTaskId(clickInfo?.event?._def?.extendedProps?._id);
     console.log(clickInfo);
     handleOpenViewEdit();
@@ -57,18 +56,7 @@ const Event = () => {
   };
   const handleEvents = (events: any) => {};
 
-    const handleEventClick = (clickInfo:any) => {
-        setTaskId(clickInfo?.event?._def?.extendedProps?._id)
-        console.log(clickInfo)
-        handleOpenViewEdit()
-        if (clickInfo.event.url) {
-            clickInfo.jsEvent.preventDefault();
-            window.open(clickInfo.event.url);
-        }
 
-    };
-    const handleEvents = (events:any) => {
-    };
 
     const renderEventContent = (eventInfo:any) => (
         <>
@@ -127,14 +115,4 @@ const Event = () => {
 
 export default Event
 
-  
-
-function apidelete(arg0: string) {
-    throw new Error('Function not implemented.');
-}
-
-function apiget(arg0: string) {
-    throw new Error('Function not implemented.');
-}
-  
 
