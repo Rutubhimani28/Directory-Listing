@@ -8,12 +8,14 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import "./booking.css";
-import {Card,  Grid} from "@mui/material";
+import { Card, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const booking = () => {
+const Booking = () => {
+  const navigate = useNavigate();
   const rows = [
     {
-      id: 1143155,
+      id: 1,
       img: "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
       status: "Approved",
       customer: {
@@ -32,7 +34,7 @@ const booking = () => {
     },
 
     {
-      id: 1143155,
+      id: 2,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/user1.jpg",
       status: "Pending",
       customer: {
@@ -50,7 +52,7 @@ const booking = () => {
       },
     },
     {
-      id: 1143155,
+      id: 3,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/user2.jpg",
       status: "Approved",
       customer: {
@@ -68,7 +70,7 @@ const booking = () => {
       },
     },
     {
-      id: 1143155,
+      id: 4,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/user3.jpg",
       status: "Canceled",
       customer: {
@@ -88,143 +90,23 @@ const booking = () => {
   ];
   return (
     <>
-      {/* <div>
-        {" "}
-        <TableContainer component={Paper} className="table">
-          <Table>
-            <TableHead>
-              <TableRow className="tabletitle">
-                <h3>Booking Requests</h3>
-              </TableRow>
-              <TableRow className="table-color">
-                <TableCell align="left">
-                  <h3 className="fw-semibold">Customer</h3>
-                </TableCell>
-                <TableCell align="left">
-                  <h3 className="fw-semibold">Details</h3>
-                </TableCell>
-                <TableCell align="left">
-                  <h3 className="fw-semibold">Action</h3>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row: any) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  className="table-color"
-                >
-                  <TableCell align="left">
-                    <div className="table-product">
-                      <div className="d-flex align-items-center">
-                        <div>
-                          <img src={row.img} alt={row.customer.name} />
-                        </div>
-                        <div className="booking-user-details ">
-                          <h3 className="booking-user-name">
-                            {" "}
-                            {row.customer.name}
-                          </h3>
-                          <a href={`tel:${row.customer.mobile}`}>
-                            {row.customer.mobile}
-                          </a>
-                          <div>
-                            {" "}
-                            <a
-                              style={{ textTransform: "lowercase" }}
-                              href={`mailto:${row.customer.email}`}
-                            >
-                              {row.customer.email}
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <a
-                        style={{ textTransform: "lowercase" }}
-                        href={`mailto:${row.customer.email}`}
-                      >
-                        <button className="sendBtn">
-                          <MailIcon style={{ paddingRight: "5px" }} /> Send Mail
-                        </button>
-                      </a>
-                    </div>
-                  </TableCell>
-                  <TableCell align="left">
-                    <div className="d-flex ">
-                      <h3 className="booking-user-name">{row.details.title}</h3>
-                      <div>
-                        {row.status === "Approved" ? (
-                          <div className="booking-status booking-approved">
-                            {row.status}
-                          </div>
-                        ) : row.status === "Pending" ? (
-                          <div className="booking-status booking-pending">
-                            {row.status}
-                          </div>
-                        ) : (
-                          <div className="booking-status booking-Canceled">
-                            {row.status}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <RoomIcon className="bookingicon" />
-                      {row.details.address}
-                    </div>
-                    <div className="booking-detailbox">
-                      <CalendarMonthIcon className="bookingicon" />
-                      {row.details.date}
-                    </div>
-                    <div className="booking-detailbox">
-                      <SellIcon className="bookingicon" />
-                      {row.details.price}
-                    </div>
-                    <div className="booking-detailbox">
-                      <GroupIcon className="bookingicon" />
-                      {row.details.persons}
-                    </div>
-                    <div className="booking-detailbox">
-                      <PaymentIcon className="bookingicon" />
-                      {row.details.payments}
-                    </div>
-                  </TableCell>
-                  <TableCell align="left">
-                    <div className="table-status d-flex  align-items-center">
-                      <button className=" approve-btn">
-                        <CheckCircleOutlineIcon />
-                        Approve
-                      </button>
-                      <button className=" reject-btn">
-                        <HighlightOffIcon />
-                        Reject
-                      </button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div> */}
+      <h3 className="heading">Booking</h3>
 
-<h3 className="heading">Booking</h3>
-
-      {rows.map((row: any) => (
-        <Card className="table-card">
-          <Grid container spacing={2} >
-            <Grid item xs={12} lg={4} md={6} >
+      {rows.map((row: any, i: any) => (
+        <Card
+          className="table-card"
+          key={i}
+          onClick={() => navigate(`/booking/${row.id}`)}
+        >
+          <Grid container spacing={2}>
+            <Grid item xs={12} lg={4} md={6}>
               <div className="table-product">
                 <div className="d-flex align-items-center">
                   <div>
                     <img src={row.img} alt={row.customer.name} />
                   </div>
                   <div className="booking-user-details ">
-                    <h3 className="booking-user-name">
-                      {" "}
-                      {row.customer.name}
-                    </h3>
+                    <h3 className="booking-user-name"> {row.customer.name}</h3>
                     <a href={`tel:${row.customer.mobile}`}>
                       {row.customer.mobile}
                     </a>
@@ -249,7 +131,7 @@ const booking = () => {
                 </a>
               </div>
             </Grid>
-            <Grid item xs={12} lg={5} md={6} >
+            <Grid item xs={12} lg={5} md={6}>
               <div className="d-flex ">
                 <h3 className="booking-user-name">{row.details.title}</h3>
                 <div>
@@ -268,7 +150,7 @@ const booking = () => {
                   )}
                 </div>
               </div>
-              <div className="d-flex align-items-center booking-detailbox" >
+              <div className="d-flex align-items-center booking-detailbox">
                 <RoomIcon className="bookingicon" />
                 {row.details.address}
               </div>
@@ -289,25 +171,23 @@ const booking = () => {
                 {row.details.payments}
               </div>
             </Grid>
-            <Grid item xs={12} lg={3} md={6} >
+            <Grid item xs={12} lg={3} md={6}>
               <div className="table-status d-flex  align-items-center">
-                      <button className="approve-btn">
-                        <CheckCircleOutlineIcon />
-                        Approve
-                      </button>
-                      <button className="reject-btn">
-                        <HighlightOffIcon />
-                        Reject
-                      </button>
-                    </div>
-
+                <button className="approve-btn">
+                  <CheckCircleOutlineIcon />
+                  Approve
+                </button>
+                <button className="reject-btn">
+                  <HighlightOffIcon />
+                  Reject
+                </button>
+              </div>
             </Grid>
           </Grid>
         </Card>
       ))}
-
     </>
   );
 };
 
-export default booking;
+export default Booking;

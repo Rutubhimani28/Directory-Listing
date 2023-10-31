@@ -1,48 +1,61 @@
-import React, { useState, useEffect } from 'react';
-import Container from '@mui/material/Container';
-import { Button, Stack, Typography } from '@mui/material';
-import moment from 'moment';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
-// import Iconify from '../../components/iconify/Iconify';
-// import AddTask from '../../components/task/AddTask';
-// import { apidelete, apiget } from '../../service/api';
-// import ViewEdit from '../../components/task/Edit'
-// import AddMeeting from '../../components/meeting/Addmeetings'
-// import AddCall from '../../components/call/Addcalls'
+import React, { useState, useEffect } from "react";
+import Container from "@mui/material/Container";
+import { Button, Stack, Typography } from "@mui/material";
+import moment from "moment";
+import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
 
-const Event =()=> {
-      const [userAction, setUserAction] = useState(null)
-    const [data, setData] = useState([]);
-    const [taskId, setTaskId] = useState('')
-    const [openTask, setOpenTask] = useState(false);
-    const [openMeeting, setOpenMeeting] = useState(false);
-    const [openCall, setOpenCall] = useState(false);
-    const [openViewEdit, setOpenViewEdit] = useState(false)
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
-    const userid = localStorage.getItem('user_id')
-    const userRole = localStorage.getItem("userRole")
+const Event = () => {
+  const [userAction, setUserAction] = useState(null);
+  const [data, setData] = useState([]);
+  const [taskId, setTaskId] = useState("");
+  const [openTask, setOpenTask] = useState(false);
+  const [openMeeting, setOpenMeeting] = useState(false);
+  const [openCall, setOpenCall] = useState(false);
+  const [openViewEdit, setOpenViewEdit] = useState(false);
 
-    // open task model
-    const handleOpenTask = () => setOpenTask(true);
-    const handleCloseTask = () => setOpenTask(false);
+  const userid = localStorage.getItem("user_id");
+  const userRole = localStorage.getItem("userRole");
 
-    // open meeting model
-    const handleOpenMeeting = () => setOpenMeeting(true);
-    const handleCloseMeeting = () => setOpenMeeting(false);
+  // open task model
+  const handleOpenTask = () => setOpenTask(true);
+  const handleCloseTask = () => setOpenTask(false);
 
-    // open call model
-    const handleOpenCall = () => setOpenCall(true);
-    const handleCloseCall = () => setOpenCall(false);
+  const handleOpenViewEdit = () => setOpenViewEdit(true);
+  const handleCloseViewEdit = () => setOpenViewEdit(false);
 
-    const handleOpenViewEdit = () => setOpenViewEdit(true)
-    const handleCloseViewEdit = () => setOpenViewEdit(false)
+  const handleDateSelect = () => {
+    handleOpenTask();
+  };
 
-    const handleDateSelect = () => {
-        handleCloseTask();
-    };
+  const handleEventClick = (clickInfo: any) => {
+    setTaskId(clickInfo?.event?._def?.extendedProps?._id);
+    console.log(clickInfo);
+    handleOpenViewEdit();
+    if (clickInfo.event.url) {
+      clickInfo.jsEvent.preventDefault();
+      window.open(clickInfo.event.url);
+    }
+  };
+  const handleEvents = (events: any) => {};
 
     const handleEventClick = (clickInfo:any) => {
         setTaskId(clickInfo?.event?._def?.extendedProps?._id)

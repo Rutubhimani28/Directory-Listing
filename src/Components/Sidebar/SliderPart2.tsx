@@ -38,7 +38,7 @@ const SliderPart2 = () => {
           <CalendarMonthIcon className="slider-icon" />
           <span>Events</span>
         </li>
-        <li>
+        <li onClick={() => navigate("products")}>
           <InsertChartOutlinedIcon className="slider-icon" />
           <span>Coupons</span>
         </li>
