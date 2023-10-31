@@ -133,7 +133,7 @@ const Event =()=> {
                 <FullCalendar
                     plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                     initialView="dayGridMonth"
-                    // minHeight="400px"
+// minHeight="400px"
                     height="600px"
                     // dateClick={handleDateClick}
                     // events={calendarDataCalendar}
