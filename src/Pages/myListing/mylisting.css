@@ -73,3 +73,8 @@
   font-size: 25px;
   letter-spacing: 1px;
 }
+.single-list{
+  background-image: url(../../images/listingsdetails.jpg);
+  height: 74vh;
+  width: 100%;
+}

@@ -10,29 +10,24 @@ import List from "./Pages/List/List";
 import Single from "./Pages/Single/Single";
 import New from "./Pages/New/New";
 // components
-import Sidebar from "./Components/Sidebar/Sidebar";
-import Navbar from "./Components/Navbar/Navbar";
-import Footer from "./Components/footer/footer";
+import Sidebar from "../src/Components/Sidebar/Sidebar";
+import Navbar from "../src/Components/Navbar/Navbar";
+import Footer from "../src/Components/footer/footer";
 import { productInputs, userInputs } from "./DataFormNew";
+
 import Event from "./Pages/Event/event";
-// import { DarkContext } from "./Context/DarkContext";
+import SingleListing from "./Pages/myListing/singleListing";
 
 const App = () => {
-  // const { isDark, setIsDark } = useContext(DarkContext);
-
   return (
     <div>
       <div className="App">
         <div className="App-part1">
-          <Sidebar
-          // setIsDark={setIsDark}
-          />
+          <Sidebar />
         </div>
 
         <div className="App-part2">
-          <Navbar
-          // setIsDark={setIsDark} isDark={isDark}
-          />
+          <Navbar />
           <div className="allRoutes container">
             <Routes>
               <Route path="/">
@@ -40,7 +35,8 @@ const App = () => {
                 <Route path="login" element={<Login />} />
                 <Route path="booking" element={<Booking />} />
                 <Route path="my-listing" element={<MyListing />} />
-                  <Route path="event" element={<Event/>} />
+                <Route path="event" element={<Event />} />
+                <Route path="single-listing" element={<SingleListing />} />
                 <Route path="users">
                   <Route index element={<List />} />
                   <Route path=":userId" element={<Single />} />

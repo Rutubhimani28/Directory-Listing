@@ -1,17 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./mylisting.css";
 import { Grid, Button, Card, Pagination } from "@mui/material";
 import RoomIcon from "@mui/icons-material/Room";
 import SingleBedIcon from "@mui/icons-material/SingleBed";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import Cards from "../../Components/dashboardCard/cards";
-// import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+
 const myListing = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const navigate = useNavigate();
+ 
+ 
   const listData = [
     {
       img: "https://angular.envytheme.com/vesax-ng/assets/img/gallery/gallery1.jpg",
@@ -202,7 +205,7 @@ const myListing = () => {
       label: "image7",
     },
   ];
-
+  
   var settings = {
     dots: false,
     infinite: true,
@@ -227,65 +230,10 @@ const myListing = () => {
   };
   return (
     <div>
-      {/* <Grid className="Listing-card d-flex " xs={12} lg={4} md={6} >
-        {listData.map((item: any) => (
-          <Card className="listing-box " style={{ width: "475px" }}>
-              <Slider {...settings}>
-                {images.map((itemss: any) => (
-                  <div key={itemss.label}>
-                    <img
-                      src={itemss.photo}
-                      alt={itemss.label}
-                      style={{
-                        borderRadius: "15px",
-                        height: "300px",
-                        display: "block",
-                        overflow: "hidden",
-                        width: "100%"
-                      }}
-                    />
-                  </div>
-                ))}
-              </Slider>
-              <Grid padding={2}>
-                <div className="d-flex justify-contant-between padding-10">
-                  <div className="d-flex align-items-center">
-                    <SingleBedIcon className="bookingicon" /> Restaurant
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <RoomIcon className="bookingicon" /> {item.place}
-                  </div>
-                </div>
-                <h2 className="padding-10">{item.title}</h2>
-                <div className="d-flex align-items-center">
-                  <BookmarkBorderIcon className="bookingicon" />
-                  Open Now
-                </div>
-                <div className="d-flex justify-contant-between align-items-center padding-10">
-                  <div>
-                    <StarIcon className="starticon" />
-                    <StarIcon className="starticon" />
-                    <StarIcon className="starticon" />
-                    <StarIcon className="starticon" />
-                    <StarIcon className="starticon" />
-                  </div>
-                  <div>Start From: {item.startFrom}</div>
-                </div>
-              </Grid>
-              <Grid
-                style={{ borderTop: "1px solid #eeeeee" }}
-                className="d-flex justify-contant-between padding20"
-              >
-                <Button className="default-btn ">Edit</Button>
-                <Button className="default-btn ">Delete</Button>
-              </Grid>
-          </Card>
-        ))}
-      </Grid> */}
       <h3 className="heading">my listing</h3>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         {currentListData.map((item, index) => (
-          <Grid item xs={12} sm={6} md={6} lg={4}>
+          <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
             <Card className="listing-box ">
               {/* <div style={{width:"967px"}}>
               <Slider {...settings}>
@@ -306,7 +254,7 @@ const myListing = () => {
               </Slider>
               </div> */}
 
-              <img src={item.img} />
+              <img src={item.img} onClick={() => navigate("/single-listing")} />
               <Grid padding={2}>
                 <div className="d-flex justify-contant-between padding-10">
                   <div className="d-flex align-items-center">

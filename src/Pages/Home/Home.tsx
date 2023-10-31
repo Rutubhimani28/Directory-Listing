@@ -1,8 +1,8 @@
 // components
-import Charts from "../../Components/Charts/Charts";
-import Features from "../../Components/Charts/totalChart";
+import Charts from "../dashboard/Charts/Charts";
+import Features from "../dashboard/Charts/totalChart";
 import HomeTable from "../../Components/HomeTable/HomeTable";
-import DashboardCard from "../../Components/dashboardCard/cards";
+import DashboardCard from "../dashboard/dashboardCard/cards";
 
 const Home = () => {
   return (
