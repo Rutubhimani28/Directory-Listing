@@ -1,5 +1,5 @@
 // components
-import Charts from "../dashboard/Charts/Charts";
+import Charts from "../dashboard/Charts";
 import HomeTable from "../../Components/HomeTable/HomeTable";
 import SingleCard from "../../Components/SingleCard/SingleCard";
 
