@@ -44,9 +44,19 @@ const App = () => {
                     }
                   />
                 </Route>
-                <Route path="my-listing" element={<MyListing />} />
+                <Route path="my-listing">
+                  <Route index element={<MyListing />} />
+                  <Route path=":singleListing" element={<SingleListing />} />
+                  <Route
+                    path="new"
+                    element={
+                      <New routeName={"Product"} formElements={productInputs} />
+                    }
+                  />
+                </Route>
+                {/* <Route path="my-listing" element={<MyListing />} /> */}
                 <Route path="event" element={<Event />} />
-                <Route path="single-listing" element={<SingleListing />} />
+                {/* <Route path="singleListing" element={<SingleListing />} /> */}
                 <Route path="users">
                   <Route index element={<List />} />
                   <Route path=":userId" element={<Single />} />

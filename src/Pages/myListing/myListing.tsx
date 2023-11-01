@@ -17,41 +17,47 @@ const myListing = () => {
  
   const listData = [
     {
+      id: 1,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/gallery/gallery1.jpg",
       title: "Chipotle Mexican Grill",
       startFrom: "$220",
       place: "New York, USA",
       compare: "Compare to last week",
     },
-    {
+    {   
+      id: 2,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings4.jpg",
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
       compare: "Compare to last week",
     },
-    {
+    {   
+      id: 3,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/gallery/gallery4.jpg",
       title: "Central Shopping Center",
       startFrom: "$300",
       place: "Bangkok, Thailand",
       compare: "Compare to yesterday",
     },
-    {
+    {   
+      id: 4,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings5.jpg",
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
       compare: "Compare to last week",
     },
-    {
+    {   
+      id: 5,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings2.jpg",
       title: "Central Shopping Center",
       startFrom: "$300",
       place: "Bangkok, Thailand",
       compare: "Compare to yesterday",
     },
-    {
+    {   
+      id: 6,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings1.jpg",
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
@@ -59,42 +65,48 @@ const myListing = () => {
       compare: "Compare to last week",
     },
 
-    {
+    {   
+      id: 7,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings4.jpg",
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
       compare: "Compare to last week",
     },
-    {
+    {   
+      id: 8,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/gallery/gallery4.jpg",
       title: "Central Shopping Center",
       startFrom: "$300",
       place: "Bangkok, Thailand",
       compare: "Compare to yesterday",
     },
-    {
+    {   
+      id: 9,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings5.jpg",
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
       compare: "Compare to last week",
     },
-    {
+    {   
+      id: 10,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings2.jpg",
       title: "Central Shopping Center",
       startFrom: "$300",
       place: "Bangkok, Thailand",
       compare: "Compare to yesterday",
     },
-    {
+    {   
+      id: 11,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings1.jpg",
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
       compare: "Compare to last week",
     },
-    {
+    {   
+      id: 12,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/gallery/gallery1.jpg",
       title: "Chipotle Mexican Grill",
       startFrom: "$220",
@@ -102,49 +114,56 @@ const myListing = () => {
       compare: "Compare to last week",
     },
 
-    {
+    {   
+      id: 13,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/gallery/gallery4.jpg",
       title: "Central Shopping Center",
       startFrom: "$300",
       place: "Bangkok, Thailand",
       compare: "Compare to yesterday",
     },
-    {
+    {   
+      id: 14,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings5.jpg",
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
       compare: "Compare to last week",
     },
-    {
+    {   
+      id: 16,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings2.jpg",
       title: "Central Shopping Center",
       startFrom: "$300",
       place: "Bangkok, Thailand",
       compare: "Compare to yesterday",
     },
-    {
+    {   
+      id: 17,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings1.jpg",
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
       compare: "Compare to last week",
     },
-    {
+    {   
+      id: 18,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/gallery/gallery1.jpg",
       title: "Chipotle Mexican Grill",
       startFrom: "$220",
       place: "New York, USA",
       compare: "Compare to last week",
     },
-    {
+    {   
+      id: 19,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings4.jpg",
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
       compare: "Compare to last week",
     },
-    {
+    {   
+      id: 20,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/gallery/gallery4.jpg",
       title: "Central Shopping Center",
       startFrom: "$300",
@@ -152,14 +171,16 @@ const myListing = () => {
       compare: "Compare to yesterday",
     },
 
-    {
+    {   
+      id: 21,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings2.jpg",
       title: "Central Shopping Center",
       startFrom: "$300",
       place: "Bangkok, Thailand",
       compare: "Compare to yesterday",
     },
-    {
+    {   
+      id: 22,
       img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings1.jpg",
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
@@ -233,7 +254,7 @@ const myListing = () => {
       <h3 className="heading">my listing</h3>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         {currentListData.map((item, index) => (
-          <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
+          <Grid item xs={12} sm={6} md={6} lg={4} key={index} >
             <Card className="listing-box ">
               {/* <div style={{width:"967px"}}>
               <Slider {...settings}>
@@ -254,7 +275,7 @@ const myListing = () => {
               </Slider>
               </div> */}
 
-              <img src={item.img} onClick={() => navigate("/single-listing")} />
+              <img src={item.img} onClick={() => navigate(`/my-listing/${item.id}`)}/>
               <Grid padding={2}>
                 <div className="d-flex justify-contant-between padding-10">
                   <div className="d-flex align-items-center">
@@ -280,13 +301,13 @@ const myListing = () => {
                   <div>Start From: {item.startFrom}</div>
                 </div>
               </Grid>
-              <Grid
+              {/* <Grid
                 style={{ borderTop: "1px solid #eeeeee" }}
                 className="d-flex justify-contant-between padding20"
               >
                 <Button className="default-btn ">Edit</Button>
                 <Button className="default-btn ">Delete</Button>
-              </Grid>
+              </Grid> */}
             </Card>
           </Grid>
         ))}
