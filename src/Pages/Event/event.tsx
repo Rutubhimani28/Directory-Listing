@@ -45,8 +45,7 @@ const Event = () => {
   const handleDateSelect = () => {
     handleOpenTask();
   };
-
-  const handleEventClick = (clickInfo: any) => {
+ const handleEventClick = (clickInfo: any) => {
     setTaskId(clickInfo?.event?._def?.extendedProps?._id);
     console.log(clickInfo);
     handleOpenViewEdit();
@@ -57,77 +56,63 @@ const Event = () => {
   };
   const handleEvents = (events: any) => {};
 
-  const renderEventContent = (eventInfo: any) => (
-    <>
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
-    </>
-  );
+
+
+    const renderEventContent = (eventInfo:any) => (
+        <>
+            <b>{eventInfo.timeText}</b>
+            <i>{eventInfo.event.title}</i>
+        </>
+    );
+
+   
 
   return (
-    <div>
-      <Container>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          mb={5}
-        >
-          <Typography variant="h4">Calendar</Typography>
-        </Stack>
-        <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
-          height="600px"
-          // dateClick={handleDateClick}
-          // events={calendarDataCalendar}
-          events={data}
-          headerToolbar={{
-            left: "prev,next today",
-            center: "title",
-            right: "dayGridMonth,timeGridWeek,timeGridDay",
-          }}
-          eventClick={handleEventClick}
-          eventsSet={handleEvents}
-          select={handleDateSelect}
-          eventContent={renderEventContent}
-          views={{
-            listWeek: { buttonText: "List" },
-            multiMonthFourMonth: {
-              type: "multiMonth",
-              buttonText: "multiMonth",
-              duration: { months: 4 },
-            },
-          }}
-          buttonText={{
-            today: "Today",
-            dayGridMonth: "Month",
-            timeGridWeek: "Week",
-            timeGridDay: "Day",
-          }}
-          eventClassNames="custom-fullcalendar"
-        />
-      </Container>
-      {/* modal */}
-      <div>
-        <Modal
-          open={openTask}
-          onClose={handleCloseTask}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
-          </Box>
-        </Modal>
-      </div>
-    </div>
-  );
-};
+     <div>
+          
+            <Container>
+                <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+                    <Typography variant="h4">
+                        Calendar
+                    </Typography>
+                  
+                </Stack>
+                <FullCalendar
+                    plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                    initialView="dayGridMonth"
+// minHeight="400px"
+                    height="600px"
+                    events={data}
+                    headerToolbar={{
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    }}
+                    eventClick={handleEventClick}
+                    eventsSet={handleEvents}
+                    select={handleDateSelect}
+                    eventContent={renderEventContent}
+                    views={{
+                        listWeek: { buttonText: 'List' },
+                        multiMonthFourMonth: {
+                            type: 'multiMonth',
+                            buttonText: 'multiMonth',
+                            duration: { months: 4 },
+                        }
+                    }}
+                    buttonText={{
+                        today: 'Today',
+                        dayGridMonth: 'Month',
+                        timeGridWeek: 'Week',
+                        timeGridDay: 'Day',
+                    }}
+                    eventClassNames="custom-fullcalendar"
+                />
+            </Container>
+        </div>
+  )
+}
 
-export default Event;
+export default Event
+
+

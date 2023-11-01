@@ -1,6 +1,6 @@
 // required
 import { Routes, Route } from "react-router-dom";
-import { useContext } from "react";
+
 // pages
 import Login from "./Pages/Login/Login";
 import Booking from "./Pages/booking/booking";
@@ -18,6 +18,7 @@ import { productInputs, userInputs } from "./DataFormNew";
 import Event from "./Pages/Event/event";
 import Dashboard from "../src/Pages/dashboard/index";
 import MyProfile from "./Pages/myProfile";
+import SingleListing from "./Pages/myListing/singleListing";
 
 const App = () => {
   return (
@@ -44,9 +45,20 @@ const App = () => {
                     }
                   />
                 </Route>
-                <Route path="my-listing" element={<MyListing />} />
+                <Route path="my-listing">
+                  <Route index element={<MyListing />} />
+                  <Route path=":singleListing" element={<SingleListing />} />
+                  <Route
+                    path="new"
+                    element={
+                      <New routeName={"Product"} formElements={productInputs} />
+                    }
+                  />
+                </Route>
+                {/* <Route path="my-listing" element={<MyListing />} /> */}
                 <Route path="event" element={<Event />} />
                 <Route path="my-profile" element={<MyProfile />} />
+                {/* <Route path="singleListing" element={<SingleListing />} /> */}
                 <Route path="users">
                   <Route index element={<List />} />
                   <Route path=":userId" element={<Single />} />
