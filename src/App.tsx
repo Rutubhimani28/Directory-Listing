@@ -2,7 +2,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useContext } from "react";
 // pages
-import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Booking from "./Pages/booking/booking";
 import BookingId from "./Pages/booking/bookingId";
@@ -17,6 +16,7 @@ import Footer from "../src/Components/footer/footer";
 import { productInputs, userInputs } from "./DataFormNew";
 
 import Event from "./Pages/Event/event";
+import Dashboard from "../src/Pages/dashboard/index";
 
 const App = () => {
   return (
@@ -31,7 +31,7 @@ const App = () => {
           <div className="allRoutes container">
             <Routes>
               <Route path="/">
-                <Route index element={<Home />} />
+                <Route index element={<Dashboard />} />
                 <Route path="login" element={<Login />} />
                 <Route path="booking">
                   <Route index element={<Booking />} />

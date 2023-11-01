@@ -1,4 +1,9 @@
 @import "https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap";
+@import "../../Pages/dashboard/style.scss";
+@import "../../Components/Navbar/style.scss";
+@import "../../Components/footer/style.scss";
+@import "../../Components/CustomDrawer/style.scss";
+@import "../../Components/Sidebar/sidebar.css";
 * {
   padding: 0px;
   margin: 0px;
@@ -196,7 +201,7 @@ a {
 .sidebar .slider-content-part3 :nth-child(3) {
   background-color: #111;
 }
-@media (min-width: 0px) {
+/* @media (min-width: 0px) {
   .drawer {
     display: block;
   }
@@ -216,10 +221,10 @@ a {
   display: flex;
   background-color: inherit;
   color: #555;
-}
-.navbar {
+} */
+/* .navbar {
   padding: 16px 0px;
-  /* border-bottom: 1px solid #ddd; */
+  
   z-index: 99;
   color: #555;
   position: sticky;
@@ -346,8 +351,8 @@ a {
   width: 40px;
   height: 40px;
   cursor: pointer;
-}
-.sadek {
+} */
+/* .sadek {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -369,8 +374,8 @@ a {
   color: #3e98c7;
   font-weight: bold;
   padding: 5px 0;
-}
-.wedgets {
+} */
+/* .dashboard-card {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -388,7 +393,7 @@ a {
   align-items: center;
   gap: 20px;
 }
-.wedgets .widget-single {
+.dashboard-card .widget-single {
   background-color: #fff;
   -webkit-box-shadow: 1px 4px 12px -2px rgba(221, 221, 221, 0.63);
   box-shadow: 1px 4px 12px -2px rgba(221, 221, 221, 0.63);
@@ -396,21 +401,21 @@ a {
   padding: 20px;
 }
 @media (min-width: 0px) {
-  .wedgets .widget-single {
+  .dashboard-card .widget-single {
     -webkit-box-flex: 1;
     -ms-flex: auto;
     flex: auto;
   }
 }
 @media (min-width: 480px) {
-  .wedgets .widget-single {
+  .dashboard-card .widget-single {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
   }
 }
-.wedgets .widget-single .wedget-single-line1,
-.wedgets .widget-single .wedget-single-line3 {
+.dashboard-card .widget-single .wedget-single-line1,
+.dashboard-card .widget-single .wedget-single-line3 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -426,7 +431,7 @@ a {
   -ms-flex-align: center;
   align-items: center;
 }
-.wedgets .widget-single .wedget-single-line1 p:nth-child(1) {
+.dashboard-card .widget-single .wedget-single-line1 p:nth-child(1) {
   color: #000;
   text-transform: uppercase;
   font-weight: bold;
@@ -444,22 +449,22 @@ a {
 .down {
   color: red;
 }
-.wedgets .widget-single .wedget-single-line2 {
+.dashboard-card .widget-single .wedget-single-line2 {
   margin: 10px 0px;
 }
-.wedgets .widget-single .wedget-single-line2 h3 {
+.dashboard-card .widget-single .wedget-single-line2 h3 {
   font-size: 30px;
   font-weight: 300;
 }
-.wedgets .widget-single .wedget-single-line3 p:nth-child(1) {
+.dashboard-card .widget-single .wedget-single-line3 p:nth-child(1) {
   cursor: pointer;
   border-bottom: 1px solid #000;
   font-size: 15px;
 }
-.wedgets .widget-single .wedget-single-line3 .wedjet-users,
-.wedgets .widget-single .wedget-single-line3 .wedjet-orders,
-.wedgets .widget-single .wedget-single-line3 .wedjet-earnings,
-.wedgets .widget-single .wedget-single-line3 .wedjet-details {
+.dashboard-card .widget-single .wedget-single-line3 .wedjet-users,
+.dashboard-card .widget-single .wedget-single-line3 .wedjet-orders,
+.dashboard-card .widget-single .wedget-single-line3 .wedjet-earnings,
+.dashboard-card .widget-single .wedget-single-line3 .wedjet-details {
   border-radius: 10px;
   padding: 5px;
   display: -webkit-box;
@@ -473,22 +478,22 @@ a {
   justify-content: center;
   cursor: pointer;
 }
-.wedgets .widget-single .wedget-single-line3 .wedjet-users {
+.dashboard-card .widget-single .wedget-single-line3 .wedjet-users {
   background-color: rgba(255, 0, 0, 0.2);
   color: crimson;
 }
-.wedgets .widget-single .wedget-single-line3 .wedjet-orders {
+.dashboard-card .widget-single .wedget-single-line3 .wedjet-orders {
   background-color: rgba(218, 165, 32, 0.2);
   color: #daa520;
 }
-.wedgets .widget-single .wedget-single-line3 .wedjet-earnings {
+.dashboard-card .widget-single .wedget-single-line3 .wedjet-earnings {
   background-color: rgba(0, 128, 0, 0.2);
   color: green;
 }
-.wedgets .widget-single .wedget-single-line3 .wedjet-details {
+.dashboard-card .widget-single .wedget-single-line3 .wedjet-details {
   background-color: rgba(128, 0, 128, 0.2);
   color: purple;
-}
+} */
 .features {
   -webkit-box-flex: 1;
   -ms-flex: 1;

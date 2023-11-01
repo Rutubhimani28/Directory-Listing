@@ -6,7 +6,6 @@ const List = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const pathName = pathname.split("/")[1];
-  console.log(pathname, "LLLLLLLLLLLLLL");
   return (
     <div>
       <div className="addNew">
