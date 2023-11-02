@@ -1,17 +1,121 @@
-import { Grid } from "@mui/material";
-import React from "react";
+import {
+  Button,
+  Card,
+  Grid,
+  Input,
+  Box,
+  TextField,
+  OutlinedInput,
+  Tabs,
+  Tab,
+  Typography,
+} from "@mui/material";
+import { ErrorMessage, Field, Form, Formik, useFormik } from "formik";
+import React, { useState } from "react";
+import * as Yup from "yup";
+
+import FacebookIcon from "@mui/icons-material/Facebook";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import SecurityIcon from "@mui/icons-material/Security";
+import PersonIcon from "@mui/icons-material/Person";
+import Profile from "./profile";
+import Security from "./security";
+import Social from "./social";
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function CustomTabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
 
 const MyProfile = () => {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
   return (
-    <div>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={12} md={3}>
-          <div>tjhrs</div>
-        </Grid>
-        <Grid item xs={12} md={9}>
-          <div>thsrt</div>
-        </Grid>
-      </Grid>
+    <div className="profilewrap">
+      <Box sx={{ width: "100%" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab
+              iconPosition="start"
+              style={{
+                fontWeight: "bold",
+                marginRight: "15px",
+              }}
+              icon={<PersonIcon style={{ marginRight: "5px" }} />}
+              label="Profile"
+              {...a11yProps(0)}
+            />
+            <Tab
+              iconPosition="start"
+              style={{
+                fontWeight: "bold",
+                marginRight: "15px",
+              }}
+              icon={<ShareOutlinedIcon style={{ marginRight: "5px" }} />}
+              label="Social Network"
+              {...a11yProps(1)}
+            />
+            <Tab
+              iconPosition="start"
+              style={{
+                fontWeight: "bold",
+                marginRight: "15px",
+              }}
+              icon={<SecurityIcon style={{ marginRight: "5px" }} />}
+              label="Security"
+              {...a11yProps(2)}
+            />
+          </Tabs>
+        </Box>
+        <CustomTabPanel value={value} index={0}>
+          <Profile />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <Social />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={2}>
+          <Security />
+        </CustomTabPanel>
+      </Box>
     </div>
   );
 };
