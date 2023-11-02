@@ -1,16 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Card,
-  Grid,
-  Input,
-  Box,
-  TextField,
-  OutlinedInput,
-  Tabs,
-  Tab,
-  Typography,
-} from "@mui/material";
+import { Button, Card, Grid, TextField, Typography } from "@mui/material";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik, useFormik } from "formik";
 
@@ -55,7 +44,7 @@ const Profile = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {() => (
+        {({ errors, touched }) => (
           <Form>
             <Grid
               container
@@ -156,11 +145,8 @@ const Profile = () => {
                             placeholder="Enter Fast Name"
                             as={TextField}
                             variant="outlined"
-                          />
-                          <ErrorMessage
-                            name="fastName"
-                            component="div"
-                            className="error"
+                            error={touched.fastName && Boolean(errors.fastName)}
+                            helperText={touched.fastName && errors.fastName}
                           />
                         </div>
                       </Grid>
@@ -174,11 +160,8 @@ const Profile = () => {
                             placeholder="Enter Last Name"
                             as={TextField}
                             variant="outlined"
-                          />
-                          <ErrorMessage
-                            name="lastName"
-                            component="div"
-                            className="error"
+                            error={touched.lastName && Boolean(errors.lastName)}
+                            helperText={touched.lastName && errors.lastName}
                           />
                         </div>
                       </Grid>
@@ -206,11 +189,8 @@ const Profile = () => {
                             placeholder="Enter Phone"
                             as={TextField}
                             variant="outlined"
-                          />
-                          <ErrorMessage
-                            name="phone"
-                            component="div"
-                            className="error"
+                            error={touched.phone && Boolean(errors.phone)}
+                            helperText={touched.phone && errors.phone}
                           />
                         </div>
                       </Grid>
