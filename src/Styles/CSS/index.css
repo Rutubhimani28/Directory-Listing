@@ -4,6 +4,7 @@
 @import "../../Components/footer/style.scss";
 @import "../../Components/CustomDrawer/style.scss";
 @import "../../Components/Sidebar/sidebar.css";
+@import "../../Pages/myProfile/style.css";
 * {
   padding: 0px;
   margin: 0px;
