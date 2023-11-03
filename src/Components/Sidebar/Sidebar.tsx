@@ -12,7 +12,7 @@ import StarIcon from "@mui/icons-material/Star";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 const Sidebar = () => {
   const navigate = useNavigate();
   return (
@@ -47,6 +47,10 @@ const Sidebar = () => {
             <li onClick={() => navigate("my-profile")}>
               <AccountCircle className="slider-icon" />
               <span>My Profile</span>
+            </li>
+            <li onClick={() => navigate("my-favorite")}>
+              <FavoriteBorderIcon className="slider-icon" />
+              <span>My Favorite</span>
             </li>
             {/* <li onClick={() => navigate("products")}>
               <InsertChartOutlinedIcon className="slider-icon" />

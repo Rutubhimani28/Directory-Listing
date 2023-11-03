@@ -1,0 +1,45 @@
+.favrite-box img {
+  height: 100px;
+  width: 150px;
+  margin-right: 10px;
+}
+.hotel-icon {
+  background: #1cbbb4;
+  color: #fff;
+  border-radius: 50%;
+  width: 25px !important;
+  height: 25px !important;
+  padding: 6px;
+  margin-right: 8px;
+}
+.restorant-icon {
+  background-color: #ff8580 !important;
+}
+.movie-icon {
+  background-color: #6778e6 !important;
+}
+.music-icon {
+  background-color: #82ae67 !important;
+}
+.other-icon {
+  background-color: #990099 !important;
+}
+.favourite-address {
+  color: #777;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  padding-bottom: 5px;
+}
+.fav-title {
+  padding: 5px 4px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.fav-view {
+  font-size: 14px;
+  padding-left: 10px;
+}
+.favourite-address svg {
+  font-size: 18px;
+}

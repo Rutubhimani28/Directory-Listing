@@ -18,6 +18,7 @@ import { productInputs, userInputs } from "./DataFormNew";
 import Event from "./Pages/Event/event";
 import Dashboard from "../src/Pages/dashboard/index";
 import MyProfile from "./Pages/myProfile";
+import Favorite from "./Pages/myfavorite";
 import SingleListing from "./Pages/myListing/singleListing";
 
 const App = () => {
@@ -58,6 +59,7 @@ const App = () => {
                 {/* <Route path="my-listing" element={<MyListing />} /> */}
                 <Route path="event" element={<Event />} />
                 <Route path="my-profile" element={<MyProfile />} />
+                <Route path="my-favorite" element={<Favorite />} />
                 {/* <Route path="singleListing" element={<SingleListing />} /> */}
                 <Route path="users">
                   <Route index element={<List />} />
