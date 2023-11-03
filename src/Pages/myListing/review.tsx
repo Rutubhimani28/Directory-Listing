@@ -93,6 +93,9 @@ const Review = () => {
                     gravida. Risus commodo maecenas accumsan lacus vel facilisis.</p>
                     <div style={{display:"flex",justifyContent:"space-between"}}> <Button variant="text" startIcon={<FavoriteBorderIcon />}>
                        Like
+                    </Button>
+                    <Button variant="text">
+                       Comment
                     </Button></div>
                    
             </Grid>
