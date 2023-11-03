@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./mylisting.css";
-import { Grid, Button, Card, Pagination } from "@mui/material";
+import { Grid, Button, Card, Pagination, Rating } from "@mui/material";
 import RoomIcon from "@mui/icons-material/Room";
 import SingleBedIcon from "@mui/icons-material/SingleBed";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
@@ -22,7 +22,9 @@ const myListing = () => {
       title: "Chipotle Mexican Grill",
       startFrom: "$220",
       place: "New York, USA",
+      rating:4,
       compare: "Compare to last week",
+    
     },
     {   
       id: 2,
@@ -30,6 +32,7 @@ const myListing = () => {
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
+      rating:2.5,
       compare: "Compare to last week",
     },
     {   
@@ -38,6 +41,7 @@ const myListing = () => {
       title: "Central Shopping Center",
       startFrom: "$300",
       place: "Bangkok, Thailand",
+      rating:3,
       compare: "Compare to yesterday",
     },
     {   
@@ -46,6 +50,7 @@ const myListing = () => {
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
+      rating:1.5,
       compare: "Compare to last week",
     },
     {   
@@ -54,6 +59,7 @@ const myListing = () => {
       title: "Central Shopping Center",
       startFrom: "$300",
       place: "Bangkok, Thailand",
+      rating:5,
       compare: "Compare to yesterday",
     },
     {   
@@ -62,6 +68,7 @@ const myListing = () => {
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
+      rating:4,
       compare: "Compare to last week",
     },
 
@@ -71,6 +78,7 @@ const myListing = () => {
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
+      rating:3.5,
       compare: "Compare to last week",
     },
     {   
@@ -79,6 +87,7 @@ const myListing = () => {
       title: "Central Shopping Center",
       startFrom: "$300",
       place: "Bangkok, Thailand",
+      rating:2,
       compare: "Compare to yesterday",
     },
     {   
@@ -87,6 +96,7 @@ const myListing = () => {
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
+      rating:4.5,
       compare: "Compare to last week",
     },
     {   
@@ -95,6 +105,7 @@ const myListing = () => {
       title: "Central Shopping Center",
       startFrom: "$300",
       place: "Bangkok, Thailand",
+      rating:5,
       compare: "Compare to yesterday",
     },
     {   
@@ -103,6 +114,7 @@ const myListing = () => {
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
+      rating:1,
       compare: "Compare to last week",
     },
     {   
@@ -111,6 +123,7 @@ const myListing = () => {
       title: "Chipotle Mexican Grill",
       startFrom: "$220",
       place: "New York, USA",
+      rating:4,
       compare: "Compare to last week",
     },
 
@@ -120,6 +133,7 @@ const myListing = () => {
       title: "Central Shopping Center",
       startFrom: "$300",
       place: "Bangkok, Thailand",
+      rating:5,
       compare: "Compare to yesterday",
     },
     {   
@@ -128,6 +142,7 @@ const myListing = () => {
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
+      rating:3.5,
       compare: "Compare to last week",
     },
     {   
@@ -136,6 +151,7 @@ const myListing = () => {
       title: "Central Shopping Center",
       startFrom: "$300",
       place: "Bangkok, Thailand",
+      rating:4.5,
       compare: "Compare to yesterday",
     },
     {   
@@ -144,6 +160,7 @@ const myListing = () => {
       title: "The Beverly Hills Hotel",
       startFrom: "$200",
       place: "Los Angeles, USA",
+      rating:3,
       compare: "Compare to last week",
     },
     {   
@@ -152,39 +169,7 @@ const myListing = () => {
       title: "Chipotle Mexican Grill",
       startFrom: "$220",
       place: "New York, USA",
-      compare: "Compare to last week",
-    },
-    {   
-      id: 19,
-      img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings4.jpg",
-      title: "The Beverly Hills Hotel",
-      startFrom: "$200",
-      place: "Los Angeles, USA",
-      compare: "Compare to last week",
-    },
-    {   
-      id: 20,
-      img: "https://angular.envytheme.com/vesax-ng/assets/img/gallery/gallery4.jpg",
-      title: "Central Shopping Center",
-      startFrom: "$300",
-      place: "Bangkok, Thailand",
-      compare: "Compare to yesterday",
-    },
-
-    {   
-      id: 21,
-      img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings2.jpg",
-      title: "Central Shopping Center",
-      startFrom: "$300",
-      place: "Bangkok, Thailand",
-      compare: "Compare to yesterday",
-    },
-    {   
-      id: 22,
-      img: "https://angular.envytheme.com/vesax-ng/assets/img/listings/listings1.jpg",
-      title: "The Beverly Hills Hotel",
-      startFrom: "$200",
-      place: "Los Angeles, USA",
+      rating:5,
       compare: "Compare to last week",
     },
   ];
@@ -292,11 +277,7 @@ const myListing = () => {
                 </div>
                 <div className="d-flex justify-contant-between align-items-center padding-10">
                   <div>
-                    <StarIcon className="starticon" />
-                    <StarIcon className="starticon" />
-                    <StarIcon className="starticon" />
-                    <StarIcon className="starticon" />
-                    <StarIcon className="starticon" />
+                    <Rating name="half-rating" defaultValue={item.rating} precision={0.5} />
                   </div>
                   <div>Start From: {item.startFrom}</div>
                 </div>

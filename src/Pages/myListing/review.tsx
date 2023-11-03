@@ -1,7 +1,8 @@
 import React from 'react'
-import { Grid, Rating } from '@mui/material'
+import { Button, Grid, Rating } from '@mui/material'
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { styled } from '@mui/material/styles';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 const Review = () => {
     const [value, setValue] = React.useState<number | null>(5);
     const Review = [
@@ -74,9 +75,6 @@ const Review = () => {
                                         {item.avrege}
                                     </Grid>
                                 </Grid>
-                                {/* <li key={index}>
-                                        <BorderLinearProgress variant="determinate" value={item.rating} />
-                                    </li> */}
                             </Grid>
                         ))}
                     </Grid>
@@ -93,6 +91,10 @@ const Review = () => {
                 <Rating name="read-only" value={value} readOnly />
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices
                     gravida. Risus commodo maecenas accumsan lacus vel facilisis.</p>
+                    <div style={{display:"flex",justifyContent:"space-between"}}> <Button variant="text" startIcon={<FavoriteBorderIcon />}>
+                       Like
+                    </Button></div>
+                   
             </Grid>
 
         </Grid></>
