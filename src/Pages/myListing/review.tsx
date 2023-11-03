@@ -1,10 +1,26 @@
-import React from 'react'
-import { Button, Grid, Rating } from '@mui/material'
+import React, { useState } from 'react'
+import { Box, Button, Grid, Modal, Rating, TextField, Typography } from '@mui/material'
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { styled } from '@mui/material/styles';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 const Review = () => {
     const [value, setValue] = React.useState<number | null>(5);
+    const [isClicked, setIsClicked] = useState(false);
+    const handleClick = () => {
+        setIsClicked(true);
+    };
     const Review = [
         {
             name: "Location",
@@ -82,26 +98,27 @@ const Review = () => {
                 </Grid>
             </Grid>
         </div>
-        <Grid container spacing={2} style={{ border: "1px solid  #dedede", marginTop: "20px" }}>
+        <Grid container spacing={2} style={{ border: "1px solid  #dedede", marginTop: "20px", padding: "20px 20px 20px 10px" }}>
             <Grid item xs={12} sm={12} lg={4}>
-                Jason Smith
-                New York, USA
+                <div className='d-flex'>
+                    <img src='https://angular.envytheme.com/vesax-ng/assets/img/user1.jpg' style={{ width: "80px", borderRadius: "10px" }} />
+                    <div className='review-name'> <h5>Jason Smith</h5>
+                        <p>New York, USA</p></div>
+                </div>
+
             </Grid>
             <Grid item xs={12} sm={12} lg={8}>
                 <Rating name="read-only" value={value} readOnly />
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices
+                <p className='review-text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices
                     gravida. Risus commodo maecenas accumsan lacus vel facilisis.</p>
-                    <div style={{display:"flex",justifyContent:"space-between"}}> <Button variant="text" startIcon={<FavoriteBorderIcon />}>
-                       Like
+                <div style={{marginTop: "15px" }}>
+                    <Button variant="text" onClick={handleClick} className='like-btn' startIcon={isClicked ? <FavoriteIcon style={{ color: "#3e98c7" }} /> : <FavoriteBorderIcon />}>
+                        Like
                     </Button>
-                    <Button variant="text">
-                       Comment
-                    </Button></div>
-                   
+                </div>
+                    
             </Grid>
-
         </Grid></>
     )
 }
-
 export default Review
