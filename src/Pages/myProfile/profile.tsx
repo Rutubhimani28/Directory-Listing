@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Button, Card, Grid, TextField, Typography } from "@mui/material";
+import { Button, Card, Grid, TextField } from "@mui/material";
 import * as Yup from "yup";
-import { ErrorMessage, Field, Form, Formik, useFormik } from "formik";
+import { Field, Form, Formik } from "formik";
 
 const Profile = () => {
   const avtar = require("../../images/profile.jpg");
