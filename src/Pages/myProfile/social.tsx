@@ -1,17 +1,5 @@
-import {
-  Button,
-  Card,
-  Grid,
-  Input,
-  Box,
-  TextField,
-  OutlinedInput,
-  Tabs,
-  Tab,
-  Typography,
-} from "@mui/material";
-import { ErrorMessage, Field, Form, Formik, useFormik } from "formik";
-import React, { useState } from "react";
+import { Button, Card, Grid, TextField } from "@mui/material";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 
 const Social = () => {

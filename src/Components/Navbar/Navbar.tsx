@@ -5,7 +5,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import CustomDrawer from "../CustomDrawer/CustomDrawer";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import react, { useState } from "react";
+import { useState } from "react";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
