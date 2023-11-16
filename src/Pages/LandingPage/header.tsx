@@ -1,31 +1,88 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { useNavigate } from "react-router-dom";
+import {
+  Tabs,
+  Tab,
+  Typography,
+  Button,
+  ListItem,
+  List,
+  Modal,
+  AppBar,
+  Drawer,
+  Box,
+  Divider,
+  IconButton,
+  CssBaseline,
+  Toolbar,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-// import logo from "../../../src/images/logo.png";
-
+import Login from "../auth/Login/Login";
 const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 2,
+};
 
 function DrawerAppBar(props: any) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [value, setValue] = React.useState(0);
 
+  const handleChange = (event: any, newValue: any) => {
+    setValue(newValue);
+  };
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
+  function CustomTabPanel(props: any) {
+    const { children, value, index, ...other } = props;
+
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+
+  CustomTabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+  };
+
+  function a11yProps(index: any) {
+    return {
+      id: `simple-tab-${index}`,
+      "aria-controls": `simple-tabpanel-${index}`,
+    };
+  }
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -34,13 +91,9 @@ function DrawerAppBar(props: any) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: "center" }}></ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
@@ -73,11 +126,18 @@ function DrawerAppBar(props: any) {
             <img src={require("../../../src/images/logo.png")} width={80} />
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#3e98c7" }}>
-                {item}
-              </Button>
-            ))}
+            <Button
+              sx={{ color: "#3e98c7", marginRight: "10px" }}
+              // onClick={() => navigate("login")}
+              onClick={handleOpen}
+            >
+              <PersonOutlineOutlinedIcon />
+              Signin
+            </Button>
+            <Button variant="outlined" sx={{ color: "#3e98c7" }}>
+              <AddOutlinedIcon />
+              Add Listing
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
@@ -104,6 +164,37 @@ function DrawerAppBar(props: any) {
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
       </Box>
+
+      <div>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={handleClose}
+        >
+          <Box sx={style}>
+            <Box sx={{ width: "100%" }}>
+              <Box>
+                <Tabs
+                  className="loginTab"
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="basic tabs example"
+                >
+                  <Tab label="Login" {...a11yProps(0)} />
+                  <Tab label="Register" {...a11yProps(1)} />
+                </Tabs>
+              </Box>
+              <CustomTabPanel value={value} index={0}>
+                <Login />
+              </CustomTabPanel>
+              <CustomTabPanel value={value} index={1}>
+                Register
+              </CustomTabPanel>
+            </Box>
+          </Box>
+        </Modal>
+      </div>
     </Box>
   );
 }
