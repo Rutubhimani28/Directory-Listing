@@ -17,13 +17,15 @@ import * as yup from "yup";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import axios from "axios";
+import { useAuth } from "../../../hooks/auth";
 
 const Login = () => {
   const navigate = useNavigate();
-  localStorage.setItem("email", "admin@gmail.com");
+  // localStorage.setItem("email", "admin@gmail.com");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLogin] = useState(false);
-
+  const [auth, setAuth] = useAuth();
+  console.log(auth, "PPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
   const initialValues = {
     email: "",
     password: "",
@@ -52,7 +54,20 @@ const Login = () => {
           password: values.password,
         }
       );
+      console.log(response, "LLLLLLLLLLLLLLLLL");
+      setAuth({
+        user: response.data.userData.userName,
+        role: response.data.userData.role,
+      });
 
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          user: response.data.userData.userName,
+          role: response.data.userData.role,
+        })
+      );
+      navigate("/dashboard");
       // ... (rest of the code)
     } catch (error) {
       console.error("API request failed", error);

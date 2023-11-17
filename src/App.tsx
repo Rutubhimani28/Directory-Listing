@@ -1,36 +1,25 @@
-// required
-import { Routes, Route } from "react-router-dom";
-
-// pages
-import Booking from "./Pages/booking/booking";
-import BookingId from "./Pages/booking/bookingId";
-import MyListing from "./Pages/myListing/myListing";
-import List from "./Pages/List/List";
-import Single from "./Pages/Single/Single";
-import New from "./Pages/New/New";
 // components
 import Sidebar from "../src/Components/Sidebar/Sidebar";
 import Navbar from "../src/Components/Navbar/Navbar";
 import Footer from "../src/Components/footer/footer";
-import { productInputs, userInputs } from "./DataFormNew";
-
-import Event from "./Pages/Event/event";
-import Dashboard from "../src/Pages/dashboard/index";
-import MyProfile from "./Pages/myProfile";
-import Favorite from "./Pages/myfavorite";
-import SingleListing from "./Pages/myListing/singleListing";
+import { Routes, Route } from "react-router-dom";
 import Login from "./Pages/auth/Login/Login";
 import ResetpasswordForm from "./Pages/auth/resetpassword/ResetpasswordForm";
 import Forgotpassword from "./Pages/auth/forgotpassword/Forgotpassword";
 import LandingPage from "./Pages/LandingPage";
+import { AuthProvider } from "./context/authcontext";
+import Routing from "./routes";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
-  const userId = localStorage.getItem("email");
-  console.log("userId", userId);
+  // const userId = localStorage.getItem("email");
+  const user = localStorage.getItem("user");
+  console.log(user, "userId");
+  useNavigate();
   return (
-    <div>
+    <AuthProvider>
       <div className="App">
-        {userId === "admin@gmail.com" ? (
+        {user ? (
           <>
             <div className="App-part1">
               <Sidebar />
@@ -38,7 +27,8 @@ const App = () => {
 
             <div className="App-part2">
               <Navbar />
-              <div className="allRoutes container">
+              <Routing />
+              {/* <div className="allRoutes container">
                 <Routes>
                   <Route path="/">
                     <Route index element={<Dashboard />} />
@@ -71,11 +61,11 @@ const App = () => {
                         }
                       />
                     </Route>
-                    {/* <Route path="my-listing" element={<MyListing />} /> */}
+                     <Route path="my-listing" element={<MyListing />} />
                     <Route path="event" element={<Event />} />
                     <Route path="my-profile" element={<MyProfile />} />
                     <Route path="my-favorite" element={<Favorite />} />
-                    {/* <Route path="singleListing" element={<SingleListing />} /> */}
+                     <Route path="singleListing" element={<SingleListing />} /> 
                     <Route path="users">
                       <Route index element={<List />} />
                       <Route path=":userId" element={<Single />} />
@@ -101,7 +91,7 @@ const App = () => {
                     </Route>
                   </Route>
                 </Routes>
-              </div>
+              </div> */}
               <Footer />
             </div>
           </>
@@ -116,7 +106,7 @@ const App = () => {
           </>
         )}
       </div>
-    </div>
+    </AuthProvider>
   );
 };
 

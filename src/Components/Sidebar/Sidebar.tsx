@@ -14,8 +14,31 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useState } from "react";
+import { Box, Button, Grid, Modal, Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 2,
+};
+
 const Sidebar = () => {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const handleModalOpen = () => setOpen(true);
+  const handleModalClose = () => setOpen(false);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
   return (
     <div className="sidebar">
       <div className="slider-content">
@@ -53,7 +76,8 @@ const Sidebar = () => {
               <FavoriteBorderIcon className="slider-icon" />
               <span>My Favorite</span>
             </li>
-            <li onClick={() => navigate("/")}>
+            {/* <li onClick={handleLogout}> */}
+            <li onClick={handleModalOpen}>
               <LogoutIcon className="slider-icon" />
               <span>Logout</span>
             </li>
@@ -65,7 +89,6 @@ const Sidebar = () => {
               <CreditCardIcon className="slider-icon" />
               <span>Menus</span>
             </li> */}
-
             {/* <li>
               <EmailIcon className="slider-icon" />
               <span>Inbox</span>
@@ -88,6 +111,56 @@ const Sidebar = () => {
             </li> */}
           </ul>
         </div>
+      </div>
+
+      <div>
+        <Modal
+          open={open}
+          onClose={handleModalClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Grid
+              display="flex"
+              justifyContent="space-between"
+              margin="0 0 20px 0"
+              padding="0 0 10px 0"
+              sx={{ borderBottom: "1px solid grey" }}
+            >
+              <Typography id="modal-modal-title" variant="h6">
+                Logout
+              </Typography>
+              <CloseIcon style={{ color: "red" }} />
+            </Grid>
+            <Typography id="modal-modal-title" variant="subtitle1">
+              Are you Sure Want to logout?
+            </Typography>
+            <Grid
+              display="flex"
+              justifyContent="space-between"
+              padding="35px 0 0 0 "
+            >
+              <Button
+                size="small"
+                className="save-btn"
+                variant="contained"
+                type="submit"
+              >
+                Cancel
+              </Button>
+              <Button
+                size="small"
+                variant="contained"
+                color="error"
+                type="submit"
+                onClick={handleLogout}
+              >
+                Confirm
+              </Button>
+            </Grid>
+          </Box>
+        </Modal>
       </div>
     </div>
   );
