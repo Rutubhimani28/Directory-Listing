@@ -23,6 +23,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import Login from "../auth/Login/Login";
 import Register from "../auth/register/RegisterForm";
+import Home from "./Home/home";
 const drawerWidth = 240;
 
 const style = {
@@ -125,12 +126,10 @@ function DrawerAppBar(props: any) {
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
             Prolink
-            {/* <img src={require("../../../src/images/logo.png")} width={80} /> */}
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <Button
               sx={{ color: "#3e98c7", marginRight: "10px" }}
-              // onClick={() => navigate("login")}
               onClick={handleOpen}
             >
               <PersonOutlineOutlinedIcon />
@@ -163,8 +162,9 @@ function DrawerAppBar(props: any) {
           {drawer}
         </Drawer>
       </nav>
-      <Box component="main" sx={{ p: 3 }}>
+      <Box component="main" >
         <Toolbar />
+        <Home />
       </Box>
 
       <div>
@@ -202,10 +202,7 @@ function DrawerAppBar(props: any) {
 }
 
 DrawerAppBar.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
+
   window: PropTypes.func,
 };
 
