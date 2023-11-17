@@ -6,6 +6,7 @@
 @import "../../Components/Sidebar/sidebar.css";
 @import "../../Pages/myProfile/style.css";
 @import "../../Pages/myfavorite/style.css";
+@import "../../Pages/LandingPage/header.css";
 * {
   padding: 0px;
   margin: 0px;
@@ -1103,18 +1104,4 @@ a {
   text-transform: capitalize;
   padding: 20px 10px;
   color: #fff;
-}
-.loginTab div {
-  display: flex;
-  justify-content: center !important;
-}
-.loginTab button {
-  font-size: 16px;
-  font-weight: 800;
-}
-.loginTab .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
-  color: #3e98c7 !important;
-}
-.loginTab span {
-  background-color: transparent !important;
 }

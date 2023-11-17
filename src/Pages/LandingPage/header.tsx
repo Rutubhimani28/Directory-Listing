@@ -22,6 +22,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Login from "../auth/Login/Login";
+import Register from "../auth/register/RegisterForm";
 const drawerWidth = 240;
 
 const style = {
@@ -119,11 +120,12 @@ function DrawerAppBar(props: any) {
             <MenuIcon />
           </IconButton>
           <Typography
-            variant="h6"
-            component="div"
+            variant="h4"
+            className="slider-content-part1"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            <img src={require("../../../src/images/logo.png")} width={80} />
+            Prolink
+            {/* <img src={require("../../../src/images/logo.png")} width={80} /> */}
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <Button
@@ -189,7 +191,7 @@ function DrawerAppBar(props: any) {
                 <Login />
               </CustomTabPanel>
               <CustomTabPanel value={value} index={1}>
-                Register
+                <Register />
               </CustomTabPanel>
             </Box>
           </Box>

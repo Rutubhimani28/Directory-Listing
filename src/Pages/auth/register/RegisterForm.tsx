@@ -16,48 +16,42 @@ import { Field, Form, Formik, useFormik } from "formik";
 import * as yup from "yup";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
   localStorage.setItem("email", "admin@gmail.com");
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLogin] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    ConfirmPassword: false,
+  });
 
+  const handleClickShowPassword = (field: any) => {
+    setShowPassword((prevShowPassword: any) => ({
+      ...prevShowPassword,
+      [field]: !prevShowPassword[field],
+    }));
+  };
   const initialValues = {
+    username: "",
     email: "",
     password: "",
+    cpassword: "",
   };
 
   // -----------  validationSchema
   const validationSchema = yup.object({
+    username: yup.string().required("UserName is required"),
     email: yup.string().email("Invalid email").required("Email is required"),
     password: yup.string().required("Password is required"),
+    cpassword: yup
+      .string()
+      .required("Confirm Password is required")
+      .oneOf([yup.ref("newPassword"), ""], "Password does not match"),
   });
-
-  const handleSubmit = async (values: any) => {
-    // setIsLoading(true);
-
-    try {
-      if (!values.email || !values.password) {
-        // Handle undefined values
-        console.error("Email or password is undefined");
-        return;
-      }
-
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        {
-          emailOrUserName: values.email,
-          password: values.password,
-        }
-      );
-
-      // ... (rest of the code)
-    } catch (error) {
-      console.error("API request failed", error);
-    } finally {
-      // setIsLoading(false);
+  const handleSubmit = (values: any) => {
+    if (values.email === "admin@gmail.com" && values.password === "Admin@123") {
+      navigate("/");
     }
   };
 
@@ -72,7 +66,19 @@ const Login = () => {
         {({ values, handleChange, errors, touched }: any) => (
           <Form>
             <Stack spacing={3} mb={2}>
-              <div className="textfiled-row">
+              <div className="textfiled-row" style={{ marginBottom: 0 }}>
+                <label>Username</label>
+                <Field
+                  className="textfiled"
+                  name="username"
+                  value={values.username}
+                  as={TextField}
+                  onChange={handleChange}
+                  error={touched.username && errors.username}
+                  helperText={touched.username && errors.username}
+                />
+              </div>
+              <div className="textfiled-row" style={{ marginBottom: 0 }}>
                 <label>Email</label>
                 <Field
                   className="textfiled"
@@ -84,12 +90,12 @@ const Login = () => {
                   helperText={touched.email && errors.email}
                 />
               </div>
-              <div className="textfiled-row">
+              <div className="textfiled-row" style={{ marginBottom: 0 }}>
                 <label>Password</label>
                 <Field
                   className="textfiled"
                   name="password"
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword.password ? "text" : "password"}
                   value={values.password}
                   as={TextField}
                   onChange={handleChange}
@@ -97,7 +103,7 @@ const Login = () => {
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton
-                          onClick={() => setShowPassword(!showPassword)}
+                          onClick={() => handleClickShowPassword("password")}
                           edge="end"
                         >
                           {showPassword ? (
@@ -113,6 +119,37 @@ const Login = () => {
                   helperText={touched.password && errors.password}
                 />
               </div>
+              <div className="textfiled-row" style={{ marginBottom: 0 }}>
+                <label>Confirm Password</label>
+                <Field
+                  className="textfiled"
+                  name="cpassword"
+                  type={showPassword.ConfirmPassword ? "text" : "password"}
+                  value={values.cpassword}
+                  as={TextField}
+                  onChange={handleChange}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() =>
+                            handleClickShowPassword("ConfirmPassword")
+                          }
+                          edge="end"
+                        >
+                          {showPassword.ConfirmPassword ? (
+                            <RemoveRedEyeIcon />
+                          ) : (
+                            <VisibilityOffIcon />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  error={touched.cpassword && Boolean(errors.cpassword)}
+                  helperText={touched.cpassword && errors.cpassword}
+                />
+              </div>
             </Stack>
             <Stack
               direction="row"
@@ -124,18 +161,16 @@ const Login = () => {
                 control={<Checkbox name="remember" />}
                 label="Remember me"
               />
-              <Link to="/reset-password">Forgot password?</Link>
             </Stack>
             <Button
-              fullWidth
               className="save-btn"
+              fullWidth
               size="large"
               type="submit"
               variant="contained"
               onClick={handleSubmit}
             >
-              {/* {isLoading ? <CircularProgress size={24} /> : "Login"} */}
-              Login
+              Signup
             </Button>
           </Form>
         )}

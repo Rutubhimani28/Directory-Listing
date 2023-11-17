@@ -35,7 +35,7 @@
 .textfiled-row {
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .profile-contant h2 {
   padding-bottom: 25px;
