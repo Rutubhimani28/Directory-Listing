@@ -169,11 +169,7 @@ function DrawerAppBar(props: any) {
           {drawer}
         </Drawer>
       </nav>
-<<<<<<< HEAD
       <Box style={{ width: "100%" }} >
-=======
-      <Box component="main">
->>>>>>> bec610cdaa8424177ca141872683a154c41212bb
         <Toolbar />
         <Home />
       </Box>
