@@ -170,8 +170,7 @@ function DrawerAppBar(props: any) {
         </Drawer>
       </nav>
       <Box style={{ width: "100%" }} >
-        <Toolbar />
-        <Home />
+        <Toolbar />        
       </Box>
 
       <div>
