@@ -10,6 +10,7 @@ import LandingPage from "./Pages/LandingPage";
 import { AuthProvider } from "./context/authcontext";
 import Routing from "./routes";
 import { useNavigate } from "react-router-dom";
+import AddListing from "./Pages/LandingPage/AddListing";
 
 const App = () => {
   // const userId = localStorage.getItem("email");
@@ -99,6 +100,7 @@ const App = () => {
           <>
             <Routes>
               <Route path="/" element={<LandingPage />} />
+              <Route path="/add-listing" element={<AddListing />} />
               <Route path="login" element={<Login />} />
               <Route path="reset-password" element={<ResetpasswordForm />} />
               <Route path="forgot-password" element={<Forgotpassword />} />

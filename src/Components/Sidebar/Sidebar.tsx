@@ -131,7 +131,7 @@ const Sidebar = () => {
               <Typography id="modal-modal-title" variant="h6">
                 Logout
               </Typography>
-              <CloseIcon style={{ color: "red" }} />
+              <CloseIcon />
             </Grid>
             <Typography id="modal-modal-title" variant="subtitle1">
               Are you Sure Want to logout?

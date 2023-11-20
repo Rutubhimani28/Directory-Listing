@@ -6,13 +6,25 @@ import CustomDrawer from "../CustomDrawer/CustomDrawer";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+    setAnchorEl(null);
+  };
+  const handleProfileRedirect = () => {
+    navigate("my-profile");
     setAnchorEl(null);
   };
   return (
@@ -25,7 +37,6 @@ const Navbar = () => {
         <div className="sadekk">
           <CustomDrawer />
         </div>
-
         <div className="navbar-part2">
           <IconButton onClick={handleMenu}>
             {" "}
@@ -46,10 +57,8 @@ const Navbar = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose} className="hello">
-              Profile
-            </MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
+            <MenuItem onClick={handleProfileRedirect}>Profile</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
           {/* <img
             src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
@@ -57,7 +66,7 @@ const Navbar = () => {
             className="avatar"
           /> */}
 
-          <SettingsOutlinedIcon className="navbar-icon" />
+          {/* <SettingsOutlinedIcon className="navbar-icon" /> */}
         </div>
       </div>
     </div>
