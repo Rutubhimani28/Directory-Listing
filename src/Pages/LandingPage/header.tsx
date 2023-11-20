@@ -52,6 +52,9 @@ function DrawerAppBar(props: any) {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+  const handleAddlisting = () => {
+    navigate("/add-listing");
+  };
 
   function CustomTabPanel(props: any) {
     const { children, value, index, ...other } = props;
@@ -135,7 +138,11 @@ function DrawerAppBar(props: any) {
               <PersonOutlineOutlinedIcon />
               Signin
             </Button>
-            <Button variant="outlined" sx={{ color: "#3e98c7" }}>
+            <Button
+              variant="outlined"
+              sx={{ color: "#3e98c7" }}
+              onClick={handleAddlisting}
+            >
               <AddOutlinedIcon />
               Add Listing
             </Button>
@@ -162,7 +169,11 @@ function DrawerAppBar(props: any) {
           {drawer}
         </Drawer>
       </nav>
+<<<<<<< HEAD
       <Box style={{ width: "100%" }} >
+=======
+      <Box component="main">
+>>>>>>> bec610cdaa8424177ca141872683a154c41212bb
         <Toolbar />
         <Home />
       </Box>
@@ -202,7 +213,6 @@ function DrawerAppBar(props: any) {
 }
 
 DrawerAppBar.propTypes = {
-
   window: PropTypes.func,
 };
 
