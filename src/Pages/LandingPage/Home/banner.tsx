@@ -1,5 +1,5 @@
 import React from 'react'
-import { Autocomplete, Button, Grid, TextField } from "@mui/material";
+import { Autocomplete, Button, Grid, Paper, TextField } from "@mui/material";
 import SearchOutlined from "@mui/icons-material/SearchOutlined";
 const Banner = () => {
     const top100Films = [
@@ -12,10 +12,8 @@ const Banner = () => {
         { label: 'Pulp Fiction', year: 1994 },
     ];
     return (
-        <div className='main'>
+        <>
             <div className='banner'>
-                <div className='overlay'>
-                </div>
                 <div className='banner-title'>
                     What's Your Plan Today ?
                     <p>All the top locations – from restaurants and clubs, to galleries, famous places and more..</p>
@@ -65,10 +63,9 @@ const Banner = () => {
                     </div>
                     <p>Just looking around? Let us suggest you <br />something hot & happening!</p>
                 </div>
-
             </div>
-        </div>
 
+        </>
     )
 }
 

@@ -6,7 +6,7 @@ const LandingPage = () => {
   const [auth, setAuth] = useAuth();
   console.log(auth, "PPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <Header />
     </div>
   );
