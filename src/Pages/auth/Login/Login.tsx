@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// @mui
 import {
   Stack,
   IconButton,
@@ -9,14 +8,13 @@ import {
   Checkbox,
   FormControlLabel,
   Button,
-  CircularProgress,
 } from "@mui/material";
-// components
-import { Field, Form, Formik, useFormik } from "formik";
+import { Field, Form, Formik } from "formik";
 import * as yup from "yup";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import axios from "axios";
+// components
 import { useAuth } from "../../../hooks/auth";
 
 const Login = () => {
@@ -39,7 +37,6 @@ const Login = () => {
 
   const handleSubmit = async (values: any) => {
     // setIsLoading(true);
-
     try {
       if (!values.email || !values.password) {
         // Handle undefined values
@@ -67,7 +64,9 @@ const Login = () => {
           role: response.data.userData.role,
         })
       );
-      navigate("/dashboard");
+      if (response.status === 200) {
+        navigate("/dashboard");
+      }
       // ... (rest of the code)
     } catch (error) {
       console.error("API request failed", error);

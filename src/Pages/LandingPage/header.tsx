@@ -132,7 +132,7 @@ function DrawerAppBar(props: any) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <Button
-              sx={{ color: "#3e98c7", marginRight: "10px" }}
+              sx={{ color: "#3e98c7", marginRight: "10px", fontWeight: "600" }}
               onClick={handleOpen}
             >
               <PersonOutlineOutlinedIcon />
@@ -140,7 +140,7 @@ function DrawerAppBar(props: any) {
             </Button>
             <Button
               variant="outlined"
-              sx={{ color: "#3e98c7" }}
+              sx={{ color: "#3e98c7", fontWeight: "700" }}
               onClick={handleAddlisting}
             >
               <AddOutlinedIcon />
@@ -169,8 +169,8 @@ function DrawerAppBar(props: any) {
           {drawer}
         </Drawer>
       </nav>
-      <Box style={{ width: "100%" }} >
-        <Toolbar />        
+      <Box style={{ width: "100%" }}>
+        <Toolbar />
       </Box>
 
       <div>

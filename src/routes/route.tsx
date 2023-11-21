@@ -46,6 +46,11 @@ export const Routings = [
     component: <Dashboard />,
   },
   {
+    path: "users",
+    role: "user",
+    component: <List />,
+  },
+  {
     path: "my-favorite",
     role: "user",
     component: <Favorite />,

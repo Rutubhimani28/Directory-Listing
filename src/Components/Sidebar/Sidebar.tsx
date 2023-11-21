@@ -48,7 +48,7 @@ const Sidebar = () => {
         </div>
         <div className="slider-content-part2 container">
           <ul>
-            <li onClick={() => navigate("/")}>
+            <li onClick={() => navigate("/dashboard")}>
               <DashboardIcon className="slider-icon" />
               <span>Dashboard</span>
             </li>
@@ -60,10 +60,10 @@ const Sidebar = () => {
               <PlaceIcon className="slider-icon" />
               <span>listing</span>
             </li>
-            {/* <li onClick={() => navigate("users")}>
+            <li onClick={() => navigate("users")}>
               <MicIcon className="slider-icon" />
               <span>Annousments</span>
-            </li> */}
+            </li>
             <li onClick={() => navigate("event")}>
               <CalendarMonthIcon className="slider-icon" />
               <span>Events</span>
@@ -77,18 +77,18 @@ const Sidebar = () => {
               <span>My Favorite</span>
             </li>
             {/* <li onClick={handleLogout}> */}
-            <li onClick={handleModalOpen}>
+            {/* <li onClick={handleModalOpen}>
               <LogoutIcon className="slider-icon" />
               <span>Logout</span>
             </li>
-            {/* <li onClick={() => navigate("products")}>
+            <li onClick={() => navigate("products")}>
               <InsertChartOutlinedIcon className="slider-icon" />
               <span>Coupons</span>
-            </li>
+            </li> */}
             <li>
               <CreditCardIcon className="slider-icon" />
               <span>Menus</span>
-            </li> */}
+            </li>
             {/* <li>
               <EmailIcon className="slider-icon" />
               <span>Inbox</span>
@@ -131,7 +131,7 @@ const Sidebar = () => {
               <Typography id="modal-modal-title" variant="h6">
                 Logout
               </Typography>
-              <CloseIcon />
+              <CloseIcon onClick={handleModalClose} />
             </Grid>
             <Typography id="modal-modal-title" variant="subtitle1">
               Are you Sure Want to logout?
@@ -146,6 +146,7 @@ const Sidebar = () => {
                 className="save-btn"
                 variant="contained"
                 type="submit"
+                onClick={handleModalClose}
               >
                 Cancel
               </Button>
