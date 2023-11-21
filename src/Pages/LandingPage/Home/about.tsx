@@ -7,6 +7,7 @@ import ContentCutIcon from '@mui/icons-material/ContentCut';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import { Container } from '@mui/material';
+
 const About = () => {
     const about = [
         {
@@ -36,7 +37,7 @@ const About = () => {
     ]
     return (
         <Container>
-            <Grid container spacing={2} sx={{ flexGrow: 1, margin: 0 }}>
+            <Grid container spacing={2} sx={{ flexGrow: 1, margin: "100px 0px" }}>
                 {about.map((item, index) => (
                     <Grid xs={6} sm={6} md={4} lg={2}>
                         <div key={index} className='about-box' >
@@ -45,7 +46,13 @@ const About = () => {
                     </Grid>
                 ))}
             </Grid>
+            Explore Your Dream Placesrhty for new look
+            <Grid xs={6} sm={6} md={4} lg={2}>
+                <div className=''>
+                </div>
+            </Grid>
         </Container>
+
     )
 }
 
