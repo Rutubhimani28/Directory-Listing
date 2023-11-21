@@ -1,20 +1,20 @@
 /* <------------------------------------------banner----------------------------------------------------> */
 
 .banner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background-position: top;
-    width: 100%;
-    height: 70vh;
-    background-image: url(../../../images/banner.jpg);
-    transition: all 0.5s ease-in-out;
-    background-repeat: no-repeat;
-    background-color: #fff;
-    background-size: cover;
-    padding: 0px !important;
-    justify-content: center;
-    z-index: 9;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-position: top;
+  width: 100%;
+  height: 70vh;
+  background-image: url(../../../images/banner.jpg);
+  transition: all 0.5s ease-in-out;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  background-size: cover;
+  padding: 0px !important;
+  justify-content: center;
+  z-index: 9;
 }
 
 .banner::after {
@@ -37,10 +37,10 @@
 }
 
 .banner-title {
-    color: #fff;
-    font-size: 3.5rem;
-    font-weight: 600;
-    text-align: center;
+  color: #fff;
+  font-size: 3.5rem;
+  font-weight: 600;
+  text-align: center;
 }
 
 .css-1gywuxd-MuiInputBase-root-MuiOutlinedInput-root {
@@ -53,7 +53,6 @@
   border-radius: 0px !important;
   background-color: black !important;
 }
-
 
 /* <------------------------------------------about----------------------------------------------------> */
 .about-box {
@@ -70,69 +69,69 @@
 }
 
 .about-box:hover svg {
-    color: #fff;
+  color: #fff;
 }
 
 .about-box:hover {
-    background-color: #3e98c7;
-    color: #fff;
+  background-color: #3e98c7;
+  color: #fff;
 }
 
 /* <------------------------------------------footer----------------------------------------------------> */
 
 .footer-bg {
-    background-image: url(../../../images/footer-bg-1.png);
-    background-position: center;
-    padding: 100px 0px;
-    position: relative;
-    z-index: 9;
-    /* height: 45vh; */
+  background-image: url(../../../images/footer-bg-1.png);
+  background-position: center;
+  padding: 40px 0px;
+  position: relative;
+  z-index: 9;
+  /* height: 45vh; */
 }
 
 .footer-bg::after {
-    content: '';
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    background-color: rgb(0, 0, 0);
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 0.1;
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgb(0, 0, 0);
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.1;
 }
 
 .footer-title h4 {
-    font-size: 45px;
-    color: #3e98c7;
+  font-size: 45px;
+  color: #3e98c7;
 }
 
 .footer-title p {
-    color: #555;
-    font-size: 15px;
-    padding-right: 40px;
-    margin-top: 18px;
-    line-height: 27px;
+  color: #555;
+  font-size: 15px;
+  padding-right: 40px;
+  margin-top: 18px;
+  line-height: 27px;
 }
 
 .footer-text h3 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #333;
-    margin: 20px 0px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin: 20px 0px;
 }
 
 .footer-text li {
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 30px;
-    list-style: none !important;
-    padding-bottom: 10px;
-    color: #555;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 30px;
+  list-style: none !important;
+  padding-bottom: 10px;
+  color: #555;
 }
 
 .footer-text svg {
-    font-size: 18px;
-    color: #555;
-    margin-right: 12px;
-    margin-bottom: -4px;
+  font-size: 18px;
+  color: #555;
+  margin-right: 12px;
+  margin-bottom: -4px;
 }

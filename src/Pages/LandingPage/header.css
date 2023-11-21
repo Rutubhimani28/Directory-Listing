@@ -3,8 +3,9 @@
   justify-content: center !important;
 }
 .loginTab button {
-  font-size: 16px;
-  font-weight: 800;
+  font-size: 25px;
+  font-weight: 600;
+  padding: 0px 50px;
 }
 .loginTab .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
   color: #3e98c7 !important;

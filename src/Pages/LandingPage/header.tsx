@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import ListItemButton from "@mui/material/ListItemButton";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -21,7 +21,7 @@ import {
   Toolbar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Login from "../auth/Login/Login";
+import Login from "../auth/Login";
 import Register from "../auth/register/RegisterForm";
 import Home from "./Home/home";
 const drawerWidth = 240;
@@ -39,12 +39,15 @@ const style = {
 
 function DrawerAppBar(props: any) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [value, setValue] = React.useState(0);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const handleLoginOpen = () => {
+    navigate("/login");
+    // setLoginOpen(true);
+  };
+  const handleLoginClose = () => setLoginOpen(false);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
@@ -116,7 +119,7 @@ function DrawerAppBar(props: any) {
         <Toolbar>
           <IconButton
             color="inherit"
-            aria-label="open drawer"
+            aria-label="loginOpen drawer"
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
@@ -133,7 +136,7 @@ function DrawerAppBar(props: any) {
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <Button
               sx={{ color: "#3e98c7", marginRight: "10px", fontWeight: "600" }}
-              onClick={handleOpen}
+              onClick={handleLoginOpen}
             >
               <PersonOutlineOutlinedIcon />
               Signin
@@ -177,8 +180,8 @@ function DrawerAppBar(props: any) {
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
-          open={open}
-          onClose={handleClose}
+          open={loginOpen}
+          onClose={handleLoginClose}
         >
           <Box sx={style}>
             <Box sx={{ width: "100%" }}>

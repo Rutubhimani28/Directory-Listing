@@ -18,7 +18,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 // ----------------------------------------------------------------------
 
-export default function Forgotpassword() {
+const Forgotpassword = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState({
     password: false,
@@ -158,4 +158,5 @@ export default function Forgotpassword() {
       </form>
     </>
   );
-}
+};
+export default Forgotpassword;

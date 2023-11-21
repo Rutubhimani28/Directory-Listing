@@ -77,18 +77,18 @@ const Sidebar = () => {
               <span>My Favorite</span>
             </li>
             {/* <li onClick={handleLogout}> */}
-            {/* <li onClick={handleModalOpen}>
+            <li onClick={handleModalOpen}>
               <LogoutIcon className="slider-icon" />
               <span>Logout</span>
             </li>
-            <li onClick={() => navigate("products")}>
+            {/* <li onClick={() => navigate("products")}>
               <InsertChartOutlinedIcon className="slider-icon" />
               <span>Coupons</span>
             </li> */}
-            <li>
+            {/* <li>
               <CreditCardIcon className="slider-icon" />
               <span>Menus</span>
-            </li>
+            </li> */}
             {/* <li>
               <EmailIcon className="slider-icon" />
               <span>Inbox</span>

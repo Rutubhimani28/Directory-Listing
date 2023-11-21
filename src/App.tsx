@@ -3,7 +3,8 @@ import Sidebar from "../src/Components/Sidebar/Sidebar";
 import Navbar from "../src/Components/Navbar/Navbar";
 import Footer from "../src/Components/footer/footer";
 import { Routes, Route } from "react-router-dom";
-import Login from "./Pages/auth/Login/Login";
+import Login from "./Pages/auth/Login/login";
+import Register from "./Pages/auth/register/RegisterForm";
 import ResetpasswordForm from "./Pages/auth/resetpassword/ResetpasswordForm";
 import Forgotpassword from "./Pages/auth/forgotpassword/Forgotpassword";
 import LandingPage from "./Pages/LandingPage";
@@ -102,6 +103,7 @@ const App = () => {
               <Route path="/" element={<LandingPage />} />
               <Route path="/add-listing" element={<AddListing />} />
               <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
               <Route path="reset-password" element={<ResetpasswordForm />} />
               <Route path="forgot-password" element={<Forgotpassword />} />
             </Routes>

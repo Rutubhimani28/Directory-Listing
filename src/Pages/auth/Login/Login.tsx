@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Stack,
@@ -8,6 +8,8 @@ import {
   Checkbox,
   FormControlLabel,
   Button,
+  Box,
+  Typography,
 } from "@mui/material";
 import { Field, Form, Formik } from "formik";
 import * as yup from "yup";
@@ -16,10 +18,12 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import axios from "axios";
 // components
 import { useAuth } from "../../../hooks/auth";
+import Header from "../../LandingPage/header";
+import Footer from "../../LandingPage/footer";
 
 const Login = () => {
   const navigate = useNavigate();
-  // localStorage.setItem("email", "admin@gmail.com");
+  // localStorage.setItem("email", "mailto:admin@gmail.com");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLogin] = useState(false);
   const [auth, setAuth] = useAuth();
@@ -36,7 +40,6 @@ const Login = () => {
   });
 
   const handleSubmit = async (values: any) => {
-    // setIsLoading(true);
     try {
       if (!values.email || !values.password) {
         // Handle undefined values
@@ -52,6 +55,11 @@ const Login = () => {
         }
       );
       console.log(response, "LLLLLLLLLLLLLLLLL");
+      if (response.data.isMailSent === false) {
+        // Display an alert if the email is not verified
+        alert(response.data.message);
+        return;
+      }
       setAuth({
         user: response.data.userData.userName,
         role: response.data.userData.role,
@@ -64,97 +72,135 @@ const Login = () => {
           role: response.data.userData.role,
         })
       );
-      if (response.status === 200) {
-        navigate("/dashboard");
-      }
-      // ... (rest of the code)
-    } catch (error) {
+      // if (response.status === 200) {
+      //   navigate("/dashboard");
+      // }
+      navigate("/dashboard");
+    } catch (error: any) {
+      alert(error.response.data.message);
       console.error("API request failed", error);
     } finally {
-      // setIsLoading(false);
     }
   };
 
   return (
-    <div>
-      {" "}
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
+    <Box width="100%">
+      <Header />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          // alignItems: "center",
+          padding: "90px 0",
+        }}
+        className="loginbg"
       >
-        {({ values, handleChange, errors, touched }: any) => (
-          <Form>
-            <Stack spacing={3} mb={2}>
-              <div className="textfiled-row">
-                <label>Email</label>
-                <Field
-                  className="textfiled"
-                  name="email"
-                  value={values.email}
-                  as={TextField}
-                  onChange={handleChange}
-                  error={touched.email && Boolean(errors.email)}
-                  helperText={touched.email && errors.email}
-                />
-              </div>
-              <div className="textfiled-row">
-                <label>Password</label>
-                <Field
-                  className="textfiled"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  value={values.password}
-                  as={TextField}
-                  onChange={handleChange}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={() => setShowPassword(!showPassword)}
-                          edge="end"
-                        >
-                          {showPassword ? (
-                            <RemoveRedEyeIcon />
-                          ) : (
-                            <VisibilityOffIcon />
-                          )}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                  error={touched.password && Boolean(errors.password)}
-                  helperText={touched.password && errors.password}
-                />
-              </div>
-            </Stack>
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-              sx={{ my: 2 }}
-            >
-              <FormControlLabel
-                control={<Checkbox name="remember" />}
-                label="Remember me"
-              />
-              <Link to="/reset-password">Forgot password?</Link>
-            </Stack>
-            <Button
-              fullWidth
-              className="save-btn"
-              size="large"
-              type="submit"
-              variant="contained"
-              onClick={handleSubmit}
-            >
-              {/* {isLoading ? <CircularProgress size={24} /> : "Login"} */}
-              Login
-            </Button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+        <Box className="loginBox">
+          <Typography
+            variant="h5"
+            style={{ padding: "0 0 30px 0", textAlign: "center" }}
+          >
+            Login
+          </Typography>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ values, handleChange, errors, touched }: any) => (
+              <Form>
+                <Stack spacing={3} mb={2}>
+                  <div className="textfiled-row">
+                    <label>Email</label>
+                    <Field
+                      className="textfiled"
+                      name="email"
+                      value={values.email}
+                      as={TextField}
+                      onChange={handleChange}
+                      error={touched.email && Boolean(errors.email)}
+                      helperText={touched.email && errors.email}
+                    />
+                  </div>
+                  <div className="textfiled-row">
+                    <label>Password</label>
+                    <Field
+                      className="textfiled"
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      value={values.password}
+                      as={TextField}
+                      onChange={handleChange}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              onClick={() => setShowPassword(!showPassword)}
+                              edge="end"
+                            >
+                              {showPassword ? (
+                                <RemoveRedEyeIcon />
+                              ) : (
+                                <VisibilityOffIcon />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                      error={touched.password && Boolean(errors.password)}
+                      helperText={touched.password && errors.password}
+                    />
+                  </div>
+                </Stack>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  sx={{ my: 2 }}
+                >
+                  <FormControlLabel
+                    control={<Checkbox name="remember" />}
+                    label="Remember me"
+                  />
+                  <Link to="/reset-password">Forgot password?</Link>
+                </Stack>
+                <Button
+                  fullWidth
+                  className="save-btn"
+                  size="large"
+                  type="submit"
+                  variant="contained"
+                  onClick={handleSubmit}
+                >
+                  Login
+                </Button>
+              </Form>
+            )}
+          </Formik>
+          <div style={{ textAlign: "center", margin: "10px 0px" }}>
+            Not registered yet?
+            <Link to="/register" style={{ color: "blue", marginLeft: "5px" }}>
+              Create an Account
+            </Link>
+          </div>
+        </Box>
+      </div>
+
+      {/* <div>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={forgotOpen}
+          onClose={handleClose}
+        >
+          <Box sx={style}>
+            <Forgotpassword />
+          </Box>
+        </Modal>
+      </div> */}
+
+      <Footer />
+    </Box>
   );
 };
 
