@@ -60,10 +60,10 @@ const Sidebar = () => {
               <PlaceIcon className="slider-icon" />
               <span>listing</span>
             </li>
-            <li onClick={() => navigate("users")}>
+            {/* <li onClick={() => navigate("users")}>
               <MicIcon className="slider-icon" />
               <span>Annousments</span>
-            </li>
+            </li> */}
             <li onClick={() => navigate("event")}>
               <CalendarMonthIcon className="slider-icon" />
               <span>Events</span>
