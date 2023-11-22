@@ -15,15 +15,16 @@ import { Field, Form, Formik } from "formik";
 import * as yup from "yup";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import axios from "axios";
 // components
 import { useAuth } from "../../../hooks/auth";
 import Header from "../../LandingPage/header";
 import Footer from "../../LandingPage/footer";
+import Requests from "../../../services/Request";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
-  // localStorage.setItem("email", "mailto:admin@gmail.com");
+  const requestApiData = new Requests();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLogin] = useState(false);
   const [auth, setAuth] = useAuth();
@@ -41,30 +42,35 @@ const Login = () => {
 
   const handleSubmit = async (values: any) => {
     try {
+      // Handle undefined values
       if (!values.email || !values.password) {
-        // Handle undefined values
         console.error("Email or password is undefined");
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        {
-          emailOrUserName: values.email,
-          password: values.password,
-        }
-      );
-      console.log(response, "LLLLLLLLLLLLLLLLL");
+      const response = await requestApiData.loginRequest({
+        emailOrUserName: values.email,
+        password: values.password,
+      });
+
+      if (response.data.status === 200) {
+        navigate("/dashboard");
+        toast.success("Login Successfully.", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+
       if (response.data.isMailSent === false) {
         // Display an alert if the email is not verified
         alert(response.data.message);
         return;
       }
+      console.log(response, "response");
+
       setAuth({
         user: response.data.userData.userName,
         role: response.data.userData.role,
       });
-
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -72,15 +78,56 @@ const Login = () => {
           role: response.data.userData.role,
         })
       );
-      // if (response.status === 200) {
-      //   navigate("/dashboard");
-      // }
       navigate("/dashboard");
     } catch (error: any) {
-      alert(error.response.data.message);
+      alert(error.response?.data?.message || "An error occurred");
       console.error("API request failed", error);
-    } finally {
+      toast.error(error?.response?.data?.msg, {
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
+
+    // try {
+    //   if (!values.email || !values.password) {
+    //     // Handle undefined values
+    //     console.error("Email or password is undefined");
+    //     return;
+    //   }
+
+    //   const response = await axios.post(
+    //     "http://localhost:5000/api/auth/login",
+    //     {
+    //       emailOrUserName: values.email,
+    //       password: values.password,
+    //     }
+    //   );
+    //   console.log(response, "LLLLLLLLLLLLLLLLL");
+    //   if (response.data.isMailSent === false) {
+    //     // Display an alert if the email is not verified
+    //     alert(response.data.message);
+    //     return;
+    //   }
+    //   setAuth({
+    //     user: response.data.userData.userName,
+    //     role: response.data.userData.role,
+    //   });
+
+    //   localStorage.setItem(
+    //     "user",
+    //     JSON.stringify({
+    //       user: response.data.userData.userName,
+    //       role: response.data.userData.role,
+    //     })
+    //   );
+    //   // if (response.status === 200) {
+    //   //   navigate("/dashboard");
+    //   // }
+    //   navigate("/dashboard");
+    // } catch (error: any) {
+    //   alert(error.response.data.message);
+    //   console.error("API request failed", error);
+    // } finally {
+    // }
   };
 
   return (
@@ -162,7 +209,7 @@ const Login = () => {
                     control={<Checkbox name="remember" />}
                     label="Remember me"
                   />
-                  <Link to="/reset-password">Forgot password?</Link>
+                  <Link to="/forgot-password">Forgot password?</Link>
                 </Stack>
                 <Button
                   fullWidth

@@ -12,6 +12,8 @@ import { AuthProvider } from "./context/authcontext";
 import Routing from "./routes";
 import { useNavigate } from "react-router-dom";
 import AddListing from "./Pages/LandingPage/AddListing";
+// import { ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   // const userId = localStorage.getItem("email");
@@ -19,18 +21,20 @@ const App = () => {
   console.log(user, "userId");
   useNavigate();
   return (
-    <AuthProvider>
-      <div className="App">
-        {user ? (
-          <>
-            <div className="App-part1">
-              <Sidebar />
-            </div>
+    <>
+      <AuthProvider>
+        <div className="App">
+          {user ? (
+            <>
+              {/* <ToastContainer /> */}
+              <div className="App-part1">
+                <Sidebar />
+              </div>
 
-            <div className="App-part2">
-              <Navbar />
-              <Routing />
-              {/* <div className="allRoutes container">
+              <div className="App-part2">
+                <Navbar />
+                <Routing />
+                {/* <div className="allRoutes container">
                 <Routes>
                   <Route path="/">
                     <Route index element={<Dashboard />} />
@@ -94,23 +98,28 @@ const App = () => {
                   </Route>
                 </Routes>
               </div> */}
-              <Footer />
-            </div>
-          </>
-        ) : (
-          <>
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/add-listing" element={<AddListing />} />
-              <Route path="login" element={<Login />} />
-              <Route path="register" element={<Register />} />
-              <Route path="reset-password" element={<ResetpasswordForm />} />
-              <Route path="forgot-password" element={<Forgotpassword />} />
-            </Routes>
-          </>
-        )}
-      </div>
-    </AuthProvider>
+                <Footer />
+              </div>
+            </>
+          ) : (
+            <>
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/add-listing" element={<AddListing />} />
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<Register />} />
+                <Route path="reset-password" element={<ResetpasswordForm />} />
+                <Route path="forgot-password" element={<Forgotpassword />} />
+                <Route
+                  path="reset-password/:token"
+                  element={<ResetpasswordForm />}
+                />
+              </Routes>
+            </>
+          )}
+        </div>
+      </AuthProvider>
+    </>
   );
 };
 

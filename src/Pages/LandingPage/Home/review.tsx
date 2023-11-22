@@ -45,16 +45,19 @@ const Review = () => {
           <Grid className="section-heading"> What's happening?</Grid>
           <Slider {...settings}>
             {reviewData.map((item, index) => (
-              <Grid key={index}>
+              <Grid key={index} sx={{ padding: "10px" }}>
                 <Grid
                   sx={{
-                    padding: "10px",
+                    padding: "10px 10px 20px 10px",
                     backgroundColor: "#fff",
-                    margin: "10px",
+                    textAlign: "center",
                   }}
                 >
-                  {item.img}
-                  {item.title}
+                  <Grid>{item.img}</Grid>
+                  <Grid style={{ fontSize: "20px", paddingTop: "10px" }}>
+                    {" "}
+                    {item.title}
+                  </Grid>
                 </Grid>
               </Grid>
             ))}

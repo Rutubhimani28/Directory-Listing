@@ -4,66 +4,52 @@ import { useNavigate } from "react-router-dom";
 import {
   Stack,
   Button,
-  IconButton,
-  InputAdornment,
   TextField,
   Checkbox,
   FormControlLabel,
+  Box,
+  Typography,
 } from "@mui/material";
 // components
 import { useFormik } from "formik";
 import * as yup from "yup";
+
 import CircularProgress from "@mui/material/CircularProgress";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import Header from "../../LandingPage/header";
+import Footer from "../../LandingPage/footer";
+import axios from "axios";
 // ----------------------------------------------------------------------
 
-const Forgotpassword = () => {
+const ForgotPassword = () => {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState({
-    password: false,
-    confirmPassword: false,
-  });
-  const handleClickShowPassword = (field: any) => {
-    setShowPassword((prevShowPassword: any) => ({
-      ...prevShowPassword,
-      [field]: !prevShowPassword[field],
-    }));
-  };
   const [isLoading, setIsLogin] = useState(false);
 
   const initialValues = {
-    token: "",
-    password: "",
-    confirmPassword: "",
+    email: "",
   };
 
   // -----------  validationSchema
   const validationSchema = yup.object({
-    password: yup
-      .string()
-      .required("Password is required")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-        "Must Contain minimum 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-      ),
-    confirmPassword: yup
-      .string()
-      .required("confirmPassword is required")
-      .oneOf([yup.ref("password"), ""], "Password does not match"),
+    email: yup.string().email("Invalid email").required("Email is required"),
   });
 
   const Adddata = async (values: any) => {
-    // setIsLogin(true);
-    // const data = { ...values, token };
-
-    // const result = await apiput('/api/auth/forgotPassword', data);
-    // if (result && result.status === 200) {
-    //   alert('password updated successfully');
-    //   navigate('/login');
-    // }
-    // setIsLogin(false);
-    console.log(values);
+    try {
+      const result = await axios.post(
+        "http://localhost:5000/api/auth/forgotPassword",
+        values
+      );
+      if (result && result.status === 200) {
+        alert(result.data.message);
+        // navigate("/reset-password");
+      } else {
+        alert("Please provide a valid Email");
+      }
+    } catch (error) {
+      console.error("Error sending forgot password request:", error);
+      alert("An error occurred. Please try again."); // Handle error as needed
+    } finally {
+    }
   };
 
   // formik
@@ -76,87 +62,60 @@ const Forgotpassword = () => {
   });
 
   return (
-    <>
-      <form onSubmit={formik.handleSubmit}>
-        <Stack spacing={3} mb={2}>
-          <label>Password</label>
-          <TextField
-            name="password"
-            type={showPassword.password ? "text" : "password"}
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => handleClickShowPassword("password")}
-                    edge="end"
-                  >
-                    {showPassword.password ? (
-                      <RemoveRedEyeIcon />
-                    ) : (
-                      <VisibilityOffIcon />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
-          <label>Confirm Password</label>
-          <TextField
-            name="confirmPassword"
-            type={showPassword?.confirmPassword ? "text" : "password"}
-            value={formik.values.confirmPassword}
-            onChange={formik.handleChange}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => handleClickShowPassword("confirmPassword")}
-                    edge="end"
-                  >
-                    {showPassword?.confirmPassword ? (
-                      <RemoveRedEyeIcon />
-                    ) : (
-                      <VisibilityOffIcon />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            error={
-              formik.touched.confirmPassword &&
-              Boolean(formik.errors.confirmPassword)
-            }
-            helperText={
-              formik.touched.confirmPassword && formik.errors.confirmPassword
-            }
-          />
-        </Stack>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          sx={{ my: 2 }}
-        >
-          <FormControlLabel
-            control={<Checkbox name="remember" />}
-            label="Remember me"
-          />
-        </Stack>
-        <Button
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          disabled={!!isLoading}
-        >
-          {isLoading ? <CircularProgress /> : "Forget Password"}
-        </Button>
-      </form>
-    </>
+    <Box width="100%">
+      <Header />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          // alignItems: "center",
+          padding: "112px 0",
+        }}
+        className="loginbg"
+      >
+        <Box className="loginBox">
+          <Typography
+            variant="h5"
+            style={{ padding: "0 0 30px 0", textAlign: "center" }}
+          >
+            Forgot Password
+          </Typography>
+          <form onSubmit={formik.handleSubmit}>
+            <Stack spacing={3} mb={2}>
+              <label>Email</label>
+              <TextField
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+              />
+            </Stack>
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              sx={{ my: 2 }}
+            >
+              <FormControlLabel
+                control={<Checkbox name="remember" />}
+                label="Remember me"
+              />
+            </Stack>
+            <Button
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              disabled={!!isLoading}
+            >
+              {isLoading ? <CircularProgress /> : "Forget Password"}
+            </Button>
+          </form>
+        </Box>
+      </div>
+      <Footer />
+    </Box>
   );
 };
-export default Forgotpassword;
+export default ForgotPassword;
