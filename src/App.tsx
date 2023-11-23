@@ -12,11 +12,10 @@ import Routing from "./routes";
 import { useNavigate } from "react-router-dom";
 import AddListing from "./Pages/LandingPage/AddListing";
 import Login from "./Pages/auth/Login/login";
-// import { ToastContainer } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
-  // const userId = localStorage.getItem("email");
   const user = localStorage.getItem("user");
   console.log(user, "userId");
   useNavigate();
@@ -26,7 +25,7 @@ const App = () => {
         <div className="App">
           {user ? (
             <>
-              {/* <ToastContainer /> */}
+              <ToastContainer />
               <div className="App-part1">
                 <Sidebar />
               </div>

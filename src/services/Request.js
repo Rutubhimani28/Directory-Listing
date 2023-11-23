@@ -18,20 +18,20 @@ export default class Requests {
         })
     }
 
-    forgotPassword() {
+    forgotPassword(data) {
         return axios({
             method: 'POST',
             url: `${Api.forgotPassword}`,
-
+            data
             // headers: { Authorization: `TOKEN ${localStorage.getItem('Token')}` }
         })
     }
 
-    resetPassword() {
+    resetPassword(data) {
         return axios({
             method: 'POST',
             url: `${Api.resetPassword}`,
-
+            data
             // headers: { Authorization: `TOKEN ${localStorage.getItem('Token')}` },
             // body : JSON.parse()
         })

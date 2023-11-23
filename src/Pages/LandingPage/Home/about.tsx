@@ -75,7 +75,7 @@ const About = () => {
     <Container>
       <Grid container spacing={2} sx={{ flexGrow: 1, margin: "100px 0px" }}>
         {about.map((item, index) => (
-          <Grid xs={6} sm={6} md={4} lg={2}>
+          <Grid item xs={6} sm={6} md={4} lg={2} key={index}>
             <Grid key={index} className="about-box">
               {item.img}
               <h5>{item.name}</h5>
