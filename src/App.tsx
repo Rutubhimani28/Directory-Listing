@@ -12,12 +12,13 @@ import Routing from "./routes";
 import { useNavigate } from "react-router-dom";
 import AddListing from "./Pages/LandingPage/AddListing";
 import Login from "./Pages/auth/Login/login";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const user = localStorage.getItem("user");
   console.log(user, "userId");
+  const notify = () => toast("Wow so easy!");
   useNavigate();
   return (
     <>
@@ -102,6 +103,8 @@ const App = () => {
             </>
           ) : (
             <>
+              {/* <button onClick={notify}>Notify!</button> */}
+              <ToastContainer />
               <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/add-listing" element={<AddListing />} />

@@ -28,7 +28,6 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLogin] = useState(false);
   const [auth, setAuth] = useAuth();
-  console.log(auth, "PPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
   const initialValues = {
     email: "",
     password: "",
@@ -52,14 +51,6 @@ const Login = () => {
         emailOrUserName: values.email,
         password: values.password,
       });
-
-      if (response.data.status === 200) {
-        navigate("/dashboard");
-        toast.success("Login Successfully.", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-      }
-
       if (response.data.isMailSent === false) {
         // Display an alert if the email is not verified
         alert(response.data.message);
@@ -79,55 +70,15 @@ const Login = () => {
         })
       );
       navigate("/dashboard");
+      toast.success("Login Successfully.", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } catch (error: any) {
-      alert(error.response?.data?.message || "An error occurred");
       console.error("API request failed", error);
-      toast.error(error?.response?.data?.msg, {
-        position: toast.POSITION.TOP_CENTER,
+      toast.error("An error occurred. Please try again.", {
+        position: toast.POSITION.TOP_RIGHT,
       });
     }
-
-    // try {
-    //   if (!values.email || !values.password) {
-    //     // Handle undefined values
-    //     console.error("Email or password is undefined");
-    //     return;
-    //   }
-
-    //   const response = await axios.post(
-    //     "http://localhost:5000/api/auth/login",
-    //     {
-    //       emailOrUserName: values.email,
-    //       password: values.password,
-    //     }
-    //   );
-    //   console.log(response, "LLLLLLLLLLLLLLLLL");
-    //   if (response.data.isMailSent === false) {
-    //     // Display an alert if the email is not verified
-    //     alert(response.data.message);
-    //     return;
-    //   }
-    //   setAuth({
-    //     user: response.data.userData.userName,
-    //     role: response.data.userData.role,
-    //   });
-
-    //   localStorage.setItem(
-    //     "user",
-    //     JSON.stringify({
-    //       user: response.data.userData.userName,
-    //       role: response.data.userData.role,
-    //     })
-    //   );
-    //   // if (response.status === 200) {
-    //   //   navigate("/dashboard");
-    //   // }
-    //   navigate("/dashboard");
-    // } catch (error: any) {
-    //   alert(error.response.data.message);
-    //   console.error("API request failed", error);
-    // } finally {
-    // }
   };
 
   return (
@@ -137,7 +88,6 @@ const Login = () => {
         style={{
           display: "flex",
           justifyContent: "center",
-          // alignItems: "center",
           padding: "90px 0",
         }}
         className="loginbg"
