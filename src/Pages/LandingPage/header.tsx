@@ -174,38 +174,7 @@ function DrawerAppBar(props: any) {
       </nav>
       <Box style={{ width: "100%" }}>
         <Toolbar />
-      </Box>
-
-      <div>
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          open={loginOpen}
-          onClose={handleLoginClose}
-        >
-          <Box sx={style}>
-            <Box sx={{ width: "100%" }}>
-              <Box>
-                <Tabs
-                  className="loginTab"
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="basic tabs example"
-                >
-                  <Tab label="Login" {...a11yProps(0)} />
-                  <Tab label="Register" {...a11yProps(1)} />
-                </Tabs>
-              </Box>
-              <CustomTabPanel value={value} index={0}>
-                <Login />
-              </CustomTabPanel>
-              <CustomTabPanel value={value} index={1}>
-                <Register />
-              </CustomTabPanel>
-            </Box>
-          </Box>
-        </Modal>
-      </div>
+      </Box>     
     </Box>
   );
 }

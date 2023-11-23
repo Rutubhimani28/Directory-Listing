@@ -182,20 +182,6 @@ const Login = () => {
           </div>
         </Box>
       </div>
-
-      {/* <div>
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          open={forgotOpen}
-          onClose={handleClose}
-        >
-          <Box sx={style}>
-            <Forgotpassword />
-          </Box>
-        </Modal>
-      </div> */}
-
       <Footer />
     </Box>
   );

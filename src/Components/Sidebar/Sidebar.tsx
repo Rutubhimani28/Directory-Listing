@@ -43,7 +43,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="slider-content">
         <div className="slider-content-part1" onClick={() => navigate("/")}>
-          {/* <img src={logo} width={100} /> */}
+          {/* <img src={require("../../images/logo.png")} width={100} /> */}
           Prolink
         </div>
         <div className="slider-content-part2 container">

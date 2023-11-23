@@ -23,6 +23,7 @@
     "apexcharts": "^3.43.2-0",
     "axios": "^1.6.2",
     "formik": "^2.4.5",
+    "google-maps-react": "^2.0.6",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
