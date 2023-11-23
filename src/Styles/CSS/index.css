@@ -6,6 +6,8 @@
 @import "../../Components/Sidebar/sidebar.css";
 @import "../../Pages/myProfile/style.css";
 @import "../../Pages/myfavorite/style.css";
+@import "../../Pages/LandingPage/header.css";
+@import "../../Pages/auth/Login/login.css";
 * {
   padding: 0px;
   margin: 0px;
