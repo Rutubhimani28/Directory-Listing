@@ -12,13 +12,8 @@ import Routing from "./routes";
 import { useNavigate } from "react-router-dom";
 import AddListing from "./Pages/LandingPage/AddListing";
 import Login from "./Pages/auth/Login/login";
-<<<<<<< HEAD
-// import { ToastContainer } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
-=======
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
->>>>>>> 4eac24a1253c49b5e8c5353ac64c2d2889d6687d
 
 const App = () => {
   const user = localStorage.getItem("user");
