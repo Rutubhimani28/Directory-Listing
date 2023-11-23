@@ -211,10 +211,10 @@ import { Field, Form, Formik } from "formik";
 import * as yup from "yup";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import axios from "axios";
 import Header from "../../LandingPage/header";
 import Footer from "../../LandingPage/footer";
 import Requests from "../../../services/Request";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -259,12 +259,16 @@ const Signup = () => {
         newPassword: values.newPassword,
       });
       if (result && result.status === 200) {
-        alert("Password updated successfully");
+        toast.success("Password updated successfully.", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
         navigate("/login");
       }
     } catch (error) {
       console.error("Error resetting password:", error);
-      alert("An error occurred. Please try again.");
+      toast.error("An error occurred. Please try again.", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     } finally {
     }
   };

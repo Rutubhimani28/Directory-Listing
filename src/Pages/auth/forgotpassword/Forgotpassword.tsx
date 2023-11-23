@@ -19,6 +19,7 @@ import Header from "../../LandingPage/header";
 import Footer from "../../LandingPage/footer";
 import axios from "axios";
 import Requests from "../../../services/Request";
+import { toast } from "react-toastify";
 // ----------------------------------------------------------------------
 
 const ForgotPassword = () => {
@@ -40,14 +41,19 @@ const ForgotPassword = () => {
       const result = await requestApiData.forgotPassword(values);
 
       if (result && result.status === 200) {
-        alert(result.data.message);
+        toast.success(result.data.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        // alert(result.data.message);
         // navigate("/reset-password");
       } else {
         alert("Please provide a valid Email");
       }
     } catch (error) {
       console.error("Error sending forgot password request:", error);
-      alert("An error occurred. Please try again."); // Handle error as needed
+      toast.error("An error occurred. Please try again.", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     } finally {
     }
   };
