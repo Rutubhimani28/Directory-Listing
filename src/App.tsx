@@ -3,7 +3,6 @@ import Sidebar from "../src/Components/Sidebar/Sidebar";
 import Navbar from "../src/Components/Navbar/Navbar";
 import Footer from "../src/Components/footer/footer";
 import { Routes, Route } from "react-router-dom";
-import Login from "./Pages/auth/Login/login";
 import Register from "./Pages/auth/register/RegisterForm";
 import ResetpasswordForm from "./Pages/auth/resetpassword/ResetpasswordForm";
 import Forgotpassword from "./Pages/auth/forgotpassword/Forgotpassword";
@@ -12,6 +11,7 @@ import { AuthProvider } from "./context/authcontext";
 import Routing from "./routes";
 import { useNavigate } from "react-router-dom";
 import AddListing from "./Pages/LandingPage/AddListing";
+import Login from "./Pages/auth/Login/login";
 // import { ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 
