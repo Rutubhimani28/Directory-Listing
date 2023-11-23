@@ -18,10 +18,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Header from "../../LandingPage/header";
 import Footer from "../../LandingPage/footer";
 import axios from "axios";
+import Requests from "../../../services/Request";
 // ----------------------------------------------------------------------
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
+  const requestApiData = new Requests();
   const [isLoading, setIsLogin] = useState(false);
 
   const initialValues = {
@@ -35,10 +37,8 @@ const ForgotPassword = () => {
 
   const Adddata = async (values: any) => {
     try {
-      const result = await axios.post(
-        "http://localhost:5000/api/auth/forgotPassword",
-        values
-      );
+      const result = await requestApiData.forgotPassword(values);
+
       if (result && result.status === 200) {
         alert(result.data.message);
         // navigate("/reset-password");

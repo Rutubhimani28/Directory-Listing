@@ -40,7 +40,7 @@ const Cards = () => {
     <div className="dashboard-card">
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         {cardData.map((data: any, index: any) => (
-          <Grid item xs={12} md={6} lg={4}>
+          <Grid item xs={12} md={6} lg={4} key={index}>
             <div className="widget-single" key={index}>
               <div className="wedget-single-line1">
                 <p>{data.title}</p>

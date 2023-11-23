@@ -195,7 +195,7 @@
 // export default ResetPassword;
 
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Stack,
   IconButton,
@@ -204,7 +204,6 @@ import {
   Checkbox,
   FormControlLabel,
   Button,
-  CircularProgress,
   Box,
   Typography,
 } from "@mui/material";
@@ -215,10 +214,12 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import axios from "axios";
 import Header from "../../LandingPage/header";
 import Footer from "../../LandingPage/footer";
+import Requests from "../../../services/Request";
 
 const Signup = () => {
   const navigate = useNavigate();
   const { token } = useParams();
+  const requestApiData = new Requests();
   const [showPassword, setShowPassword] = useState({
     newPassword: false,
     ConfirmPassword: false,
@@ -253,15 +254,10 @@ const Signup = () => {
         console.error("New Password is undefined");
         return;
       }
-      const result = await axios.post(
-        "http://localhost:5000/api/auth/resetForgottenPassword",
-        // values
-        {
-          resetPswdToken: values.resetPswdToken,
-          newPassword: values.newPassword,
-        }
-      );
-      console.log(result, "resultKKKKKKKKKKKKK");
+      const result = await requestApiData.resetPassword({
+        resetPswdToken: values.resetPswdToken,
+        newPassword: values.newPassword,
+      });
       if (result && result.status === 200) {
         alert("Password updated successfully");
         navigate("/login");
