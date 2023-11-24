@@ -45,8 +45,8 @@ const GoogleMap = ({ google, location, stateLocation }) => {
           style={{
             // width: '100%',
             overFlow: 'hidden',
-            height: '580px',
-            margin: '20px 0px 0px 20px',
+            height: '400px',
+            margin: '20px 32px 0 -32px',
           }}
         >
           <Marker
