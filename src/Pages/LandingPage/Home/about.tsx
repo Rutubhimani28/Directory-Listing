@@ -7,7 +7,6 @@ import ContentCutIcon from "@mui/icons-material/ContentCut";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import { Container } from "@mui/material";
-// import AboutImg from "../../../images/about1.jpg"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -70,6 +69,22 @@ const About = () => {
     className: "sample",
     slidesToShow: 4,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: true,
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          arrows: true,
+          slidesToShow: 1,
+        },
+      },
+    ],
   };
   return (
     <Container>
@@ -87,14 +102,14 @@ const About = () => {
 
       <Grid sx={{ padding: "40px 0" }}>
         <Slider {...settings}>
-          {popularData.map((imageUrl, index) => (
+          {popularData.map((item, index) => (
             <Grid key={index}>
               <Grid>
                 <div className="about-img">
-                  {imageUrl.img}
+                  {item.img}
                   <Grid className="about-text">
-                    <p> {imageUrl.text}</p>
-                    <h3>{imageUrl.city}</h3>
+                    <p>{item.text}</p>
+                    <h3>{item.city}</h3>
                   </Grid>
                 </div>
               </Grid>

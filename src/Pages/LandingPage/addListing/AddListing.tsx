@@ -228,10 +228,10 @@ const AddListing = () => {
                 fullWidth
               />
             </Grid>
-            <GoogleMap
+            {/* <GoogleMap
               location={location}
               stateLocation={{ lat: "", lng: "" }}
-            />
+            /> */}
           </Box>
         </Modal>
       </div>

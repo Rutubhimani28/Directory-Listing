@@ -6,13 +6,11 @@
   align-items: center;
   background-position: top;
   width: 100%;
-  height: 70vh;
   background-image: url(../../../images/banner.jpg);
   transition: all 0.5s ease-in-out;
   background-repeat: no-repeat;
   background-color: #fff;
   background-size: cover;
-  padding: 0px !important;
   justify-content: center;
   z-index: 9;
 }
@@ -24,7 +22,7 @@
   left: 0px;
   background-color: rgb(0, 0, 0);
   width: 100%;
-  height: 70vh;
+  height: 100%;
   z-index: -1;
   opacity: 0.4;
 }
@@ -32,13 +30,12 @@
 .banner p {
   color: #fff;
   font-size: 1rem;
-  margin-bottom: 50px;
+  margin: 30px 0px 30px 0px;
   font-weight: 400;
 }
 
 .banner-title {
   color: #fff;
-  font-size: 3.5rem;
   font-weight: 600;
   text-align: center;
 }
@@ -49,7 +46,8 @@
 }
 
 .search-btn {
-  padding: 13.5px 16px !important;
+  width: fit-content;
+  height: 52px !important;
   border-radius: 0px !important;
   background-color: black !important;
 }
@@ -79,12 +77,6 @@
 .about-box:hover h5 {
   color: #fff;
 }
-
-/* .about-box:hover {
-  background-color: #3e98c7;
-  color: #fff;
-  box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
-} */
 
 .about-box::after {
   content: '';
@@ -246,4 +238,46 @@
   display: flex;
   align-items: center;
   color: #999;
+}
+
+/* <-----------------------------------------------------counter--------------------------------> */
+.counter-bg {
+  background: url(../../../images/counter.webp);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.counter-title {
+  color: #fff;
+  text-align: center;
+  font-size: 45px;
+  padding: 55px 0px 55px 0px;
+}
+
+.counter-box {
+  display: flex;
+  padding: 28px !important;
+  color: #fff;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column !important;
+}
+
+.counter-text {
+  border: 4px solid #ffffff99;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  color: #fff;
+  line-height: 150px;
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.get-btn {
+  color: #fff !important;
+  border: 2px solid #ffffff99 !important;
 }

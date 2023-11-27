@@ -13,21 +13,19 @@ const Banner = () => {
     ];
     return (
         <>
-            <div className='banner'>
-                <div className='banner-title'>
+            <Grid className='banner' sx={{ padding: { lg: "100px 0p", md: "70px 0px", sm: "50px 30px", xs: "20px 10px" } }}>
+                <Grid className='banner-title' sx={{ fontSize: { xs: "40px", sm: "45px", md: "56px", lg: "56px" } }}>
                     What's Your Plan Today ?
                     <p>All the top locations – from restaurants and clubs, to galleries, famous places and more..</p>
-
-
-                    <div style={{ display: "flex", alignItems: "start" }}>
-                        <div>
+                    <Grid container spacing={0}>
+                        <Grid item xs={12} sm={12} md={6} lg={6} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                             <Autocomplete
                                 id="combo-box-demo"
                                 options={top100Films}
                                 sx={{ width: 300, borderRadius: "0" }}
                                 // value={value}
                                 getOptionLabel={(option) => option.label}
-
+                                fullWidth
                                 renderInput={(params) => (
                                     <TextField {...params} placeholder="Ex:food,service,barber,hotel" InputProps={{
                                         ...params.InputProps,
@@ -40,30 +38,40 @@ const Banner = () => {
                                     }} sx={{ backgroundColor: "white", borderRadius: "0" }} />
                                 )}
                             />
-                        </div>
-                        <div>
-                            <Autocomplete
-                                id="combo-box-demo"
-                                options={top100Films}
-                                sx={{ width: 300, borderRadius: "0" }}
-                                renderInput={(params) => <TextField {...params} placeholder="Your City..." InputProps={{
-                                    ...params.InputProps,
-                                    startAdornment: (
-                                        <>
-                                            <span style={{ fontWeight: "bold" }}>Where</span>
-                                            {params.InputProps.startAdornment}
-                                        </>
-                                    ),
-                                }} sx={{ backgroundColor: "white", borderRadius: "0" }} />}
-                            />
-                        </div>
-                        <Button variant="contained" className='search-btn'>
-                            <SearchOutlined />
-                        </Button>
-                    </div>
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={6} lg={6} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                            <Grid sx={{
+                                display: "flex", textAlign: "center", justifyContent: "center", alignItems: { xs: "center", sx: "center", md: "start", lg: "start", },
+                                flexDirection: { xs: "column", sm: "column", md: "row", lg: "row" }
+                            }}>
+                                <Autocomplete
+                                    id="combo-box-demo"
+                                    options={top100Films}
+                                    fullWidth
+                                    sx={{ width: 300, borderRadius: "0" }}
+                                    renderInput={(params) => <TextField {...params} placeholder="Your City..." InputProps={{
+                                        ...params.InputProps,
+                                        startAdornment: (
+                                            <>
+                                                <span style={{ fontWeight: "bold" }}>Where</span>
+                                                {params.InputProps.startAdornment}
+                                            </>
+                                        ),
+                                    }} sx={{ backgroundColor: "white", borderRadius: "0" }} />}
+                                />
+                                <Button variant="contained" className='search-btn' sx={{ display: { xs: "none", sm: "none", md: "block", lg: "block" } }} >
+                                    <SearchOutlined />
+                                </Button>
+                                <Button variant="contained" className='search-btn' sx={{ display: { xs: "block", sm: "block", md: "none", lg: "none" } }} >
+                                    Search Now
+                                </Button>
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
                     <p>Just looking around? Let us suggest you <br />something hot & happening!</p>
-                </div>
-            </div>
+                </Grid>
+            </Grid>
 
         </>
     )

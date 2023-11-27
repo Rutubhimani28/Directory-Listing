@@ -19,42 +19,16 @@ import {
   IconButton,
   CssBaseline,
   Toolbar,
+  Grid,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import Login from "../auth/Login";
-import Register from "../auth/register/RegisterForm";
-import Home from "./Home/home";
-const drawerWidth = 240;
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 2,
-};
 
 function DrawerAppBar(props: any) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
-  const [loginOpen, setLoginOpen] = useState(false);
   const handleLoginOpen = () => {
     navigate("/login");
-    // setLoginOpen(true);
   };
-  const handleLoginClose = () => setLoginOpen(false);
-  const [value, setValue] = useState(0);
 
-  const handleChange = (event: any, newValue: any) => {
-    setValue(newValue);
-  };
-  const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
-  };
   const handleAddlisting = () => {
     navigate("/add-listing");
   };
@@ -85,30 +59,6 @@ function DrawerAppBar(props: any) {
     value: PropTypes.number.isRequired,
   };
 
-  function a11yProps(index: any) {
-    return {
-      id: `simple-tab-${index}`,
-      "aria-controls": `simple-tabpanel-${index}`,
-    };
-  }
-
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        <img src={require("../../../src/images/logo.png")} width={80} />
-      </Typography>
-      <Divider />
-      <List>
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: "center" }}></ListItemButton>
-        </ListItem>
-      </List>
-    </Box>
-  );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ display: "flex", width: "100%" }}>
       <CssBaseline />
@@ -116,15 +66,14 @@ function DrawerAppBar(props: any) {
         component="nav"
         style={{ backgroundColor: "#fff", color: "#3e98c7" }}
       >
-        <Toolbar>
+        <Toolbar sx={{ justifyContent: "space-between" }}>
           <IconButton
             color="inherit"
             aria-label="loginOpen drawer"
             edge="start"
-            onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <MenuIcon />
+            <img src={require("../../../src/images/logo.png")} width={50} />
           </IconButton>
           <Typography
             variant="h4"
@@ -133,7 +82,7 @@ function DrawerAppBar(props: any) {
           >
             Prolink
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <Box>
             <Button
               sx={{ color: "#3e98c7", marginRight: "10px", fontWeight: "600" }}
               onClick={handleLoginOpen}
@@ -143,38 +92,19 @@ function DrawerAppBar(props: any) {
             </Button>
             <Button
               variant="outlined"
-              sx={{ color: "#3e98c7", fontWeight: "700" }}
+              sx={{ color: "#3e98c7", fontWeight: "700", padding: "5px 5px 5px 0px" }}
               onClick={handleAddlisting}
             >
               <AddOutlinedIcon />
               Add Listing
             </Button>
           </Box>
+
         </Toolbar>
       </AppBar>
-      <nav>
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
-      </nav>
       <Box style={{ width: "100%" }}>
         <Toolbar />
-      </Box>     
+      </Box>
     </Box>
   );
 }
