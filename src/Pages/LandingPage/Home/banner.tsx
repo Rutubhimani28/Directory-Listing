@@ -1,5 +1,6 @@
 import React from 'react'
 import { Autocomplete, Button, Grid, Paper, TextField } from "@mui/material";
+import Typed from 'react-typed';
 import SearchOutlined from "@mui/icons-material/SearchOutlined";
 const Banner = () => {
     const top100Films = [
@@ -15,7 +16,16 @@ const Banner = () => {
         <>
             <Grid className='banner' sx={{ padding: { lg: "100px 0p", md: "70px 0px", sm: "50px 30px", xs: "20px 10px" } }}>
                 <Grid className='banner-title' sx={{ fontSize: { xs: "40px", sm: "45px", md: "56px", lg: "56px" } }}>
-                    What's Your Plan Today ?
+                    Find Nearby
+                    <Typed
+                        strings={[' Hotels', ' Restaurants', ' Beauty', ' Fitn']}
+                        typeSpeed={100}
+                        backSpeed={100}
+                        loop={true}
+                        smartBackspace={true}
+                        showCursor={false}
+                        style={{ color: "#fff" }}
+                    />
                     <p>All the top locations – from restaurants and clubs, to galleries, famous places and more..</p>
                     <Grid container spacing={0}>
                         <Grid item xs={12} sm={12} md={6} lg={6} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
