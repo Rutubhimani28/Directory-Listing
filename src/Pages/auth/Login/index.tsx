@@ -118,6 +118,7 @@ const Index = (props: any) => {
       setAuth({
         user: response.data.userData.userName,
         role: response.data.userData.role,
+        token: response.data.authToken,
       });
 
       localStorage.setItem(
@@ -125,6 +126,7 @@ const Index = (props: any) => {
         JSON.stringify({
           user: response.data.userData.userName,
           role: response.data.userData.role,
+          token: response.data.authToken,
         })
       );
       if (response.status === 200) {

@@ -46,8 +46,9 @@ const AddListing = () => {
     { day: "Staurday", openingHours: "1:00", closingHours: "8:00" },
     { day: "Sunday", openingHours: "1:00", closingHours: "8:00" },
   ];
-
+  console.log(hours, "hours");
   const [checked, setChecked] = useState(false);
+  const [gallary, setGallary] = useState<any>([]);
   const [banner, setBanner] = useState<any>([]);
   const [isChecked, setIsChecked] = useState(Array(hours.length).fill(false));
   const [isGridDisabled, setIsGridDisabled] = useState(false);
@@ -84,6 +85,7 @@ const AddListing = () => {
       });
     }
     setOpeningHours(newOpeningHours);
+    console.log(openingHours, "openingHours");
   };
   const handleclosingHoursChange = (e: any, index: any) => {
     const newClosingHours: any = [...closingHours];
@@ -109,35 +111,14 @@ const AddListing = () => {
   const handleMapClose = () => setMapOpen(false);
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
-  const initialValues = {
-    listingTitle: "",
-    address: {
-      lat: "",
-      lan: "",
-    },
-    city: "",
-    phone: "",
-    website: "",
-    category: "",
-    faqs: [{ faq: "", answer: "" }],
-  };
-  // -----------  validationSchema
-  const validationSchema = yup.object({
-    listingTitle: yup.string().required("Listing Title is required"),
-    address: yup.string().required("Password is required"),
-  });
-
-  const handleSubmit = async (values: any) => {
-    console.log(values, "values");
-  };
 
   const location = (e: any) => {
     setUserLocation({
       lat: e?.lat(),
       lng: e?.lng(),
     });
-    console.log("eeeeeeeeee", e.lat(), e.lng(), userLocation);
   };
+  console.log("eeeeeeeeee", userLocation);
   const handleMapSubmit = () => {
     handleMapClose();
   };
@@ -158,7 +139,7 @@ const AddListing = () => {
     { label: "Landscaping Services", value: "Landscaping Services" },
     { label: "Mexican", value: "Mexican" },
     { label: "Piza", value: "Piza" },
-    { label: "Real Estate", value: "Real Estate" },
+    // { label: "Real Estate", value: "Real Estate" },
     { label: "Restaurant", value: "Restaurant" },
     { label: "Sandwiches", value: "Sandwiches" },
     { label: "Services", value: "Services" },
@@ -196,14 +177,62 @@ const AddListing = () => {
       />
     ));
   }
+
   const handleUpload = (files: File[]) => {
-    // Handle the uploaded files (e.g., send them to the server)
-    console.log("Uploaded files:", files);
+    const fileNamesArray: any = files.map((item: any) => item.name);
+    // console.log("File Names Array:", fileNamesArray);
+    setGallary(fileNamesArray);
+    return fileNamesArray;
   };
+  console.log(gallary);
+  const initialValues = {
+    listingTitle: "",
+    address: {
+      lat: userLocation.lat,
+      lan: userLocation.lng,
+    },
+    city: "",
+    phone: "",
+    website: "",
+    category: "",
+    faqs: [{ faq: "", answer: "" }],
+  };
+
+  // -----------  validationSchema
+  const validationSchema = yup.object({
+    listingTitle: yup.string().required("Listing Title is required"),
+    address: yup.string().required("address is required"),
+  });
+
+  const handleSubmit = (values: any) => {
+    const payload = {
+      listingTitle: values.listingTitle,
+      address: {
+        lat: userLocation.lat,
+        lan: userLocation.lng,
+      },
+      city: values.city,
+      phone: values.phone,
+      website: values.website,
+      category: values.category.value,
+      faqs: values.faqs,
+      instagram: values.instagram,
+      facebook: values.facebook,
+      twitter: values.twitter,
+      linkedin: values.linkedin,
+      bsVideoUrl: values.video,
+      bsImages: gallary,
+      bsLogo: img[0].key,
+      businessHours: [
+        { day: "", timeFrom: "", timeTo: "", isOpenFullDay: true },
+      ],
+    };
+    console.log(payload, "values");
+  };
+
   return (
     <Box width="100%">
       <Header />
-
       <div
         style={{
           padding: "60px 0",
@@ -215,7 +244,7 @@ const AddListing = () => {
           <Grid item xs={12} md={6} sx={{ margin: "0 30px" }}>
             <Formik
               initialValues={initialValues}
-              validationSchema={validationSchema}
+              // validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
               {({
@@ -226,6 +255,7 @@ const AddListing = () => {
                 setFieldValue,
               }: any) => (
                 <Form>
+                  {/* Primary Listing Details */}
                   <Box className="addListingBox">
                     <Typography
                       variant="h5"
@@ -248,6 +278,7 @@ const AddListing = () => {
                         helperText={touched.listingTitle && errors.listingTitle}
                       />
                     </div>
+
                     <Grid sx={{ cursor: "pointer", textAlign: "end" }}>
                       <Checkbox
                         {...label}
@@ -307,14 +338,12 @@ const AddListing = () => {
                               disabled
                               placeholder="Latitude"
                               className="textfiled"
-                              name="latitude"
+                              name="lat"
                               value={userLocation.lat}
                               as={TextField}
                               onChange={handleChange}
-                              error={
-                                touched.latitude && Boolean(errors.latitude)
-                              }
-                              helperText={touched.latitude && errors.latitude}
+                              error={touched.lat && Boolean(errors.lat)}
+                              helperText={touched.lat && errors.lat}
                             />
                           </div>
                         </Grid>
@@ -325,14 +354,12 @@ const AddListing = () => {
                               disabled
                               placeholder="Longitude"
                               className="textfiled"
-                              name="longitude"
+                              name="lng"
                               value={userLocation.lng}
                               as={TextField}
                               onChange={handleChange}
-                              error={
-                                touched.longitude && Boolean(errors.longitude)
-                              }
-                              helperText={touched.longitude && errors.longitude}
+                              error={touched.lng && Boolean(errors.lng)}
+                              helperText={touched.lng && errors.lng}
                             />
                           </div>
                         </Grid>
@@ -419,6 +446,7 @@ const AddListing = () => {
                       Submit
                     </Button> */}
                   </Box>
+                  {/* category */}
                   <Box className="addListingBox">
                     <Typography
                       variant="h5"
@@ -440,6 +468,7 @@ const AddListing = () => {
                       />
                     </div>
                   </Box>
+                  {/* openning hour */}
                   <Box className="addListingBox">
                     <Typography
                       variant="h5"
@@ -665,6 +694,7 @@ const AddListing = () => {
                       ))}
                     </Grid>
                   </Box>
+                  {/* social */}
                   <Box className="addListingBox">
                     <Typography
                       variant="h5"
@@ -692,7 +722,6 @@ const AddListing = () => {
                           <div className="textfiled-row">
                             <label>Linked in URL</label>
                             <Field
-                              disabled
                               className="textfiled"
                               name="linkedin"
                               value={values.linkedin}
@@ -709,7 +738,6 @@ const AddListing = () => {
                           <div className="textfiled-row">
                             <label>Facebook URL</label>
                             <Field
-                              disabled
                               className="textfiled"
                               name="facebook"
                               value={values.facebook}
@@ -726,7 +754,6 @@ const AddListing = () => {
                           <div className="textfiled-row">
                             <label>Twitter URL</label>
                             <Field
-                              disabled
                               className="textfiled"
                               name="twitter"
                               value={values.twitter}
@@ -741,7 +768,6 @@ const AddListing = () => {
                           <div className="textfiled-row">
                             <label>Instagram URL</label>
                             <Field
-                              disabled
                               className="textfiled"
                               name="instagram"
                               value={values.instagram}
@@ -757,6 +783,7 @@ const AddListing = () => {
                       </Grid>
                     </div>
                   </Box>
+                  {/* faq */}
                   <Box className="addListingBox">
                     <Typography
                       variant="h5"
@@ -789,10 +816,12 @@ const AddListing = () => {
                                       />
                                     </div>
                                     <div className="textfiled-row">
-                                      <TextField
+                                      <Field
+                                        name={`faqs[${index}].answer`}
                                         id="outlined-basic"
                                         variant="outlined"
                                         multiline
+                                        as={TextField}
                                         rows={3}
                                         placeholder="Answer"
                                       />
@@ -828,6 +857,7 @@ const AddListing = () => {
                       />
                     </div>
                   </Box>
+                  {/* media */}
                   <Box className="addListingBox">
                     <Typography
                       variant="h5"
@@ -890,7 +920,7 @@ const AddListing = () => {
                       size="large"
                       type="submit"
                       variant="contained"
-                      onClick={handleSubmit}
+                      // onClick={handleSubmit}
                     >
                       Submit
                     </Button>

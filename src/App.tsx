@@ -18,7 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   const user = localStorage.getItem("user");
   console.log(user, "userId");
-  const notify = () => toast("Wow so easy!");
+ 
   useNavigate();
   return (
     <>

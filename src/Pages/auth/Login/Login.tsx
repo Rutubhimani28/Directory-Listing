@@ -54,6 +54,7 @@ const Login = () => {
       if (response.data.isMailSent === false) {
         // Display an alert if the email is not verified
         alert(response.data.message);
+        toast.success(response.data.message);
         return;
       }
       console.log(response, "response");
@@ -61,23 +62,21 @@ const Login = () => {
       setAuth({
         user: response.data.userData.userName,
         role: response.data.userData.role,
+        token: response.data.authToken,
       });
       localStorage.setItem(
         "user",
         JSON.stringify({
           user: response.data.userData.userName,
           role: response.data.userData.role,
+          token: response.data.authToken,
         })
       );
       navigate("/dashboard");
-      toast.success("Login Successfully.", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      toast.success("Login Successfully.");
     } catch (error: any) {
-      console.error("API request failed", error);
-      toast.error("An error occurred. Please try again.", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      console.log("API request failed", error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
