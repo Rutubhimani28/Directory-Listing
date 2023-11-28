@@ -10,12 +10,19 @@ import {
   Modal,
   Button,
   FormLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
-import { Field, Form, Formik } from "formik";
+import { Field, FieldArray, Form, Formik } from "formik";
 import * as yup from "yup";
 import PinDropIcon from "@mui/icons-material/PinDrop";
 import GoogleMap from "./GoogleMap";
 import CloseIcon from "@mui/icons-material/Close";
+import EditableSelectField from "../../../Components/commonComponents/autoComplete";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+import { useDropzone } from "react-dropzone";
+import MultiFileUpload from "./fileUpload";
 
 const style = {
   position: "absolute" as "absolute",
@@ -30,19 +37,76 @@ const style = {
 };
 
 const AddListing = () => {
+  const hours = [
+    { day: "Monday", openingHours: "1:00", closingHours: "8:00" },
+    { day: "Tuesday", openingHours: "1:00", closingHours: "8:00" },
+    { day: "Wednesday", openingHours: "1:00", closingHours: "8:00" },
+    { day: "Thrusday", openingHours: "1:00", closingHours: "8:00" },
+    { day: "Friday", openingHours: "1:00", closingHours: "8:00" },
+    { day: "Staurday", openingHours: "1:00", closingHours: "8:00" },
+    { day: "Sunday", openingHours: "1:00", closingHours: "8:00" },
+  ];
+
   const [checked, setChecked] = useState(false);
+  const [banner, setBanner] = useState<any>([]);
+  const [isChecked, setIsChecked] = useState(Array(hours.length).fill(false));
+  const [isGridDisabled, setIsGridDisabled] = useState(false);
+  const [is24HoursOpen, setIs24HoursOpen] = useState(
+    Array(hours.length).fill(false)
+  );
+
+  const [openingHours, setOpeningHours] = useState(
+    Array(hours.length).fill("12:00 am")
+  );
+  const [closingHours, setClosingHours] = useState(
+    Array(hours.length).fill("12:00 pm")
+  );
   const [mapOpen, setMapOpen] = useState(false);
   const [userLocation, setUserLocation] = useState<any>({
     lat: null,
     lng: null,
   });
-  const handleMapOpen = () => setMapOpen(true);
-  const handleMapClose = () => setMapOpen(false);
+  const handleOpenningHoursChange = (e: any, index: any) => {
+    const newOpeningHours: any = [...openingHours];
+    newOpeningHours[index] = e.target.value;
+
+    if (e.target.value === "24 Hours Open") {
+      setIs24HoursOpen((prev) => {
+        const newState = [...prev];
+        newState[index] = true;
+        return newState;
+      });
+    } else {
+      setIs24HoursOpen((prev) => {
+        const newState = [...prev];
+        newState[index] = false;
+        return newState;
+      });
+    }
+    setOpeningHours(newOpeningHours);
+  };
+  const handleclosingHoursChange = (e: any, index: any) => {
+    const newClosingHours: any = [...closingHours];
+    newClosingHours[index] = e.target.value;
+    setClosingHours(newClosingHours);
+  };
+
+  const handleCheckboxChange = (index: any) => {
+    const newIsChecked = [...isChecked];
+    newIsChecked[index] = !newIsChecked[index];
+    setIsChecked(newIsChecked);
+
+    // Check if all checkboxes are unchecked
+    const allUnchecked = newIsChecked.every((value) => !value);
+    setIsGridDisabled(allUnchecked);
+  };
   const handleCheckeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // setChecked(!checked);
     console.log(checked);
     setChecked(event.target.checked);
   };
+  const handleMapOpen = () => setMapOpen(true);
+  const handleMapClose = () => setMapOpen(false);
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const initialValues = {
@@ -51,6 +115,11 @@ const AddListing = () => {
       lat: "",
       lan: "",
     },
+    city: "",
+    phone: "",
+    website: "",
+    category: "",
+    faqs: [{ faq: "", answer: "" }],
   };
   // -----------  validationSchema
   const validationSchema = yup.object({
@@ -72,8 +141,65 @@ const AddListing = () => {
   const handleMapSubmit = () => {
     handleMapClose();
   };
+  const categoryList = [
+    { label: "Arts & Entertainment", value: "Arts & Entertainment" },
+    { label: "Automotive", value: "Automotive" },
+    { label: "Bars", value: "Bars" },
+    { label: "Beauty & Spa", value: "Beauty & Spa" },
+    { label: "Brazilian", value: "Brazilian" },
+    { label: "Burgers", value: "Burgers" },
+    { label: "Desserts", value: "Desserts" },
+    { label: "Emergency Shelters", value: "Emergency Shelters" },
+    { label: "Fast Food", value: "Fast Food" },
+    { label: "Health & Medical", value: "Health & Medical" },
+    { label: "Hot Dogs", value: "Hot Dogs" },
+    { label: "Hotels", value: "Hotels" },
+    { label: "Italian", value: "Italian" },
+    { label: "Landscaping Services", value: "Landscaping Services" },
+    { label: "Mexican", value: "Mexican" },
+    { label: "Piza", value: "Piza" },
+    { label: "Real Estate", value: "Real Estate" },
+    { label: "Restaurant", value: "Restaurant" },
+    { label: "Sandwiches", value: "Sandwiches" },
+    { label: "Services", value: "Services" },
+    { label: "Shopping", value: "Shopping" },
+  ];
+  const { getRootProps, getInputProps } = useDropzone({
+    multiple: false,
+    accept: {
+      "image/*": [".png", ".jpg", ".jpeg"],
+    },
+    onDrop: (acceptedFiles) => {
+      setBanner(acceptedFiles.map((file: any) => Object.assign(file)));
+    },
+  });
 
-  console.log("userLocation", userLocation);
+  let img: any = "";
+  if (banner.length == 0) {
+    img = (
+      <img
+        className="single-file-image"
+        src={banner}
+        width="100px"
+        height="100px"
+      />
+    );
+  } else {
+    img = banner.map((file: any) => (
+      <img
+        key={file?.name}
+        alt={file?.name}
+        className="single-file-image"
+        src={URL.createObjectURL(file)}
+        width="100px"
+        height="100px"
+      />
+    ));
+  }
+  const handleUpload = (files: File[]) => {
+    // Handle the uploaded files (e.g., send them to the server)
+    console.log("Uploaded files:", files);
+  };
   return (
     <Box width="100%">
       <Header />
@@ -87,25 +213,32 @@ const AddListing = () => {
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={0} md={3}></Grid>
           <Grid item xs={12} md={6} sx={{ margin: "0 30px" }}>
-            <Box className="addListingBox">
-              <Typography
-                variant="h5"
-                style={{ padding: "0 0 30px 0", textAlign: "center" }}
-              >
-                Primary Listing Details
-              </Typography>
-              <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-              >
-                {({ values, handleChange, errors, touched }: any) => (
-                  <Form>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({
+                values,
+                handleChange,
+                errors,
+                touched,
+                setFieldValue,
+              }: any) => (
+                <Form>
+                  <Box className="addListingBox">
+                    <Typography
+                      variant="h5"
+                      style={{ padding: "0 0 30px 0", textAlign: "center" }}
+                    >
+                      Primary Listing Details
+                    </Typography>
                     <div className="textfiled-row">
                       <label>Listing Title</label>
                       <Field
                         className="textfiled"
                         name="listingTitle"
+                        placeholder="Listing Title"
                         value={values.listingTitle}
                         as={TextField}
                         onChange={handleChange}
@@ -130,6 +263,7 @@ const AddListing = () => {
                         <Field
                           className="textfiled"
                           name="Tagline"
+                          placeholder="Tagline"
                           value={values.Tagline}
                           as={TextField}
                           onChange={handleChange}
@@ -170,6 +304,8 @@ const AddListing = () => {
                           <div className="textfiled-row">
                             <label>Latitude</label>
                             <Field
+                              disabled
+                              placeholder="Latitude"
                               className="textfiled"
                               name="latitude"
                               value={userLocation.lat}
@@ -186,6 +322,8 @@ const AddListing = () => {
                           <div className="textfiled-row">
                             <label>Longitude</label>
                             <Field
+                              disabled
+                              placeholder="Longitude"
                               className="textfiled"
                               name="longitude"
                               value={userLocation.lng}
@@ -204,6 +342,7 @@ const AddListing = () => {
                         <Field
                           className="textfiled"
                           name="city"
+                          placeholder="City"
                           value={values.city}
                           as={TextField}
                           onChange={handleChange}
@@ -217,6 +356,7 @@ const AddListing = () => {
                           className="textfiled"
                           name="phone"
                           value={values.phone}
+                          placeholder="Phone"
                           as={TextField}
                           onChange={handleChange}
                           error={touched.phone && Boolean(errors.phone)}
@@ -228,6 +368,7 @@ const AddListing = () => {
                         <Field
                           className="textfiled"
                           name="website"
+                          placeholder="Website"
                           value={values.website}
                           as={TextField}
                           onChange={handleChange}
@@ -235,8 +376,514 @@ const AddListing = () => {
                           helperText={touched.website && errors.website}
                         />
                       </div>
+                      <div className="textfiled-row">
+                        <label>Tags</label>
+                        <Field
+                          className="textfiled"
+                          placeholder="Tags"
+                          name="tags"
+                          value={values.tags}
+                          as={TextField}
+                          onChange={handleChange}
+                          error={touched.tags && Boolean(errors.tags)}
+                          helperText={touched.tags && errors.tags}
+                        />
+                      </div>
+                      <div className="textfiled-row">
+                        <label>Description</label>
+                        <Field
+                          className="textfiled"
+                          name="description"
+                          value={values.description}
+                          placeholder="Description"
+                          multiline
+                          rows={3}
+                          as={TextField}
+                          onChange={handleChange}
+                          error={
+                            touched.description && Boolean(errors.description)
+                          }
+                          helperText={touched.description && errors.description}
+                        />
+                      </div>
                     </div>
 
+                    {/* <Button
+                      fullWidth
+                      className="save-btn"
+                      size="large"
+                      type="submit"
+                      variant="contained"
+                      onClick={handleSubmit}
+                    >
+                      Submit
+                    </Button> */}
+                  </Box>
+                  <Box className="addListingBox">
+                    <Typography
+                      variant="h5"
+                      style={{ padding: "0 0 30px 0", textAlign: "center" }}
+                    >
+                      Category & Services
+                    </Typography>
+                    <div className="textfiled-row">
+                      <label>Category </label>
+                      <EditableSelectField
+                        className="categorySelect"
+                        name="category"
+                        fullWidth
+                        value={values.category}
+                        onChange={(e: any) => {
+                          setFieldValue("category", e);
+                        }}
+                        options={categoryList}
+                      />
+                    </div>
+                  </Box>
+                  <Box className="addListingBox">
+                    <Typography
+                      variant="h5"
+                      style={{ padding: "0 0 30px 0", textAlign: "center" }}
+                    >
+                      Opening Hours
+                    </Typography>
+                    <Grid
+                      container
+                      rowSpacing={1}
+                      columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                    >
+                      {hours.map((item, i) => (
+                        <Grid item xs={12} md={6}>
+                          <div className="textfiled-row">
+                            <Grid
+                              container
+                              rowSpacing={1}
+                              columnSpacing={{ xs: 1, sm: 2, md: 2 }}
+                            >
+                              <Grid item xs={4}>
+                                <div>
+                                  {" "}
+                                  <Checkbox
+                                    {...label}
+                                    defaultChecked
+                                    checked={isChecked[i]}
+                                    onChange={() => handleCheckboxChange(i)}
+                                  />
+                                  {item.day}
+                                </div>
+                              </Grid>
+                              <Grid item xs={4}>
+                                <div>
+                                  <Select
+                                    style={{ height: " 32px" }}
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    disabled={!isChecked[i]}
+                                    fullWidth
+                                    defaultValue={"12:00 am"}
+                                    value={openingHours[i]}
+                                    onChange={(e) =>
+                                      handleOpenningHoursChange(e, i)
+                                    }
+                                  >
+                                    <MenuItem value={"12:00 am"}>
+                                      12:00 am
+                                    </MenuItem>
+                                    <MenuItem value={"12:30 am"}>
+                                      12:30 am
+                                    </MenuItem>
+                                    <MenuItem value={"1:00 am"}>
+                                      1:00 am
+                                    </MenuItem>
+                                    <MenuItem value={"1:30 am"}>
+                                      1:30 am
+                                    </MenuItem>
+                                    <MenuItem value={"2:00 am"}>
+                                      2:00 am
+                                    </MenuItem>
+                                    <MenuItem value={"2:30 am"}>
+                                      2:30 am
+                                    </MenuItem>
+                                    <MenuItem value={"3:00 am"}>
+                                      3:00 am
+                                    </MenuItem>
+                                    <MenuItem value={"3:30 am"}>
+                                      3:30 am
+                                    </MenuItem>
+                                    <MenuItem value={"4:00 am"}>
+                                      4:00 am
+                                    </MenuItem>
+                                    <MenuItem value={"4:30 am"}>
+                                      4:30 am
+                                    </MenuItem>
+                                    <MenuItem value={"5:00 am"}>
+                                      5:00 am
+                                    </MenuItem>
+                                    <MenuItem value={"5:30 am"}>
+                                      5:30 am
+                                    </MenuItem>
+                                    <MenuItem value={"6:00 am"}>
+                                      6:00 am
+                                    </MenuItem>
+                                    <MenuItem value={"6:30 am"}>
+                                      6:30 am
+                                    </MenuItem>
+                                    <MenuItem value={"7:00 am"}>
+                                      7:00 am
+                                    </MenuItem>
+                                    <MenuItem value={"7:30 am"}>
+                                      7:30 am
+                                    </MenuItem>
+                                    <MenuItem value={"8:00 am"}>
+                                      8:00 am
+                                    </MenuItem>
+                                    <MenuItem value={"8:30 am"}>
+                                      8:30 am
+                                    </MenuItem>
+                                    <MenuItem value={"9:00 am"}>
+                                      9:00 am
+                                    </MenuItem>
+                                    <MenuItem value={"9:30 am"}>
+                                      9:30 am
+                                    </MenuItem>
+                                    <MenuItem value={"10:00 am"}>
+                                      10:00 am
+                                    </MenuItem>
+                                    <MenuItem value={"10:30 am"}>
+                                      10:30 am
+                                    </MenuItem>
+                                    <MenuItem value={"11:00 am"}>
+                                      11:00 am
+                                    </MenuItem>
+                                    <MenuItem value={"11:30 am"}>
+                                      11:30 am
+                                    </MenuItem>
+                                    <MenuItem value={"24 Hours Open"}>
+                                      24 Hours Open
+                                    </MenuItem>
+                                  </Select>
+                                  {/* {item.openingHours} */}
+                                </div>
+                              </Grid>
+                              <Grid item xs={4}>
+                                <div className="textfiled-row">
+                                  {!is24HoursOpen[i] && (
+                                    <Select
+                                      style={{ height: " 32px" }}
+                                      labelId="demo-simple-select-label"
+                                      id="demo-simple-select"
+                                      disabled={
+                                        !isChecked[i] ||
+                                        openingHours[i] === "24 Hours Open"
+                                      }
+                                      fullWidth
+                                      defaultValue={"12:00 pm"}
+                                      value={closingHours[i]}
+                                      onChange={(e) =>
+                                        handleclosingHoursChange(e, i)
+                                      }
+                                    >
+                                      <MenuItem value={"12:00 pm"}>
+                                        12:00 pm
+                                      </MenuItem>
+                                      <MenuItem value={"12:30 pm"}>
+                                        12:30 pm
+                                      </MenuItem>
+                                      <MenuItem value={"1:00 pm"}>
+                                        1:00 pm
+                                      </MenuItem>
+                                      <MenuItem value={"1:30 pm"}>
+                                        1:30 pm
+                                      </MenuItem>
+                                      <MenuItem value={"2:00 pm"}>
+                                        2:00 pm
+                                      </MenuItem>
+                                      <MenuItem value={"2:30 pm"}>
+                                        2:30 pm
+                                      </MenuItem>
+                                      <MenuItem value={"3:00 pm"}>
+                                        3:00 pm
+                                      </MenuItem>
+                                      <MenuItem value={"3:30 pm"}>
+                                        3:30 pm
+                                      </MenuItem>
+                                      <MenuItem value={"4:00 pm"}>
+                                        4:00 pm
+                                      </MenuItem>
+                                      <MenuItem value={"4:30 pm"}>
+                                        4:30 pm
+                                      </MenuItem>
+                                      <MenuItem value={"5:00 pm"}>
+                                        5:00 pm
+                                      </MenuItem>
+                                      <MenuItem value={"5:30 pm"}>
+                                        5:30 pm
+                                      </MenuItem>
+                                      <MenuItem value={"6:00 pm"}>
+                                        6:00 pm
+                                      </MenuItem>
+                                      <MenuItem value={"6:30 pm"}>
+                                        6:30 pm
+                                      </MenuItem>
+                                      <MenuItem value={"7:00 pm"}>
+                                        7:00 pm
+                                      </MenuItem>
+                                      <MenuItem value={"7:30 pm"}>
+                                        7:30 pm
+                                      </MenuItem>
+                                      <MenuItem value={"8:00 pm"}>
+                                        8:00 pm
+                                      </MenuItem>
+                                      <MenuItem value={"8:30 pm"}>
+                                        8:30 pm
+                                      </MenuItem>
+                                      <MenuItem value={"9:00 pm"}>
+                                        9:00 pm
+                                      </MenuItem>
+                                      <MenuItem value={"9:30 pm"}>
+                                        9:30 pm
+                                      </MenuItem>
+                                      <MenuItem value={"10:00 pm"}>
+                                        10:00 pm
+                                      </MenuItem>
+                                      <MenuItem value={"10:30 pm"}>
+                                        10:30 pm
+                                      </MenuItem>
+                                      <MenuItem value={"11:00 pm"}>
+                                        11:00 pm
+                                      </MenuItem>
+                                      <MenuItem value={"11:30 pm"}>
+                                        11:30 pm
+                                      </MenuItem>
+                                    </Select>
+                                  )}
+                                </div>
+                              </Grid>
+                            </Grid>
+                          </div>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </Box>
+                  <Box className="addListingBox">
+                    <Typography
+                      variant="h5"
+                      style={{ padding: "0 0 30px 0", textAlign: "center" }}
+                    >
+                      Social
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      style={{ padding: "0 0 30px 0" }}
+                    >
+                      We are not responsible for any damages caused by the use
+                      of this website, or by posting business listings here.
+                      Please use our site at your own discretion and exercise
+                      good judgement as well as common sense when advertising
+                      business here.
+                    </Typography>
+                    <div className="textfiled-row">
+                      <Grid
+                        container
+                        rowSpacing={1}
+                        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                      >
+                        <Grid item xs={6}>
+                          <div className="textfiled-row">
+                            <label>Linked in URL</label>
+                            <Field
+                              disabled
+                              className="textfiled"
+                              name="linkedin"
+                              value={values.linkedin}
+                              as={TextField}
+                              onChange={handleChange}
+                              error={
+                                touched.linkedin && Boolean(errors.linkedin)
+                              }
+                              helperText={touched.linkedin && errors.linkedin}
+                            />
+                          </div>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <div className="textfiled-row">
+                            <label>Facebook URL</label>
+                            <Field
+                              disabled
+                              className="textfiled"
+                              name="facebook"
+                              value={values.facebook}
+                              as={TextField}
+                              onChange={handleChange}
+                              error={
+                                touched.facebook && Boolean(errors.facebook)
+                              }
+                              helperText={touched.facebook && errors.facebook}
+                            />
+                          </div>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <div className="textfiled-row">
+                            <label>Twitter URL</label>
+                            <Field
+                              disabled
+                              className="textfiled"
+                              name="twitter"
+                              value={values.twitter}
+                              as={TextField}
+                              onChange={handleChange}
+                              error={touched.twitter && Boolean(errors.twitter)}
+                              helperText={touched.twitter && errors.twitter}
+                            />
+                          </div>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <div className="textfiled-row">
+                            <label>Instagram URL</label>
+                            <Field
+                              disabled
+                              className="textfiled"
+                              name="instagram"
+                              value={values.instagram}
+                              as={TextField}
+                              onChange={handleChange}
+                              error={
+                                touched.instagram && Boolean(errors.instagram)
+                              }
+                              helperText={touched.instagram && errors.instagram}
+                            />
+                          </div>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </Box>
+                  <Box className="addListingBox">
+                    <Typography
+                      variant="h5"
+                      style={{ padding: "0 0 30px 0", textAlign: "center" }}
+                    >
+                      Frequently Asked Questions
+                    </Typography>
+                    <div className="textfiled-row">
+                      <FieldArray
+                        name="faqs"
+                        render={({ push, remove }: any) => (
+                          <div>
+                            {values.faqs.map((faq: any, index: any) => (
+                              <div className="textfiled-row" key={index}>
+                                <Grid
+                                  container
+                                  rowSpacing={1}
+                                  columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                                >
+                                  <Grid item xs={2}>
+                                    <div>FAQ {index + 1}</div>
+                                  </Grid>
+                                  <Grid item xs={10}>
+                                    <div className="textfiled-row">
+                                      <Field
+                                        className="textfiled"
+                                        name={`faqs[${index}].question`}
+                                        as={TextField}
+                                        placeholder="FAQ"
+                                      />
+                                    </div>
+                                    <div className="textfiled-row">
+                                      <TextField
+                                        id="outlined-basic"
+                                        variant="outlined"
+                                        multiline
+                                        rows={3}
+                                        placeholder="Answer"
+                                      />
+                                    </div>
+                                  </Grid>
+                                  {/* <Grid item xs={2}>
+                                    <Button
+                                      type="button"
+                                      variant="outlined"
+                                      color="error"
+                                      onClick={() => remove(index)}
+                                    >
+                                      <HorizontalRuleIcon />
+                                    </Button>
+                                  </Grid> */}
+                                </Grid>
+                              </div>
+                            ))}
+                            <div style={{ textAlign: "end" }}>
+                              <Button
+                                variant="outlined"
+                                sx={{ color: "#3e98c7", fontWeight: "700" }}
+                                onClick={() =>
+                                  push({ question: "", answer: "" })
+                                }
+                              >
+                                <AddCircleIcon style={{ marginRight: "" }} />{" "}
+                                Add New
+                              </Button>
+                            </div>
+                          </div>
+                        )}
+                      />
+                    </div>
+                  </Box>
+                  <Box className="addListingBox">
+                    <Typography
+                      variant="h5"
+                      style={{ padding: "0 0 30px 0", textAlign: "center" }}
+                    >
+                      Media
+                    </Typography>
+                    <div className="textfiled-row">
+                      <label>Your Business Video(Optional)</label>
+                      <Field
+                        className="textfiled"
+                        name="video"
+                        placeholder="ex: https://youtu.be/lY2yjAdbvdQ"
+                        value={values.video}
+                        as={TextField}
+                        onChange={handleChange}
+                        error={touched.video && Boolean(errors.video)}
+                        helperText={touched.video && errors.video}
+                      />
+                    </div>
+                    <div className="textfiled-row">
+                      <label>Images</label>
+                      <MultiFileUpload onUpload={handleUpload} />
+                    </div>
+
+                    <div className="textfiled-row">
+                      <label>Upload Business Logo</label>
+                      <Box
+                        {...getRootProps({ className: "dropzone" })}
+                        sx={banner.length ? { height: 150 } : {}}
+                        style={{
+                          border: "2px dashed #41414185",
+                          borderRadius: "5px",
+                          width: "350px",
+                          margin: "10px 0",
+                        }}
+                      >
+                        <input {...getInputProps()} />
+                        {img.length ? (
+                          img
+                        ) : (
+                          <Box
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                            flexDirection="column"
+                            py="50px"
+                          >
+                            <FileUploadIcon />
+                            <span>Choose a file or drag and drop it here</span>
+                          </Box>
+                        )}
+                      </Box>
+                    </div>
+                  </Box>
+                  <Box className="addListingBox">
                     <Button
                       fullWidth
                       className="save-btn"
@@ -247,10 +894,10 @@ const AddListing = () => {
                     >
                       Submit
                     </Button>
-                  </Form>
-                )}
-              </Formik>
-            </Box>
+                  </Box>
+                </Form>
+              )}
+            </Formik>
           </Grid>
           <Grid item xs={0} md={3}></Grid>
         </Grid>
