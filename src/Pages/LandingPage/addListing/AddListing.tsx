@@ -13,16 +13,17 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { Field, FieldArray, Form, Formik } from "formik";
+import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 import * as yup from "yup";
 import PinDropIcon from "@mui/icons-material/PinDrop";
-import GoogleMap from "./GoogleMap";
+// import GoogleMap from "./GoogleMap";
 import CloseIcon from "@mui/icons-material/Close";
 import EditableSelectField from "../../../Components/commonComponents/autoComplete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { useDropzone } from "react-dropzone";
 import MultiFileUpload from "./fileUpload";
+import Requests from "../../../services/Request";
 
 const style = {
   position: "absolute" as "absolute",
@@ -37,6 +38,7 @@ const style = {
 };
 
 const AddListing = () => {
+  const requestApiData = new Requests();
   const hours = [
     { day: "Monday", openingHours: "1:00", closingHours: "8:00" },
     { day: "Tuesday", openingHours: "1:00", closingHours: "8:00" },
@@ -46,12 +48,17 @@ const AddListing = () => {
     { day: "Staurday", openingHours: "1:00", closingHours: "8:00" },
     { day: "Sunday", openingHours: "1:00", closingHours: "8:00" },
   ];
-  console.log(hours, "hours");
+
   const [checked, setChecked] = useState(false);
   const [gallary, setGallary] = useState<any>([]);
   const [banner, setBanner] = useState<any>([]);
-  const [isChecked, setIsChecked] = useState(Array(hours.length).fill(false));
   const [isGridDisabled, setIsGridDisabled] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(Array(hours.length).fill(false));
+  const [userLocation, setUserLocation] = useState<any>({
+    lat: null,
+    lng: null,
+  });
   const [is24HoursOpen, setIs24HoursOpen] = useState(
     Array(hours.length).fill(false)
   );
@@ -62,11 +69,6 @@ const AddListing = () => {
   const [closingHours, setClosingHours] = useState(
     Array(hours.length).fill("12:00 pm")
   );
-  const [mapOpen, setMapOpen] = useState(false);
-  const [userLocation, setUserLocation] = useState<any>({
-    lat: null,
-    lng: null,
-  });
   const handleOpenningHoursChange = (e: any, index: any) => {
     const newOpeningHours: any = [...openingHours];
     newOpeningHours[index] = e.target.value;
@@ -98,13 +100,10 @@ const AddListing = () => {
     newIsChecked[index] = !newIsChecked[index];
     setIsChecked(newIsChecked);
 
-    // Check if all checkboxes are unchecked
     const allUnchecked = newIsChecked.every((value) => !value);
     setIsGridDisabled(allUnchecked);
   };
   const handleCheckeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // setChecked(!checked);
-    console.log(checked);
     setChecked(event.target.checked);
   };
   const handleMapOpen = () => setMapOpen(true);
@@ -118,7 +117,6 @@ const AddListing = () => {
       lng: e?.lng(),
     });
   };
-  console.log("eeeeeeeeee", userLocation);
   const handleMapSubmit = () => {
     handleMapClose();
   };
@@ -184,9 +182,9 @@ const AddListing = () => {
     setGallary(fileNamesArray);
     return fileNamesArray;
   };
-  console.log(gallary);
+
   const initialValues = {
-    listingTitle: "",
+    title: "",
     address: {
       lat: userLocation.lat,
       lan: userLocation.lng,
@@ -200,34 +198,61 @@ const AddListing = () => {
 
   // -----------  validationSchema
   const validationSchema = yup.object({
-    listingTitle: yup.string().required("Listing Title is required"),
-    address: yup.string().required("address is required"),
+    title: yup.string().required("Listing Title is required"),
+    description: yup.string().required("Description is required"),
+    category: yup.string().required("Category is required"),
   });
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = async (values: any) => {
+    const openHours = hours
+      .filter((item, index) => isChecked[index])
+      .map((item, index) => ({
+        day: item.day,
+        isChecked: isChecked[index],
+        timeFrom: openingHours[index],
+        timeTo:
+          openingHours[index] === "24 Hours Open" ? "" : closingHours[index],
+        isOpenFullDay: openingHours[index] === "24 Hours Open" ? true : false,
+      }));
     const payload = {
-      listingTitle: values.listingTitle,
+      title: values.title,
       address: {
         lat: userLocation.lat,
         lan: userLocation.lng,
       },
       city: values.city,
       phone: values.phone,
+      description: values.description,
       website: values.website,
-      category: values.category.value,
+      // category: values.category,
       faqs: values.faqs,
-      instagram: values.instagram,
-      facebook: values.facebook,
-      twitter: values.twitter,
-      linkedin: values.linkedin,
       bsVideoUrl: values.video,
       bsImages: gallary,
       bsLogo: img[0].key,
-      businessHours: [
-        { day: "", timeFrom: "", timeTo: "", isOpenFullDay: true },
+      businessHours: openHours,
+      socialMedia: [
+        {
+          socMdaName: "instagram",
+          url: values.instagram,
+        },
+        {
+          socMdaName: "facebook",
+          url: values.facebook,
+        },
+        {
+          socMdaName: "twitter",
+          url: values.twitter,
+        },
+        {
+          socMdaName: "linkedin",
+          url: values.linkedin,
+        },
       ],
     };
-    console.log(payload, "values");
+    const response = await requestApiData.addListingUser({
+      formvalues: payload,
+    });
+    console.log(response, "response");
   };
 
   return (
@@ -267,15 +292,13 @@ const AddListing = () => {
                       <label>Listing Title</label>
                       <Field
                         className="textfiled"
-                        name="listingTitle"
+                        name="title"
                         placeholder="Listing Title"
-                        value={values.listingTitle}
+                        value={values.title}
                         as={TextField}
                         onChange={handleChange}
-                        error={
-                          touched.listingTitle && Boolean(errors.listingTitle)
-                        }
-                        helperText={touched.listingTitle && errors.listingTitle}
+                        error={touched.title && Boolean(errors.title)}
+                        helperText={touched.title && errors.title}
                       />
                     </div>
 
@@ -466,6 +489,9 @@ const AddListing = () => {
                         }}
                         options={categoryList}
                       />
+                      {/* <span style={{ color: "red" }}>
+                        <ErrorMessage name="category" />
+                      </span> */}
                     </div>
                   </Box>
                   {/* openning hour */}
@@ -591,7 +617,6 @@ const AddListing = () => {
                                       24 Hours Open
                                     </MenuItem>
                                   </Select>
-                                  {/* {item.openingHours} */}
                                 </div>
                               </Grid>
                               <Grid item xs={4}>
@@ -997,10 +1022,10 @@ const AddListing = () => {
                       />
                     </Grid>
                   </Grid>
-                  <GoogleMap
+                  {/* <GoogleMap
                     location={location}
                     stateLocation={{ lat: "", lng: "" }}
-                  />
+                  /> */}
                   <Grid
                     textAlign="end"
                     sx={{
