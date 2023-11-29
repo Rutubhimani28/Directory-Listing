@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Button, Card, Grid, TextField } from "@mui/material";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
+import Requests from "../../services/Request";
+import { Add } from "@mui/icons-material";
 
 const Profile = () => {
   const avtar = require("../../images/profile.jpg");
-
+  const requestApiData = new Requests();
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,8 +34,28 @@ const Profile = () => {
     aboutYou: "",
   };
 
-  const handleSubmit = (values: any) => {
-    console.log(values);
+  const handleSubmit = async (values: any, { setSubmitting }: any) => {
+    try {
+      const formData = new FormData();
+      formData.append('fastName', values.fastName);
+      formData.append('lastName', values.lastName);
+      formData.append('email', values.email);
+      formData.append('phone', values.phone);
+      formData.append('address', values.address);
+      formData.append('aboutYou', values.aboutYou);
+
+      if (previewImage) {
+        const file = await fetch(previewImage).then((res) => res.blob());
+        formData.append('profileImage', file, 'profile.jpg');
+      }
+
+      const response = await requestApiData.profileImage({
+        data: formData,
+      });
+      console.log('Profile data uploaded:', response.data);
+    } catch (error) {
+      console.error('Error uploading profile data:', error);
+    }
   };
 
   return (
