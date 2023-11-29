@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import AddListing from "./Pages/LandingPage/addListing/AddListing";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Login from "./Pages/auth/Login/login";
+import Login from "./Pages/auth/Login/Login";
 
 const App = () => {
   const user = localStorage.getItem("user");
