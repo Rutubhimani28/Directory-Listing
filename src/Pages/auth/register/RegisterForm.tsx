@@ -19,9 +19,11 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import axios from "axios";
 import Header from "../../LandingPage/header";
 import Footer from "../../LandingPage/footer";
+import Requests from "../../../services/Request";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const requestApiData = new Requests();
   const [showPassword, setShowPassword] = useState({
     password: false,
     ConfirmPassword: false,
@@ -64,10 +66,13 @@ const Signup = () => {
         console.error("Email or password is undefined");
         return;
       }
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/signup",
-        values
-      );
+
+      const response = await requestApiData.signUpRequest(values);
+      // const response = await axios.post(
+      //   "http://localhost:5000/api/auth/signup",
+      //   values
+      // );
+      console.log(response, "LLLLLLLLLLLLLLLLLLLLLL");
       if (response.status === 200) {
         navigate("/login");
       } else {
