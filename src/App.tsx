@@ -11,14 +11,14 @@ import { AuthProvider } from "./context/authcontext";
 import Routing from "./routes";
 import { useNavigate } from "react-router-dom";
 import AddListing from "./Pages/LandingPage/addListing/AddListing";
-import Login from "./Pages/auth/Login/login";
+import Login from "./Pages/auth/Login/Login";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const user = localStorage.getItem("user");
   console.log(user, "userId");
- 
+
   useNavigate();
   return (
     <>
