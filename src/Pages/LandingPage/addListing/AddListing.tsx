@@ -269,7 +269,7 @@ const AddListing = () => {
           <Grid item xs={12} md={6} sx={{ margin: "0 30px" }}>
             <Formik
               initialValues={initialValues}
-              validationSchema={validationSchema}
+              // validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
               {({
