@@ -6,4 +6,5 @@ export default {
   forgotPassword: `${baseUrl}api/auth/forgotPassword`,
   resetPassword: `${baseUrl}api/auth/resetForgottenPassword`,
   profileImage: `${baseUrl}api/user/saveProfileImage`,
+  addListing: `${baseUrl}api/listing/add`,
 };
