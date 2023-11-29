@@ -36,5 +36,13 @@ export default class Requests {
             // body : JSON.parse()
         })
     }
+    addListingUser(data) {
+        return axios({
+            method: 'POST',
+            url: `${Api.addListing}`,
+            data
+           
+        })
+    }
 
 }

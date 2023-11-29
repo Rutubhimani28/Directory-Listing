@@ -5,5 +5,6 @@ export default {
     signupUser: `${baseUrl}signUpRequest`,
     forgotPassword: `${baseUrl}api/auth/forgotPassword`,
     resetPassword: `${baseUrl}api/auth/resetForgottenPassword`,
+    addListing: `${baseUrl}api/listing/add`,
 
 }
