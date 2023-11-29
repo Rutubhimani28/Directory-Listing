@@ -3,7 +3,6 @@ import Api from "./api";
 
 export default class Requests {
     signUpRequest(data) {
-        console.log(data, "OOOOOOOOOOOOOOOOOOOO")
         return axios({
             method: "POST",
             url: `${Api.signupUser}`,

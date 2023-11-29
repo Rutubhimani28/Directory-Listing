@@ -20,6 +20,7 @@ import axios from "axios";
 import Header from "../../LandingPage/header";
 import Footer from "../../LandingPage/footer";
 import Requests from "../../../services/Request";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -72,13 +73,15 @@ const Signup = () => {
       //   "http://localhost:5000/api/auth/signup",
       //   values
       // );
-      console.log(response, "LLLLLLLLLLLLLLLLLLLLLL");
       if (response.status === 200) {
         navigate("/login");
+        toast.success(response.data.message);
       } else {
         console.error("Signup failed:", response.data);
       }
-    } catch (error) {
+    } catch (error: any) {
+      const errorkey = Object.keys(error.response.data.error)[0];
+      toast.error(error.response.data.error[errorkey]);
       console.error("Error during signup:", error);
     }
   };
