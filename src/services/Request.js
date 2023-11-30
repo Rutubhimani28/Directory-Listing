@@ -1,6 +1,14 @@
 import axios from "axios";
 import Api from "./api";
 
+
+
+
+const Token = localStorage.getItem('user')
+const authToken = JSON.parse(Token)?.token
+
+
+
 export default class Requests {
     signUpRequest(data) {
         return axios({
@@ -32,18 +40,19 @@ export default class Requests {
             method: "POST",
             url: `${Api.resetPassword}`,
             data,
-            // headers: { Authorization: `TOKEN ${localStorage.getItem('Token')}` },
-            // body : JSON.parse()
         });
     }
     addListingUser(data) {
+
         return axios({
             method: "POST",
             url: `${Api.addListing}`,
             data,
+            headers: { Authorization: `Bearer ${authToken}` },
+
+
         });
     }
-
     profileImage(data) {
         return axios({
             method: "POST",

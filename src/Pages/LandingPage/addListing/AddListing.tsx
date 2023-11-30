@@ -24,6 +24,7 @@ import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { useDropzone } from "react-dropzone";
 import MultiFileUpload from "./fileUpload";
 import Requests from "../../../services/Request";
+import GoogleMap from "./GoogleMap";
 
 const style = {
   position: "absolute" as "absolute",
@@ -220,11 +221,13 @@ const AddListing = () => {
         lat: userLocation.lat,
         lan: userLocation.lng,
       },
-      city: values.city,
+      city: 1,
+      // city: values.city,
       phone: values.phone,
       description: values.description,
       website: values.website,
-      // category: values.category,
+      // category: values.category.value,
+      category: 1,
       faqs: values.faqs,
       bsVideoUrl: values.video,
       bsImages: gallary,
@@ -249,9 +252,7 @@ const AddListing = () => {
         },
       ],
     };
-    const response = await requestApiData.addListingUser({
-      formvalues: payload,
-    });
+    const response = await requestApiData.addListingUser(payload);
     console.log(response, "response");
   };
 
@@ -1022,10 +1023,10 @@ const AddListing = () => {
                       />
                     </Grid>
                   </Grid>
-                  {/* <GoogleMap
+                  <GoogleMap
                     location={location}
                     stateLocation={{ lat: "", lng: "" }}
-                  /> */}
+                  />
                   <Grid
                     textAlign="end"
                     sx={{

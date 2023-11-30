@@ -8,6 +8,7 @@ import Dashboard from "../Pages/dashboard/index";
 import MyProfile from "../Pages/myProfile";
 import Favorite from "../Pages/myfavorite";
 import SingleListing from "../Pages/myListing/singleListing";
+import AddListing from "../Pages/LandingPage/addListing/AddListing";
 
 export const Routings = [
   {
@@ -24,6 +25,11 @@ export const Routings = [
     path: "my-listing",
     role: "user",
     component: <MyListing />,
+  },
+  {
+    path: "my-listing/add-listing",
+    role: "user",
+    component: <AddListing />,
   },
   {
     path: "my-listing/:singleListing",

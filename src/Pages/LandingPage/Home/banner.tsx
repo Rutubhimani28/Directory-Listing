@@ -31,7 +31,7 @@ const Banner = () => {
         >
           Find Nearby&nbsp;
           <Typed
-            strings={["Hotels", "Restaurants", "Beauty", "Fitn"]}
+            strings={["Hotels", "restaurants ", "Beauty", "Fitness"]}
             typeSpeed={100}
             backSpeed={100}
             loop={true}
