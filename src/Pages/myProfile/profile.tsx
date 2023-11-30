@@ -10,10 +10,15 @@ const Profile = () => {
   const requestApiData = new Requests();
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
+  const handleImageChange = (setFieldValue: any, event: any) => {
+    console.log(event, "eventeventevent")
+    console.log(setFieldValue, "11111111111111111111")
+    const file = event.target.files[0];
+    setFieldValue("profileImage", file.name)
     if (file) {
+      // setPreviewImage(file.name)
       setPreviewImage(URL.createObjectURL(file));
+      console.log(previewImage, "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
     }
   };
 
@@ -32,26 +37,14 @@ const Profile = () => {
     phone: "",
     address: "",
     aboutYou: "",
+    profileImage: ""
   };
 
   const handleSubmit = async (values: any, { setSubmitting }: any) => {
+    console.log(values, "previewImagepreviewImage")
     try {
-      const formData = new FormData();
-      formData.append('fastName', values.fastName);
-      formData.append('lastName', values.lastName);
-      formData.append('email', values.email);
-      formData.append('phone', values.phone);
-      formData.append('address', values.address);
-      formData.append('aboutYou', values.aboutYou);
 
-      if (previewImage) {
-        const file = await fetch(previewImage).then((res) => res.blob());
-        formData.append('profileImage', file, 'profile.jpg');
-      }
-
-      const response = await requestApiData.profileImage({
-        data: formData,
-      });
+      const response = await requestApiData.profileImage({ avatar: values.profileImage });
       console.log('Profile data uploaded:', response.data);
     } catch (error) {
       console.error('Error uploading profile data:', error);
@@ -66,7 +59,7 @@ const Profile = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, setFieldValue }) => (
           <Form>
             <Grid
               container
@@ -97,7 +90,8 @@ const Profile = () => {
                             type="file"
                             id="profileImage"
                             name="profileImage"
-                            onChange={handleImageChange}
+                            // onChange={handleImageChange}
+                            onChange={(e: any) => handleImageChange(setFieldValue, e)}
                           />
                           <label htmlFor="profileImage">
                             <Button
@@ -266,3 +260,4 @@ const Profile = () => {
 };
 
 export default Profile;
+
