@@ -7,6 +7,7 @@ import RoomIcon from "@mui/icons-material/Room";
 import SingleBedIcon from "@mui/icons-material/SingleBed";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import StarIcon from "@mui/icons-material/Star";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 
@@ -234,7 +235,21 @@ const myListing = () => {
   };
   return (
     <div>
-      <h3 className="heading">my listing</h3>
+      <Grid display="flex" justifyContent="space-between" padding="0 0 20px 0">
+        <h3 className="heading">my listing</h3>
+        <Button
+          variant="outlined"
+          sx={{
+            color: "#3e98c7",
+            fontWeight: "700",
+            padding: "5px 5px 5px 0px",
+          }}
+          onClick={() => navigate("/my-listing/add-listing")}
+        >
+          <AddOutlinedIcon />
+          Add Listing
+        </Button>
+      </Grid>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         {currentListData.map((item, index) => (
           <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
