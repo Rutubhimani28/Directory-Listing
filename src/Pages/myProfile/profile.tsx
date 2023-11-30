@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card, Grid, TextField } from "@mui/material";
+import { Button, Card, Grid, TextField, Box, Typography, Avatar } from "@mui/material";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import Requests from "../../services/Request";
@@ -9,17 +9,47 @@ const Profile = () => {
   const avtar = require("../../images/profile.jpg");
   const requestApiData = new Requests();
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = React.useState(null);
+  // const handleImageChange = (setFieldValue: any, event: any) => {
 
-  const handleImageChange = (setFieldValue: any, event: any) => {
-    console.log(event, "eventeventevent")
-    console.log(setFieldValue, "11111111111111111111")
-    const file = event.target.files[0];
-    setFieldValue("profileImage", file.name)
+  //   const file = event.target.files;
+  //   console.log(file, "filefilefilefile")
+  //   setFieldValue("avtar", file)
+  //   // if (file) {
+  //   //   // setPreviewImage(file.name)
+  //   //   setPreviewImage(URL.createObjectURL(file));
+  //   //   console.log(previewImage, "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+  //   // }
+  // };
+  // const handleImageChange = (e: any, setFieldValue: any) => {
+  //   const file = e.currentTarget.files[0];
+  //   if (file) {
+  //     // Read the selected file and set it in state.
+  //     const reader = new FileReader();
+  //     reader.onload = (e: any) => {
+  //       setPreviewImage(e.target.result);
+  //     };
+  //     reader.readAsDataURL(file);
+
+  //     // Update the formik field value with the selected file.
+  //   }
+  //   setFieldValue('avatar', file);
+  // };
+
+
+  const handleFileChange = (e: any, setFieldValue: any) => {
+    const file = e.currentTarget.files[0];
     if (file) {
-      // setPreviewImage(file.name)
-      setPreviewImage(URL.createObjectURL(file));
-      console.log(previewImage, "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+      // Read the selected file and set it in state.
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        setSelectedFile(e.target.result);
+      };
+      reader.readAsDataURL(file);
+
+      // Update the formik field value with the selected file.
     }
+    setFieldValue('avatar', file);
   };
 
   const validationSchema = Yup.object().shape({
@@ -37,14 +67,17 @@ const Profile = () => {
     phone: "",
     address: "",
     aboutYou: "",
-    profileImage: ""
+    avtar: ""
   };
 
   const handleSubmit = async (values: any, { setSubmitting }: any) => {
+    const data = new FormData();
+
+    data.append('avatar', values?.avatar);
     console.log(values, "previewImagepreviewImage")
     try {
 
-      const response = await requestApiData.profileImage({ avatar: values.profileImage });
+      const response = await requestApiData.profileImage(data);
       console.log('Profile data uploaded:', response.data);
     } catch (error) {
       console.error('Error uploading profile data:', error);
@@ -53,7 +86,6 @@ const Profile = () => {
 
   return (
     <div>
-      {" "}
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -69,7 +101,7 @@ const Profile = () => {
               <Grid item xs={12} md={4}>
                 <div>
                   <Card className="profile-card">
-                    <div>
+                    {/* <div>
                       <img
                         src={previewImage ? previewImage : avtar}
                         alt="Profile Preview"
@@ -117,7 +149,48 @@ const Profile = () => {
                           </label>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
+                    <Box style={{ textAlign: 'center' }}>
+                      {selectedFile ? (
+                        <Avatar
+                          alt="Avatar"
+                          src={selectedFile}
+                          sx={{ width: 100, height: 100, margin: '16px auto', borderRadius: '50%' }}
+                        />
+                      ) : (
+                        <img
+                          src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
+                          style={{ width: 100, height: 100, margin: '16px auto', borderRadius: '50%' }}
+                        />
+                      )}
+                      <Typography variant="h6">Upload Avatar</Typography>
+                      <input
+                        accept="image/*"
+                        type="file"
+                        id="avatar-upload"
+                        style={{ display: 'none' }}
+                        onChange={(e: any) => handleFileChange(e, setFieldValue)}
+                      />
+                      <div style={{ margin: "10px" }}>
+                        <label htmlFor="avatar-upload" >
+                          <Button component="span" variant="outlined" color="primary">
+                            Upload
+                          </Button>
+                          <Button
+                            variant="outlined"
+                            color="error"
+                            style={{
+                              display: "inline",
+                              fontSize: "15px",
+                              marginLeft: "10px",
+                            }}
+                            onClick={() => setPreviewImage(null)}
+                          >
+                            Clear
+                          </Button>
+                        </label>
+                      </div>
+                    </Box>
                     <div className="plan-details">
                       <p>Your Current Plan</p>
                       <h2 className="plan-title">Platinum Package</h2>
@@ -128,6 +201,7 @@ const Profile = () => {
                       >
                         Change
                       </button>
+
                     </div>
                   </Card>
                   <Card style={{ marginTop: "20px" }}>
