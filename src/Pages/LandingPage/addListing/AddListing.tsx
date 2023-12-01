@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../header";
 import Footer from "../footer";
 import {
@@ -12,6 +12,7 @@ import {
   FormLabel,
   Select,
   MenuItem,
+  Autocomplete,
 } from "@mui/material";
 import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 import * as yup from "yup";
@@ -25,6 +26,8 @@ import { useDropzone } from "react-dropzone";
 import MultiFileUpload from "./fileUpload";
 import Requests from "../../../services/Request";
 import GoogleMap from "./GoogleMap";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute" as "absolute",
@@ -39,6 +42,7 @@ const style = {
 };
 
 const AddListing = () => {
+  const navigate = useNavigate()
   const requestApiData = new Requests();
   const hours = [
     { day: "Monday", openingHours: "1:00", closingHours: "8:00" },
@@ -52,6 +56,8 @@ const AddListing = () => {
 
   const [checked, setChecked] = useState(false);
   const [gallary, setGallary] = useState<any>([]);
+  const [city, setCity] = useState<any>([]);
+  const [category, setCategory] = useState<any>([]);
   const [banner, setBanner] = useState<any>([]);
   const [isGridDisabled, setIsGridDisabled] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
@@ -121,29 +127,7 @@ const AddListing = () => {
   const handleMapSubmit = () => {
     handleMapClose();
   };
-  const categoryList = [
-    { label: "Arts & Entertainment", value: "Arts & Entertainment" },
-    { label: "Automotive", value: "Automotive" },
-    { label: "Bars", value: "Bars" },
-    { label: "Beauty & Spa", value: "Beauty & Spa" },
-    { label: "Brazilian", value: "Brazilian" },
-    { label: "Burgers", value: "Burgers" },
-    { label: "Desserts", value: "Desserts" },
-    { label: "Emergency Shelters", value: "Emergency Shelters" },
-    { label: "Fast Food", value: "Fast Food" },
-    { label: "Health & Medical", value: "Health & Medical" },
-    { label: "Hot Dogs", value: "Hot Dogs" },
-    { label: "Hotels", value: "Hotels" },
-    { label: "Italian", value: "Italian" },
-    { label: "Landscaping Services", value: "Landscaping Services" },
-    { label: "Mexican", value: "Mexican" },
-    { label: "Piza", value: "Piza" },
-    // { label: "Real Estate", value: "Real Estate" },
-    { label: "Restaurant", value: "Restaurant" },
-    { label: "Sandwiches", value: "Sandwiches" },
-    { label: "Services", value: "Services" },
-    { label: "Shopping", value: "Shopping" },
-  ];
+
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     accept: {
@@ -221,13 +205,12 @@ const AddListing = () => {
         lat: userLocation.lat,
         lan: userLocation.lng,
       },
-      city: 1,
-      // city: values.city,
+      // cityName: 1,
+      city: values.city,
       phone: values.phone,
       description: values.description,
       website: values.website,
-      // category: values.category.value,
-      category: 1,
+      category: values.category,
       faqs: values.faqs,
       bsVideoUrl: values.video,
       bsImages: gallary,
@@ -252,18 +235,60 @@ const AddListing = () => {
         },
       ],
     };
-    const response = await requestApiData.addListingUser(payload);
-    console.log(response, "response");
+    try {
+      const response = await requestApiData.addListingUser(payload);
+      if (response) {
+        console.log(response.data.success === true);
+        toast.success('Listing added successfully!');
+        navigate('/my-listing')
+      } else {
+        toast.error('Failed to add listing. Please try again.'); // Display error message if necessary
+      }
+    } catch (error) {
+      console.error('Error adding listing:', error);
+      toast.error('An error occurred. Please try again later.'); // Display error message
+    }
+
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const allCities = await requestApiData.getAllCity();
+        setCity(allCities.data.data);
+        // Do something with allCities here
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const allCategories = await requestApiData.getAllCategory();
+        setCategory(allCategories.data.data);
+        // Do something with allCities here
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(category, "setCategories")
 
   return (
     <Box width="100%">
-      <Header />
+      {window.location.pathname === "/add-listing" ? <Header /> : ""}
       <div
         style={{
           padding: "60px 0",
         }}
-        className="loginbg"
+        // className="loginbg"
+        className={window.location.pathname === "/add-listing" ? "loginbg" : ""}
       >
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={0} md={3}></Grid>
@@ -390,15 +415,24 @@ const AddListing = () => {
                       </Grid>
                       <div className="textfiled-row">
                         <label>City</label>
-                        <Field
-                          className="textfiled"
-                          name="city"
-                          placeholder="City"
-                          value={values.city}
-                          as={TextField}
-                          onChange={handleChange}
-                          error={touched.city && Boolean(errors.city)}
-                          helperText={touched.city && errors.city}
+                        <Autocomplete
+                          size="small"
+                          onChange={(event, newValue) => {
+                            setFieldValue('city', newValue.cityID);
+                          }}
+                          options={city}
+                          // value={city.find(division => division.divisionName === values.divisionName)}
+                          getOptionLabel={(city: any) => city?.cityName}
+                          style={{ textTransform: 'capitalize' }}
+                          clearIcon
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              style={{ textTransform: 'capitalize' }}
+                              placeholder='Select City'
+
+                            />
+                          )}
                         />
                       </div>
                       <div className="textfiled-row">
@@ -458,17 +492,6 @@ const AddListing = () => {
                         />
                       </div>
                     </div>
-
-                    {/* <Button
-                      fullWidth
-                      className="save-btn"
-                      size="large"
-                      type="submit"
-                      variant="contained"
-                      onClick={handleSubmit}
-                    >
-                      Submit
-                    </Button> */}
                   </Box>
                   {/* category */}
                   <Box className="addListingBox">
@@ -480,7 +503,7 @@ const AddListing = () => {
                     </Typography>
                     <div className="textfiled-row">
                       <label>Category </label>
-                      <EditableSelectField
+                      {/* <EditableSelectField
                         className="categorySelect"
                         name="category"
                         fullWidth
@@ -489,6 +512,24 @@ const AddListing = () => {
                           setFieldValue("category", e);
                         }}
                         options={categoryList}
+                      /> */}
+                      <Autocomplete
+                        size="small"
+                        onChange={(event, newValue) => {
+                          setFieldValue('category', newValue.categoryID);
+                        }}
+                        options={category}
+                        getOptionLabel={(category: any) => category?.categoryName}
+                        style={{ textTransform: 'capitalize' }}
+                        clearIcon
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            style={{ textTransform: 'capitalize' }}
+                            placeholder='Select category'
+
+                          />
+                        )}
                       />
                       {/* <span style={{ color: "red" }}>
                         <ErrorMessage name="category" />
@@ -946,7 +987,7 @@ const AddListing = () => {
                       size="large"
                       type="submit"
                       variant="contained"
-                      // onClick={handleSubmit}
+                    // onClick={handleSubmit}
                     >
                       Submit
                     </Button>
@@ -958,8 +999,9 @@ const AddListing = () => {
           <Grid item xs={0} md={3}></Grid>
         </Grid>
       </div>
-      <Footer />
 
+      {window.location.pathname === "/add-listing" ?
+        <Footer /> : ""}
       <div>
         <Modal
           open={mapOpen}

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./mylisting.css";
 import { Grid, Button, Card, Pagination, Rating } from "@mui/material";
@@ -8,10 +8,13 @@ import SingleBedIcon from "@mui/icons-material/SingleBed";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import StarIcon from "@mui/icons-material/Star";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+import Requests from "../../services/Request";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
-const myListing = () => {
+const MyListing = () => {
+  const requestApiData = new Requests();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const navigate = useNavigate();
 
@@ -233,6 +236,23 @@ const myListing = () => {
   const handlePageChange = (event: any, page: any) => {
     setCurrentPage(page);
   };
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const allCategories = await requestApiData.getAllMyListing();
+        console.log(allCategories.data.data, "IIIIIIIIIIIIIIIIIIIIIIIII");
+        // Do something with allCities here
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
       <Grid display="flex" justifyContent="space-between" padding="0 0 20px 0">
@@ -254,30 +274,30 @@ const myListing = () => {
         {currentListData.map((item, index) => (
           <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
             <Card className="listing-box ">
-              {/* <div style={{width:"967px"}}>
-              <Slider {...settings}>
-                {images.map((itemss: any) => (
-                  <div key={itemss.label}>
-                    <img
-                      src={itemss.photo}
-                      alt={itemss.label}
-                      style={{
-                        // borderRadius: "15px",
-                        display: "block",
-                        overflow: "hidden",
-                        width: "50%"
-                      }}
-                    />
-                  </div>
-                ))}
-              </Slider>
-              </div> */}
+              <div style={{ width: "967px" }}>
+                <Slider {...settings}>
+                  {images.map((itemss: any) => (
+                    <div key={itemss.label}>
+                      <img
+                        src={itemss.photo}
+                        alt={itemss.label}
+                        style={{
+                          // borderRadius: "15px",
+                          display: "block",
+                          overflow: "hidden",
+                          width: "52%"
+                        }}
+                      />
+                    </div>
+                  ))}
+                </Slider>
+              </div>
 
-              <img
+              {/* <img
                 src={item.img}
                 alt="images"
                 onClick={() => navigate(`/my-listing/${item.id}`)}
-              />
+              /> */}
               <Grid padding={2}>
                 <div className="d-flex justify-contant-between padding-10">
                   <div className="d-flex align-items-center">
@@ -325,4 +345,4 @@ const myListing = () => {
   );
 };
 
-export default myListing;
+export default MyListing;

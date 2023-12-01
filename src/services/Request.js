@@ -42,7 +42,11 @@ export default class Requests {
       method: "POST",
       url: `${Api.addListing}`,
       data,
-      headers: { Authorization: `Bearer ${authToken}` },
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("user"))?.token
+        }`,
+      },
     });
   }
   profileImage(data) {
@@ -50,9 +54,49 @@ export default class Requests {
       method: "POST",
       url: `${Api.profileImage}`,
       data,
-      headers: { Authorization: `Bearer ${authToken}` },
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("user"))?.token
+        }`,
+      },
       // headers: { Authorization: `TOKEN ${localStorage.getItem('Token')}` },
       // body : JSON.parse()
+    });
+  }
+  getAllCity(data) {
+    return axios({
+      method: "GET",
+      url: `${Api.getCity}`,
+      data,
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("user"))?.token
+        }`,
+      },
+    });
+  }
+  getAllCategory(data) {
+    return axios({
+      method: "GET",
+      url: `${Api.getCategory}`,
+      data,
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("user"))?.token
+        }`,
+      },
+    });
+  }
+  getAllMyListing(data) {
+    return axios({
+      method: "GET",
+      url: `${Api.getMyListing}`,
+      data,
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("user"))?.token
+        }`,
+      },
     });
   }
 }
