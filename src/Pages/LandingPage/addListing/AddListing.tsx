@@ -42,7 +42,7 @@ const style = {
 };
 
 const AddListing = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const requestApiData = new Requests();
   const hours = [
     { day: "Monday", openingHours: "1:00", closingHours: "8:00" },
@@ -94,7 +94,6 @@ const AddListing = () => {
       });
     }
     setOpeningHours(newOpeningHours);
-    console.log(openingHours, "openingHours");
   };
   const handleclosingHoursChange = (e: any, index: any) => {
     const newClosingHours: any = [...closingHours];
@@ -163,7 +162,6 @@ const AddListing = () => {
 
   const handleUpload = (files: File[]) => {
     const fileNamesArray: any = files.map((item: any) => item.name);
-    // console.log("File Names Array:", fileNamesArray);
     setGallary(fileNamesArray);
     return fileNamesArray;
   };
@@ -239,16 +237,15 @@ const AddListing = () => {
       const response = await requestApiData.addListingUser(payload);
       if (response) {
         console.log(response.data.success === true);
-        toast.success('Listing added successfully!');
-        navigate('/my-listing')
+        toast.success("Listing added successfully!");
+        navigate("/my-listing");
       } else {
-        toast.error('Failed to add listing. Please try again.'); // Display error message if necessary
+        toast.error("Failed to add listing. Please try again."); // Display error message if necessary
       }
     } catch (error) {
-      console.error('Error adding listing:', error);
-      toast.error('An error occurred. Please try again later.'); // Display error message
+      console.error("Error adding listing:", error);
+      toast.error("An error occurred. Please try again later."); // Display error message
     }
-
   };
 
   useEffect(() => {
@@ -258,7 +255,7 @@ const AddListing = () => {
         setCity(allCities.data.data);
         // Do something with allCities here
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -271,14 +268,13 @@ const AddListing = () => {
         setCategory(allCategories.data.data);
         // Do something with allCities here
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, []);
 
-  console.log(category, "setCategories")
 
   return (
     <Box width="100%">
@@ -290,9 +286,9 @@ const AddListing = () => {
         // className="loginbg"
         className={window.location.pathname === "/add-listing" ? "loginbg" : ""}
       >
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={0} md={3}></Grid>
-          <Grid item xs={12} md={6} sx={{ margin: "0 30px" }}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1 }}>
+          <Grid item xs={0} md={2}></Grid>
+          <Grid item xs={12} md={8}>
             <Formik
               initialValues={initialValues}
               // validationSchema={validationSchema}
@@ -418,19 +414,18 @@ const AddListing = () => {
                         <Autocomplete
                           size="small"
                           onChange={(event, newValue) => {
-                            setFieldValue('city', newValue.cityID);
+                            setFieldValue("city", newValue.cityID);
                           }}
                           options={city}
                           // value={city.find(division => division.divisionName === values.divisionName)}
                           getOptionLabel={(city: any) => city?.cityName}
-                          style={{ textTransform: 'capitalize' }}
+                          style={{ textTransform: "capitalize" }}
                           clearIcon
                           renderInput={(params) => (
                             <TextField
                               {...params}
-                              style={{ textTransform: 'capitalize' }}
-                              placeholder='Select City'
-
+                              style={{ textTransform: "capitalize" }}
+                              placeholder="Select City"
                             />
                           )}
                         />
@@ -516,18 +511,19 @@ const AddListing = () => {
                       <Autocomplete
                         size="small"
                         onChange={(event, newValue) => {
-                          setFieldValue('category', newValue.categoryID);
+                          setFieldValue("category", newValue.categoryID);
                         }}
                         options={category}
-                        getOptionLabel={(category: any) => category?.categoryName}
-                        style={{ textTransform: 'capitalize' }}
+                        getOptionLabel={(category: any) =>
+                          category?.categoryName
+                        }
+                        style={{ textTransform: "capitalize" }}
                         clearIcon
                         renderInput={(params) => (
                           <TextField
                             {...params}
-                            style={{ textTransform: 'capitalize' }}
-                            placeholder='Select category'
-
+                            style={{ textTransform: "capitalize" }}
+                            placeholder="Select category"
                           />
                         )}
                       />
@@ -987,7 +983,7 @@ const AddListing = () => {
                       size="large"
                       type="submit"
                       variant="contained"
-                    // onClick={handleSubmit}
+                      // onClick={handleSubmit}
                     >
                       Submit
                     </Button>
@@ -996,12 +992,11 @@ const AddListing = () => {
               )}
             </Formik>
           </Grid>
-          <Grid item xs={0} md={3}></Grid>
+          <Grid item xs={0} md={2}></Grid>
         </Grid>
       </div>
 
-      {window.location.pathname === "/add-listing" ?
-        <Footer /> : ""}
+      {window.location.pathname === "/add-listing" ? <Footer /> : ""}
       <div>
         <Modal
           open={mapOpen}

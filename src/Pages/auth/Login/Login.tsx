@@ -44,6 +44,7 @@ const Login = () => {
       // Handle undefined values
       if (!values.email || !values.password) {
         console.error("Email or password is undefined");
+        // toast.error("Email or password is undefined");
         return;
       }
       const response = await requestApiData.loginRequest({
@@ -56,7 +57,6 @@ const Login = () => {
         toast.success(response.data.message);
         return;
       }
-      console.log(response, "response");
 
       setAuth({
         user: response.data.userData.userName,
@@ -71,6 +71,7 @@ const Login = () => {
           token: response.data.authToken,
         })
       );
+
       navigate("/dashboard");
       toast.success("Login Successfully.");
     } catch (error: any) {

@@ -17,7 +17,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const user = localStorage.getItem("user");
-  console.log(user, "userId");
 
   useNavigate();
   return (
@@ -34,80 +33,19 @@ const App = () => {
               <div className="App-part2">
                 <Navbar />
                 <Routing />
-                {/* <div className="allRoutes container">
-                <Routes>
-                  <Route path="/">
-                    <Route index element={<Dashboard />} />
-                    <Route path="booking">
-                      <Route index element={<Booking />} />
-                      <Route path=":bookingId" element={<BookingId />} />
-                      <Route
-                        path="new"
-                        element={
-                          <New
-                            routeName={"Product"}
-                            formElements={productInputs}
-                          />
-                        }
-                      />
-                    </Route>
-                    <Route path="my-listing">
-                      <Route index element={<MyListing />} />
-                      <Route
-                        path=":singleListing"
-                        element={<SingleListing />}
-                      />
-                      <Route
-                        path="new"
-                        element={
-                          <New
-                            routeName={"Product"}
-                            formElements={productInputs}
-                          />
-                        }
-                      />
-                    </Route>
-                     <Route path="my-listing" element={<MyListing />} />
-                    <Route path="event" element={<Event />} />
-                    <Route path="my-profile" element={<MyProfile />} />
-                    <Route path="my-favorite" element={<Favorite />} />
-                     <Route path="singleListing" element={<SingleListing />} /> 
-                    <Route path="users">
-                      <Route index element={<List />} />
-                      <Route path=":userId" element={<Single />} />
-                      <Route
-                        path="new"
-                        element={
-                          <New routeName={"User"} formElements={userInputs} />
-                        }
-                      />
-                    </Route>
-                    <Route path="products">
-                      <Route index element={<List />} />
-                      <Route path=":productId" element={<Single />} />
-                      <Route
-                        path="new"
-                        element={
-                          <New
-                            routeName={"Product"}
-                            formElements={productInputs}
-                          />
-                        }
-                      />
-                    </Route>
-                  </Route>
-                </Routes>
-              </div> */}
+
                 <Footer />
               </div>
             </>
           ) : (
             <>
-              {/* <button onClick={notify}>Notify!</button> */}
               <ToastContainer />
               <Routes>
                 <Route path="/" element={<LandingPage />} />
-                <Route path="/add-listing" element={<AddListing />} />
+                {/* <Route
+                  path="/add-listing"
+                  element={<AddListing /> }
+                /> */}
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
                 <Route path="reset-password" element={<ResetpasswordForm />} />

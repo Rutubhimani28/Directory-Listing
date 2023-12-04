@@ -10,7 +10,6 @@ const PrivateRoute = (props: any) => {
 
     if (userTokenString !== null) {
       const userToken = JSON.parse(userTokenString);
-      console.log("userToken -------------------------- ", userToken.role);
       if (
         !userToken.role ||
         userToken.role === "undefined" ||

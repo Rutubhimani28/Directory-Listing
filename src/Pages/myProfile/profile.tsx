@@ -10,33 +10,7 @@ const Profile = () => {
   const requestApiData = new Requests();
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = React.useState(null);
-  // const handleImageChange = (setFieldValue: any, event: any) => {
-
-  //   const file = event.target.files;
-  //   console.log(file, "filefilefilefile")
-  //   setFieldValue("avtar", file)
-  //   // if (file) {
-  //   //   // setPreviewImage(file.name)
-  //   //   setPreviewImage(URL.createObjectURL(file));
-  //   //   console.log(previewImage, "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
-  //   // }
-  // };
-  // const handleImageChange = (e: any, setFieldValue: any) => {
-  //   const file = e.currentTarget.files[0];
-  //   if (file) {
-  //     // Read the selected file and set it in state.
-  //     const reader = new FileReader();
-  //     reader.onload = (e: any) => {
-  //       setPreviewImage(e.target.result);
-  //     };
-  //     reader.readAsDataURL(file);
-
-  //     // Update the formik field value with the selected file.
-  //   }
-  //   setFieldValue('avatar', file);
-  // };
-
-
+  
   const handleFileChange = (e: any, setFieldValue: any) => {
     const file = e.currentTarget.files[0];
     if (file) {
@@ -74,7 +48,6 @@ const Profile = () => {
     const data = new FormData();
 
     data.append('avatar', values?.avatar);
-    console.log(values, "previewImagepreviewImage")
     try {
 
       const response = await requestApiData.profileImage(data);

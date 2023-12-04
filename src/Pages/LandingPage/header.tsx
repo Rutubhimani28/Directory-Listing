@@ -90,16 +90,15 @@ function DrawerAppBar(props: any) {
               <PersonOutlineOutlinedIcon />
               Signin
             </Button>
-            <Button
+            {/* <Button
               variant="outlined"
               sx={{ color: "#3e98c7", fontWeight: "700", padding: "5px 5px 5px 0px" }}
               onClick={handleAddlisting}
             >
               <AddOutlinedIcon />
               Add Listing
-            </Button>
+            </Button> */}
           </Box>
-
         </Toolbar>
       </AppBar>
       <Box style={{ width: "100%" }}>

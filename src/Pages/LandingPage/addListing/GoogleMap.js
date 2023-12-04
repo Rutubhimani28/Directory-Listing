@@ -10,7 +10,6 @@ const GoogleMap = ({ google, location, stateLocation }) => {
       lat: latLng?.lat(),
       lng: latLng?.lng(),
     };
-    console.log("2222222222", newLatLng)
     location(latLng);
     setLatLng(newLatLng);
   };
@@ -30,7 +29,6 @@ const GoogleMap = ({ google, location, stateLocation }) => {
       setLatLng(stateLocation)
     }
   }, []);
-  console.log('latLng', latLng);
 
   return (
     <div>

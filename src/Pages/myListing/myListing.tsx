@@ -243,7 +243,6 @@ const MyListing = () => {
     const fetchData = async () => {
       try {
         const allCategories = await requestApiData.getAllMyListing();
-        console.log(allCategories.data.data, "IIIIIIIIIIIIIIIIIIIIIIIII");
         // Do something with allCities here
       } catch (error) {
         console.error('Error fetching data:', error);

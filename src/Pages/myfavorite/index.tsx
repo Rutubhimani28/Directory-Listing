@@ -46,7 +46,6 @@ const Favorite = () => {
   const handleDelete = (id: any) => {
     const updatedList = favoriteList.filter((item: any) => item.id !== id);
     setFavoriteList(updatedList);
-    console.log("hello", updatedList);
   };
 
   return (

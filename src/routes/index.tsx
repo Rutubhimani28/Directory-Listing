@@ -4,15 +4,17 @@ import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./privateRoute";
 import { Routings } from "./route";
 import { useNavigate, Navigate } from "react-router-dom";
+import AddListing from "../Pages/LandingPage/addListing/AddListing";
+import Login from "../Pages/auth/Login/Login";
 
 const Routing = () => {
+  const user = localStorage.getItem("user");
   const [auth, setAuth] = useAuth();
   useNavigate();
-  console.log("authauthauth", Routings);
   return (
     <div className="allRoutes container">
       <Routes>
-        {Routings.map((RouteDetails: any,index:any) => (
+        {Routings.map((RouteDetails: any, index: any) => (
           <Route
             key={index}
             path={RouteDetails.path}
@@ -20,6 +22,7 @@ const Routing = () => {
           />
         ))}
         <Route path="/*" element={<Navigate to="/dashboard" />} />
+      
       </Routes>
     </div>
   );

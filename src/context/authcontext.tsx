@@ -18,7 +18,6 @@ const AuthProvider = ({ children }: any) => {
   //default axios
   axios.defaults.headers.common["Authorization"] = auth?.token;
 
-  console.log("auth666666666666666666666", auth);
 
   useEffect(() => {
     if (typeof Storage !== "undefined") {

@@ -26,7 +26,6 @@ const FileUpload = ({ onUpload }: any) => {
   let img: any = "";
   if (uploadedFiles.length == 0) {
     img = uploadedFiles.map((item) => {
-      console.log(item, "irtem");
     });
     //   <img
     //     className="single-file-image"

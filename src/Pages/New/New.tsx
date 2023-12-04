@@ -11,7 +11,6 @@ type NewType = {
 }
 const New = ( { routeName, formElements }: NewType ) => {
   const [file, setFile] = useState<any>(null)
-  console.log(file && file)
   const getUpload = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<null>) => {
     setFile(e.target.files && e.target.files[0])
   }
