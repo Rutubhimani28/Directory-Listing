@@ -56,7 +56,7 @@ const AddListing = () => {
   const [checked, setChecked] = useState(false);
   const [gallary, setGallary] = useState<any>([]);
   const [uploadFile, setuploadFile] = useState<any>([]);
-  const [singleFile, setSingleFile] = useState<File | null>(null);
+  const [singleFile, setSingleFile] = useState<File>();
   const [city, setCity] = useState<any>([]);
   const [category, setCategory] = useState<any>([]);
   const [banner, setBanner] = useState<any>([]);
@@ -323,10 +323,6 @@ const AddListing = () => {
 
     fetchData();
   }, []);
-
-  function fileToDataURL(singleFile: File): string | undefined {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <Box width="100%">
@@ -1017,7 +1013,7 @@ const AddListing = () => {
                         {singleFile ? (
                           <img
                             className="single-file-image"
-                            src={fileToDataURL(singleFile)}
+                            src={singleFile}
                             width="100px"
                             height="100px"
                           />

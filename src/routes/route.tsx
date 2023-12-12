@@ -9,7 +9,6 @@ import MyProfile from "../Pages/myProfile";
 import Favorite from "../Pages/myfavorite";
 import SingleListing from "../Pages/myListing/singleListing";
 import AddListing from "../Pages/myListing/addListing/AddListing";
-// import AddListing from "../Pages/LandingPage/addListing/AddListing";
 
 export const Routings = [
   {
