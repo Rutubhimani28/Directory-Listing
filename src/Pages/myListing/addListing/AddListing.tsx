@@ -56,7 +56,7 @@ const AddListing = () => {
   const [checked, setChecked] = useState(false);
   const [gallary, setGallary] = useState<any>([]);
   const [uploadFile, setuploadFile] = useState<any>([]);
-  const [singleFile, setSingleFile] = useState<File>();
+  const [singleFile, setSingleFile] = useState<any>();
   const [city, setCity] = useState<any>([]);
   const [category, setCategory] = useState<any>([]);
   const [banner, setBanner] = useState<any>([]);
@@ -323,7 +323,7 @@ const AddListing = () => {
 
     fetchData();
   }, []);
-
+  console.log(singleFile, "singleFilesingleFilesingleFile");
   return (
     <Box width="100%">
       {/* {window.location.pathname === "/add-listing" ? <Header /> : ""} */}
