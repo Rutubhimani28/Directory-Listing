@@ -1,19 +1,38 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { Box } from "@mui/material";
+import Requests from "../../../services/Request";
 
-const FileUpload = ({ onUpload }: any) => {
+const FileUpload = ({ onUpload, files }: any) => {
+  const requestApiData = new Requests();
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
+      const formData = new FormData();
+      acceptedFiles.forEach((file) => {
+        formData.append("files", file);
+      });
       setUploadedFiles([...uploadedFiles, ...acceptedFiles]);
       onUpload([...uploadedFiles, ...acceptedFiles]);
+      uploadFiles(formData);
     },
     [onUpload, uploadedFiles]
   );
+
+  const uploadFiles = async (formData: FormData) => {
+    try {
+      const response = await requestApiData.postMultiImages(formData);
+      console.log("Files uploaded successfully", response.data);
+      // Handle the response as needed
+      files(response.data);
+    } catch (error) {
+      console.error("Error uploading files", error);
+      // Handle the error as needed
+    }
+  };
 
   const removeFile = (file: File) => {
     const updatedFiles = uploadedFiles.filter((f) => f !== file);
@@ -24,15 +43,8 @@ const FileUpload = ({ onUpload }: any) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   let img: any = "";
-  if (uploadedFiles.length == 0) {
-    img = uploadedFiles.map((item) => {
-    });
-    //   <img
-    //     className="single-file-image"
-    //     src={uploadedFiles}
-    //     width="100px"
-    //     height="100px"
-    //   />
+  if (uploadedFiles.length === 0) {
+    img = uploadedFiles.map((item) => {});
   } else {
     img = uploadedFiles.map((file: any) => (
       <img
@@ -45,6 +57,7 @@ const FileUpload = ({ onUpload }: any) => {
       />
     ));
   }
+
   return (
     <div>
       <div
@@ -57,17 +70,6 @@ const FileUpload = ({ onUpload }: any) => {
         className={`dropzone ${isDragActive ? "active" : ""}`}
       >
         <input {...getInputProps()} />
-        {/* <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          flexDirection="column"
-          py="50px"
-        >
-          <FileUploadIcon />
-          Drag & drop some files here, or click to select files
-        </Box> */}
-
         {img.length ? (
           img
         ) : (
@@ -83,16 +85,6 @@ const FileUpload = ({ onUpload }: any) => {
           </Box>
         )}
       </div>
-      {/* <ul>
-        {uploadedFiles.map((file) => (
-          <li key={file.name}>
-            {file.name}{" "}
-            <button type="button" onClick={() => removeFile(file)}>
-              <DeleteIcon />
-            </button>
-          </li>
-        ))}
-      </ul> */}
     </div>
   );
 };

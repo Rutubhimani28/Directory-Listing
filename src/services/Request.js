@@ -5,6 +5,9 @@ const Token = localStorage.getItem("user");
 const authToken = JSON.parse(Token)?.token;
 
 export default class Requests {
+  singleImage(formData) {
+    throw new Error("Method not implemented.");
+  }
   signUpRequest(data) {
     return axios({
       method: "POST",
@@ -43,9 +46,8 @@ export default class Requests {
       url: `${Api.addListing}`,
       data,
       headers: {
-        Authorization: `Bearer ${
-          JSON.parse(localStorage.getItem("user"))?.token
-        }`,
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("user"))?.token
+          }`,
       },
     });
   }
@@ -55,9 +57,8 @@ export default class Requests {
       url: `${Api.profileImage}`,
       data,
       headers: {
-        Authorization: `Bearer ${
-          JSON.parse(localStorage.getItem("user"))?.token
-        }`,
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("user"))?.token
+          }`,
       },
       // headers: { Authorization: `TOKEN ${localStorage.getItem('Token')}` },
       // body : JSON.parse()
@@ -69,9 +70,8 @@ export default class Requests {
       url: `${Api.getCity}`,
       data,
       headers: {
-        Authorization: `Bearer ${
-          JSON.parse(localStorage.getItem("user"))?.token
-        }`,
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("user"))?.token
+          }`,
       },
     });
   }
@@ -81,9 +81,8 @@ export default class Requests {
       url: `${Api.getCategory}`,
       data,
       headers: {
-        Authorization: `Bearer ${
-          JSON.parse(localStorage.getItem("user"))?.token
-        }`,
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("user"))?.token
+          }`,
       },
     });
   }
@@ -93,9 +92,30 @@ export default class Requests {
       url: `${Api.getMyListing}`,
       data,
       headers: {
-        Authorization: `Bearer ${
-          JSON.parse(localStorage.getItem("user"))?.token
-        }`,
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("user"))?.token
+          }`,
+      },
+    });
+  }
+  postMultiImages(data) {
+    return axios({
+      method: "POST",
+      url: `${Api.multiImages}`,
+      data,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("user"))?.token
+          }`,
+      },
+    });
+  }
+  postSingleImages(data) {
+    return axios({
+      method: "POST",
+      url: `${Api.singleImage}`,
+      data,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("user"))?.token
+          }`,
       },
     });
   }

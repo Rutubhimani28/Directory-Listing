@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Header from "../header";
-import Footer from "../footer";
+import React, { useCallback, useEffect, useState } from "react";
+// import Header from "../header";
+// import Footer from "../footer";
 import {
   Grid,
   Box,
@@ -14,12 +14,10 @@ import {
   MenuItem,
   Autocomplete,
 } from "@mui/material";
-import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
+import { Field, FieldArray, Form, Formik } from "formik";
 import * as yup from "yup";
 import PinDropIcon from "@mui/icons-material/PinDrop";
-// import GoogleMap from "./GoogleMap";
 import CloseIcon from "@mui/icons-material/Close";
-import EditableSelectField from "../../../Components/commonComponents/autoComplete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { useDropzone } from "react-dropzone";
@@ -28,6 +26,7 @@ import Requests from "../../../services/Request";
 import GoogleMap from "./GoogleMap";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const style = {
   position: "absolute" as "absolute",
@@ -56,9 +55,12 @@ const AddListing = () => {
 
   const [checked, setChecked] = useState(false);
   const [gallary, setGallary] = useState<any>([]);
+  const [uploadFile, setuploadFile] = useState<any>([]);
+  const [singleFile, setSingleFile] = useState<File | null>(null);
   const [city, setCity] = useState<any>([]);
   const [category, setCategory] = useState<any>([]);
   const [banner, setBanner] = useState<any>([]);
+  const [findcity, setFindCity] = useState("");
   const [isGridDisabled, setIsGridDisabled] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(Array(hours.length).fill(false));
@@ -69,7 +71,6 @@ const AddListing = () => {
   const [is24HoursOpen, setIs24HoursOpen] = useState(
     Array(hours.length).fill(false)
   );
-
   const [openingHours, setOpeningHours] = useState(
     Array(hours.length).fill("12:00 am")
   );
@@ -122,48 +123,94 @@ const AddListing = () => {
       lat: e?.lat(),
       lng: e?.lng(),
     });
+    const newLatLng = {
+      lat: e?.lat(),
+      lng: e?.lng(),
+    };
+    onMapClicked(newLatLng);
   };
   const handleMapSubmit = () => {
     handleMapClose();
   };
+  useEffect(() => {
+    console.log("City:", findcity);
+  }, [findcity]);
 
-  const { getRootProps, getInputProps } = useDropzone({
-    multiple: false,
-    accept: {
-      "image/*": [".png", ".jpg", ".jpeg"],
-    },
-    onDrop: (acceptedFiles) => {
-      setBanner(acceptedFiles.map((file: any) => Object.assign(file)));
-    },
-  });
+  const onMapClicked = async (newLatLng: any) => {
+    const latLng = newLatLng;
 
-  let img: any = "";
-  if (banner.length == 0) {
-    img = (
-      <img
-        className="single-file-image"
-        src={banner}
-        width="100px"
-        height="100px"
-      />
+    try {
+      const locationData = await getLocationData(latLng.lat, latLng.lng);
+      const extractedCity = extractCityName(locationData);
+      console.log(extractedCity, "LLLLLLLLLLLLLLLLLLLLLLLL");
+      setFindCity(extractedCity);
+    } catch (error) {
+      console.error("Error fetching city:", error);
+      setFindCity("City not found");
+    }
+  };
+
+  const getLocationData = async (latitude: any, longitude: any) => {
+    // Use OpenStreetMap Nominatim API for reverse geocoding
+    const response = await axios.get(
+      `https://nominatim.openstreetmap.org/reverse`,
+      {
+        params: {
+          format: "json",
+          lat: latitude,
+          lon: longitude,
+        },
+      }
     );
-  } else {
-    img = banner.map((file: any) => (
-      <img
-        key={file?.name}
-        alt={file?.name}
-        className="single-file-image"
-        src={URL.createObjectURL(file)}
-        width="100px"
-        height="100px"
-      />
-    ));
-  }
+    console.log(response, "KKKKKKKKKKKKKKKKKKKK");
+    return response.data;
+  };
 
+  const extractCityName = (locationData: any) => {
+    // Extract the city name from the Nominatim response
+    return (
+      locationData.address?.city ||
+      locationData.address?.town ||
+      "City not found"
+    );
+  };
+
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    const formData = new FormData();
+    acceptedFiles.forEach((file) => {
+      formData.append("files", file);
+    });
+
+    // Assuming only one file is allowed for single file upload
+    const file = acceptedFiles[0];
+    setSingleFile(file);
+    singleuploadFile(file);
+  }, []);
+
+  const singleuploadFile = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await requestApiData.postSingleImages(formData);
+      setSingleFile(response.data.fileUrl);
+    } catch (error) {
+      console.error("Error uploading file", error);
+      // Handle the error as needed
+    }
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+  // multi image upload
   const handleUpload = (files: File[]) => {
-    const fileNamesArray: any = files.map((item: any) => item.name);
-    setGallary(fileNamesArray);
+    const fileNamesArray: any = files;
+    const formData = new FormData();
+    formData.append("bsImages", fileNamesArray);
     return fileNamesArray;
+  };
+  const getFiles = (data: any) => {
+    setuploadFile(data.fileUrls);
   };
 
   const initialValues = {
@@ -211,8 +258,8 @@ const AddListing = () => {
       category: values.category,
       faqs: values.faqs,
       bsVideoUrl: values.video,
-      bsImages: gallary,
-      bsLogo: img[0].key,
+      bsImages: uploadFile,
+      bsLogo: singleFile,
       businessHours: openHours,
       socialMedia: [
         {
@@ -233,6 +280,7 @@ const AddListing = () => {
         },
       ],
     };
+    console.log(payload, "payload");
     try {
       const response = await requestApiData.addListingUser(payload);
       if (response) {
@@ -247,7 +295,7 @@ const AddListing = () => {
       toast.error("An error occurred. Please try again later."); // Display error message
     }
   };
-
+  // city Api
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -261,6 +309,7 @@ const AddListing = () => {
 
     fetchData();
   }, []);
+  // category Api
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -275,10 +324,13 @@ const AddListing = () => {
     fetchData();
   }, []);
 
+  function fileToDataURL(singleFile: File): string | undefined {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <Box width="100%">
-      {window.location.pathname === "/add-listing" ? <Header /> : ""}
+      {/* {window.location.pathname === "/add-listing" ? <Header /> : ""} */}
       <div
         style={{
           padding: "60px 0",
@@ -943,7 +995,10 @@ const AddListing = () => {
                     </div>
                     <div className="textfiled-row">
                       <label>Images</label>
-                      <MultiFileUpload onUpload={handleUpload} />
+                      <MultiFileUpload
+                        onUpload={handleUpload}
+                        files={getFiles}
+                      />
                     </div>
 
                     <div className="textfiled-row">
@@ -959,8 +1014,13 @@ const AddListing = () => {
                         }}
                       >
                         <input {...getInputProps()} />
-                        {img.length ? (
-                          img
+                        {singleFile ? (
+                          <img
+                            className="single-file-image"
+                            src={fileToDataURL(singleFile)}
+                            width="100px"
+                            height="100px"
+                          />
                         ) : (
                           <Box
                             display="flex"
@@ -996,7 +1056,7 @@ const AddListing = () => {
         </Grid>
       </div>
 
-      {window.location.pathname === "/add-listing" ? <Footer /> : ""}
+      {/* {window.location.pathname === "/add-listing" ? <Footer /> : ""} */}
       <div>
         <Modal
           open={mapOpen}

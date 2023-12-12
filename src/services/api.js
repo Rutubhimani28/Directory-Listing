@@ -10,4 +10,6 @@ export default {
   getCity: `${baseUrl}api/city/allCity`,
   getCategory: `${baseUrl}api/category/allCategory`,
   getMyListing: `${baseUrl}api/listing/myListing`,
+  multiImages: `${baseUrl}api/upload/multiple`,
+  singleImage: `${baseUrl}api/upload/single`,
 };

@@ -230,22 +230,24 @@ const MyListing = () => {
   const itemsPerPage = 3;
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [currentPage, setCurrentPage] = useState(1);
+  const [listingData, setListingData] = useState([]);
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentListData = listData.slice(indexOfFirstItem, indexOfLastItem);
   const handlePageChange = (event: any, page: any) => {
     setCurrentPage(page);
   };
-
-
+  
+  console.log(listingData, "allCategories");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const allCategories = await requestApiData.getAllMyListing();
-        // Do something with allCities here
+        setListingData(allCategories.data.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -284,7 +286,7 @@ const MyListing = () => {
                           // borderRadius: "15px",
                           display: "block",
                           overflow: "hidden",
-                          width: "52%"
+                          width: "52%",
                         }}
                       />
                     </div>

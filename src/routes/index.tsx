@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./privateRoute";
 import { Routings } from "./route";
 import { useNavigate, Navigate } from "react-router-dom";
-import AddListing from "../Pages/LandingPage/addListing/AddListing";
+// import AddListing from "../Pages/LandingPage/addListing/AddListing";
 import Login from "../Pages/auth/Login/Login";
 
 const Routing = () => {
@@ -22,7 +22,6 @@ const Routing = () => {
           />
         ))}
         <Route path="/*" element={<Navigate to="/dashboard" />} />
-      
       </Routes>
     </div>
   );

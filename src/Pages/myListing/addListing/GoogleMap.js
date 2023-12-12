@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import axios from 'axios';
 
 const GoogleMap = ({ google, location, stateLocation }) => {
   const [latLng, setLatLng] = useState({});
@@ -29,7 +30,6 @@ const GoogleMap = ({ google, location, stateLocation }) => {
       setLatLng(stateLocation)
     }
   }, []);
-
   return (
     <div>
       {Object?.keys(latLng)?.length > 0 ? (
@@ -41,7 +41,6 @@ const GoogleMap = ({ google, location, stateLocation }) => {
             lng: latLng?.lng,
           }}
           style={{
-            // width: '100%',
             overFlow: 'hidden',
             height: '400px',
             margin: '20px 32px 0 -32px',
