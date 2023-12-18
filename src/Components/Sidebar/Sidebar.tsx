@@ -14,9 +14,11 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, Grid, Modal, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import jwtDecode from "jwt-decode";
+import { toast } from "react-toastify";
 
 const style = {
   position: "absolute",
@@ -31,14 +33,52 @@ const style = {
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const [isLogoutScheduled, setIsLogoutScheduled] = useState(false);
   const [open, setOpen] = useState(false);
   const handleModalOpen = () => setOpen(true);
   const handleModalClose = () => setOpen(false);
 
-  const handleLogout = () => {
+  // const handleLogout = () => {
+  //   localStorage.clear();
+  //   navigate("/");
+  // };
+
+  const handleLogout = (message: any) => {
     localStorage.clear();
+    sessionStorage.clear();
     navigate("/");
+    if (message) {
+      toast.error(message);
+    } else {
+      toast.success("Log out Successfully");
+    }
+    setIsLogoutScheduled(true);
   };
+  const storedUser = localStorage.getItem("user");
+  const token: string | null = storedUser ? JSON.parse(storedUser).token : null;
+  useEffect(() => {
+    if (token) {
+      try {
+        const decodedToken: any = jwtDecode(token);
+        const currentTime = Date.now() / 1000; // Convert milliseconds to seconds
+        if (decodedToken.exp < currentTime) {
+          if (!isLogoutScheduled) {
+            handleLogout("Token has expired");
+          }
+        } else {
+          // Schedule automatic logout when the token expires
+          const timeToExpire = (decodedToken.exp - currentTime) * 1000; // Convert seconds to milliseconds
+          setTimeout(() => {
+            if (!isLogoutScheduled) {
+              handleLogout("Token has expired");
+            }
+          }, timeToExpire);
+        }
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
+    }
+  }, [isLogoutScheduled]);
   return (
     <div className="sidebar">
       <div className="slider-content">

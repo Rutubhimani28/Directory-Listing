@@ -75,8 +75,8 @@ const Login = () => {
       navigate("/dashboard");
       toast.success("Login Successfully.");
     } catch (error: any) {
-      console.log("API request failed", error.response.data.message);
-      toast.error(error.response.data.message);
+      console.log("API request failed", error.response.data.error.error);
+      toast.error(error.response.data.error.error);
     }
   };
 
