@@ -234,28 +234,29 @@ const MyListing = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentListData = listingData.slice(indexOfFirstItem, indexOfLastItem);
+  const currentListData = listData.slice(indexOfFirstItem, indexOfLastItem);
+  // const currentListData = listingData.slice(indexOfFirstItem, indexOfLastItem);
   const handlePageChange = (event: any, page: any) => {
     setCurrentPage(page);
   };
 
-  console.log(
-    listingData.map((item: any) => item),
-    "allCategories"
-  );
+  // console.log(
+  //   listingData.map((item: any) => item),
+  //   "allCategories"
+  // );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const allCategories = await requestApiData.getAllMyListing();
-        setListingData(allCategories.data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const allCategories = await requestApiData.getAllMyListing();
+  //       setListingData(allCategories.data.data);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   return (
     <div>
@@ -280,7 +281,7 @@ const MyListing = () => {
             <Card className="listing-box ">
               <div style={{ width: "967px" }}>
                 <Slider {...settings}>
-                  {/* {images.map((itemss: any) => (
+                  {images.map((itemss: any) => (
                     <div key={itemss.label}>
                       <img
                         src={itemss.photo}
@@ -293,7 +294,7 @@ const MyListing = () => {
                         }}
                       />
                     </div>
-                  ))} */}
+                  ))}
                   {/* {JSON.parse(item?.bsImages)?.map((image: any, index: any) => (
                     <div key={index}>
                       <img
@@ -321,10 +322,10 @@ const MyListing = () => {
                     <SingleBedIcon className="bookingicon" /> Restaurant
                   </div>
                   <div className="d-flex align-items-center">
-                    {/* <RoomIcon className="bookingicon" /> {item.place} */}
+                    <RoomIcon className="bookingicon" /> {item.place}
                   </div>
                 </div>
-                {/* <h2 className="padding-10">{item.title}</h2> */}
+                <h2 className="padding-10">{item.title}</h2>
                 <div className="d-flex align-items-center">
                   <BookmarkBorderIcon className="bookingicon" />
                   Open Now
@@ -333,11 +334,11 @@ const MyListing = () => {
                   <div>
                     <Rating
                       name="half-rating"
-                      // defaultValue={item.rating}
+                      defaultValue={item.rating}
                       precision={0.5}
                     />
                   </div>
-                  {/* <div>Start From: {item.startFrom}</div> */}
+                  <div>Start From: {item.startFrom}</div>
                 </div>
               </Grid>
               {/* <Grid
