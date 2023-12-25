@@ -231,11 +231,11 @@ const MyListing = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [currentPage, setCurrentPage] = useState(1);
   const [listingData, setListingData] = useState([]);
-
+  const [category, setCategory] = useState<any>([]);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentListData = listData.slice(indexOfFirstItem, indexOfLastItem);
-  // const currentListData = listingData.slice(indexOfFirstItem, indexOfLastItem);
+  // const currentListData = listData.slice(indexOfFirstItem, indexOfLastItem);
+  const currentListData = listingData.slice(indexOfFirstItem, indexOfLastItem);
   const handlePageChange = (event: any, page: any) => {
     setCurrentPage(page);
   };
@@ -245,18 +245,51 @@ const MyListing = () => {
   //   "allCategories"
   // );
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const allCategories = await requestApiData.getAllMyListing();
-  //       setListingData(allCategories.data.data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const allCategories = await requestApiData.getAllMyListing();
+        setListingData(allCategories.data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
+  // category Api
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const allCategories = await requestApiData.getAllCategory();
+        setCategory(allCategories.data.data);
+        // Do something with allCities here
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const getCategory = listingData.map((item: any) => item?.categoryID);
+  console.log(category, "category");
+  console.log(getCategory, "listingData");
+  const uniqueCategoryIds = Array.from(new Set(getCategory));
+
+  const filteredListings = listingData.filter((item: any) => {
+    // Assuming `item` has both categoryID and categoryName properties
+    const matchingCategory = getCategory.find(
+      (categoryId: number) => categoryId === item.categoryID
+    );
+
+    // Filter items where the categoryID matches and categoryName is the same
+    return (
+      matchingCategory && item.categoryName === getCategory[0].categoryName
+    );
+  });
+
+  console.log(filteredListings, "filtered listings");
 
   return (
     <div>
@@ -276,8 +309,10 @@ const MyListing = () => {
         </Button>
       </Grid>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        {currentListData.map((item, index) => (
+        {currentListData.map((item: any, index: any) => (
           <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
+            {/* {console.log(item, "item")} */}
+
             <Card className="listing-box ">
               <div style={{ width: "967px" }}>
                 <Slider {...settings}>
@@ -325,7 +360,7 @@ const MyListing = () => {
                     <RoomIcon className="bookingicon" /> {item.place}
                   </div>
                 </div>
-                <h2 className="padding-10">{item.title}</h2>
+                <h2 className="padding-10">{item?.title}</h2>
                 <div className="d-flex align-items-center">
                   <BookmarkBorderIcon className="bookingicon" />
                   Open Now
@@ -334,7 +369,7 @@ const MyListing = () => {
                   <div>
                     <Rating
                       name="half-rating"
-                      defaultValue={item.rating}
+                      // defaultValue={item.rating}
                       precision={0.5}
                     />
                   </div>
@@ -352,9 +387,11 @@ const MyListing = () => {
           </Grid>
         ))}
       </Grid>
+
       <Pagination
-        count={Math.ceil(listData.length / itemsPerPage)}
-        page={currentPage}
+        count={Math.ceil(listingData.length / itemsPerPage)}
+        // count={listingData.length / itemsPerPage}
+        page={currentPage / itemsPerPage}
         onChange={handlePageChange}
         color="primary"
         className="pagination-list"

@@ -212,7 +212,6 @@ const AddListing = () => {
   const getFiles = (data: any) => {
     setuploadFile(data.fileUrls);
   };
-  console.log(uploadFile, uploadFile);
   const initialValues = {
     title: "",
     address: {
